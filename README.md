@@ -1,2 +1,2 @@
 # securebook
-Note Secure
+Write notes securely
