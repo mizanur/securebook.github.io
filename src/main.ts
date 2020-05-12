@@ -1,12 +1,15 @@
+import { A as AInterface } from '@interfaces/A';
+import { B as BInterface } from '@interfaces/B';
+
 import { renderApp } from './HelloWorld';
 import { connect } from 'typeconnect';
 
-class B {
+class B implements BInterface {
 	a = 100;
 	b = 200;
 }
 
-class A {
+class A implements AInterface {
 	b: B;
 	a = 300;
 

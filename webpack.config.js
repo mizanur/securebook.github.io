@@ -16,7 +16,10 @@ module.exports = {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
 		plugins: [
 			PnpWebpackPlugin,
-		]
+		],
+		alias: {
+			"@interfaces": path.resolve(__dirname, "./src/interfaces")
+		}
 	},
 	resolveLoader: {
 		plugins: [
@@ -45,6 +48,7 @@ module.exports = {
 	],
 	devtool: 'inline-source-map',
 	devServer: {
+		hot: true,
 		port: 8080
 	}
 };

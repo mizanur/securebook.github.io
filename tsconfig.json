@@ -14,10 +14,11 @@
 		"jsx": "react",
 		"jsxFactory": "h",
 		"strictPropertyInitialization": false,
-		"types": [
-			"node",
-			"mocha"
-		]
+		"types": [],
+		"baseUrl": "./src",
+		"paths": {
+			"@interfaces/*": ["interfaces/*"]
+		}
 	},
 	"include": [
 		"src"
