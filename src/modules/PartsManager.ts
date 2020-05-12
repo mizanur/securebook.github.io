@@ -34,7 +34,9 @@ export class PartsManager implements IPartsManager {
 	}
 
 	setItemsProduced(index: number, itemsProduced: number) {
-		this.parts.itemsProduced = withSetItem(this.parts.itemsProduced, index, itemsProduced);
+		if (itemsProduced >= this.parts.itemsSold[index]) {
+			this.parts.itemsProduced = withSetItem(this.parts.itemsProduced, index, itemsProduced);
+		}
 	}
 
 	setItemsSold(index: number, itemsSold: number) {
