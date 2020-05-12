@@ -43,8 +43,8 @@ module.exports = {
 			title: 'Note Secure'
 		})
 	],
+	devtool: 'inline-source-map',
 	devServer: {
-		contentBase: './.build',
-		open: true
+		port: 8080
 	}
 };

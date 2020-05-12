@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Firefox",
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": false,
+			"url": "http://localhost:8080",
+			"firefoxArgs": ["--devtools"],
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
