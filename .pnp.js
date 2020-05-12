@@ -58,6 +58,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:8.1.0"
       ],
       [
+        "preact",
+        "npm:10.4.1"
+      ],
+      [
+        "typeconnect",
+        "npm:0.2.0"
+      ],
+      [
         "webpack",
         "npm:4.43.0"
       ],
@@ -80,6 +88,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-typescript", "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:7.9.0"],
             ["@babel/runtime", "npm:7.9.6"],
             ["babel-loader", "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:8.1.0"],
+            ["preact", "npm:10.4.1"],
+            ["typeconnect", "npm:0.2.0"],
             ["webpack", "npm:4.43.0"],
             ["webpack-cli", "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:3.3.11"]
           ],
@@ -4543,6 +4553,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-typescript", "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:7.9.0"],
             ["@babel/runtime", "npm:7.9.6"],
             ["babel-loader", "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:8.1.0"],
+            ["preact", "npm:10.4.1"],
+            ["typeconnect", "npm:0.2.0"],
             ["webpack", "npm:4.43.0"],
             ["webpack-cli", "virtual:bc249517a0b5a8b06d2137cffa8807c0fd8b9968b7f36207a0f86d41663d717df0b1603aa049b6166efb9856410f8caf72e7de40965d8e93314daeb582c23836#npm:3.3.11"]
           ],
@@ -4957,6 +4969,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/posix-character-classes-npm-0.1.1-3e228a6e15-3.zip/node_modules/posix-character-classes/",
           "packageDependencies": [
             ["posix-character-classes", "npm:0.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["preact", [
+        ["npm:10.4.1", {
+          "packageLocation": "./.yarn/cache/preact-npm-10.4.1-e6252aa20d-3.zip/node_modules/preact/",
+          "packageDependencies": [
+            ["preact", "npm:10.4.1"]
           ],
           "linkType": "HARD",
         }]
@@ -6022,6 +6043,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/tweetnacl-npm-0.14.5-a3f766c0d1-3.zip/node_modules/tweetnacl/",
           "packageDependencies": [
             ["tweetnacl", "npm:0.14.5"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["typeconnect", [
+        ["npm:0.2.0", {
+          "packageLocation": "./.yarn/cache/typeconnect-npm-0.2.0-228dd638fa-3.zip/node_modules/typeconnect/",
+          "packageDependencies": [
+            ["typeconnect", "npm:0.2.0"],
+            ["@babel/runtime", "npm:7.9.6"]
           ],
           "linkType": "HARD",
         }]

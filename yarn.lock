@@ -1049,7 +1049,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.6":
+"@babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.6":
   version: 7.9.6
   resolution: "@babel/runtime@npm:7.9.6"
   dependencies:
@@ -3908,6 +3908,8 @@ fsevents@^1.2.7:
     "@babel/preset-typescript": ^7.9.0
     "@babel/runtime": ^7.9.6
     babel-loader: ^8.1.0
+    preact: ^10.4.1
+    typeconnect: ^0.2.0
     webpack: ^4.43.0
     webpack-cli: ^3.3.11
   languageName: unknown
@@ -4262,6 +4264,13 @@ fsevents@^1.2.7:
   version: 0.1.1
   resolution: "posix-character-classes@npm:0.1.1"
   checksum: 3/984f83c2d4dec5abb9a6ac2b4a184132a58c4af9ce25704bfda2be6e8139335673c45d959ef6ffea3756dc88d3a0cb27c745a84d875ae5142b76e661a37a5f0e
+  languageName: node
+  linkType: hard
+
+"preact@npm:^10.4.1":
+  version: 10.4.1
+  resolution: "preact@npm:10.4.1"
+  checksum: 3/d15530d7043eda87afe900e534cf37417a77deb2be343c38532af59ab4e7cdaf6333a2d495ea9e9faec2b37b144736eb2db98823c86e809da96361e63cd8042e
   languageName: node
   linkType: hard
 
@@ -5227,6 +5236,15 @@ fsevents@^1.2.7:
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 3/e1c9d52e2e9f582fd0df9ea26ba5a9ab88b9a38b69625d8e55c5e8870a4832ac8c32f8854b41fce7b59f97258bb103535363f9eda7050aa70e75824b972c7dde
+  languageName: node
+  linkType: hard
+
+"typeconnect@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "typeconnect@npm:0.2.0"
+  dependencies:
+    "@babel/runtime": ^7.3.1
+  checksum: 3/11e5c978a5a7814713f23d74838bd7aad7d31ef45b64583dc54669cdbe25f87f8fece05a5be995a1fe82eb40daaa99ca9e6138189e02e1162945b195a80e6dd2
   languageName: node
   linkType: hard
 
