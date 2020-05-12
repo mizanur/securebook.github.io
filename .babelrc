@@ -1,0 +1,18 @@
+{
+	"presets": [
+		["@babel/preset-env"],
+		["@babel/preset-typescript", {
+			"jsxPragma": "h"
+		}]
+	],
+	"plugins": [
+		["@babel/plugin-transform-runtime"],
+		["@babel/plugin-syntax-dynamic-import"],
+		["@babel/plugin-proposal-class-properties", {
+			"loose" : true
+		}],
+        ["@babel/plugin-transform-react-jsx", {
+            "pragma": "h"
+        }]
+	]
+}

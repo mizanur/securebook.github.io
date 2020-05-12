@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"allowJs": true,
+		"noEmit": true,
+		"strict": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"noImplicitAny": false,
+		"skipLibCheck": true,
+		"jsx": "react",
+		"jsxFactory": "h",
+		"strictPropertyInitialization": false,
+		"types": [
+			"node",
+			"mocha"
+		]
+	},
+	"include": [
+		"src"
+	]
+}
