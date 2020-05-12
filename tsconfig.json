@@ -15,9 +15,15 @@
 		"jsxFactory": "h",
 		"strictPropertyInitialization": false,
 		"types": [],
-		"baseUrl": "./src",
+		"baseUrl": ".",
 		"paths": {
-			"@interfaces/*": ["interfaces/*"]
+			"@interfaces/*": ["src/interfaces/*"],
+			"@data/*": ["src/data/*"],
+			"@components/*": ["src/components/*"],
+			"@modules/*": ["src/modules/*"],
+			"@utils/*": ["src/utils/*"],
+			"@context/*": ["src/context/*"],
+			"@hooks/*": ["src/hooks/*"],
 		}
 	},
 	"include": [

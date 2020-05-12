@@ -18,7 +18,13 @@ module.exports = {
 			PnpWebpackPlugin,
 		],
 		alias: {
-			"@interfaces": path.resolve(__dirname, "./src/interfaces")
+			"@interfaces": path.resolve(__dirname, "./src/interfaces"),
+			"@data": path.resolve(__dirname, "./src/data"),
+			"@components": path.resolve(__dirname, "./src/components"),
+			"@modules": path.resolve(__dirname, "./src/modules"),
+			"@utils": path.resolve(__dirname, "./src/utils"),
+			"@context": path.resolve(__dirname, "./src/context"),
+			"@hooks": path.resolve(__dirname, "./src/hooks"),
 		}
 	},
 	resolveLoader: {
