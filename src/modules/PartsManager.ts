@@ -38,6 +38,8 @@ export class PartsManager implements IPartsManager {
 	}
 
 	setItemsSold(index: number, itemsSold: number) {
-		this.parts.itemsSold = withSetItem(this.parts.itemsSold, index, itemsSold);
+		if (itemsSold <= this.parts.itemsProduced[index]) {
+			this.parts.itemsSold = withSetItem(this.parts.itemsSold, index, itemsSold);
+		}
 	}
 }

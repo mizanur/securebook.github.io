@@ -6,6 +6,7 @@ import { ManagersContext } from "@context/ManagersContext";
 import { createApp } from '../createApp';
 import { useManager } from '@hooks/useManager';
 import { forNum } from '@utils/iteration';
+import { Input } from '@components/Input';
 
 function App() {
 	const parts = useData('parts');
@@ -19,13 +20,13 @@ function App() {
 			forNum(parts.itemTypes, i =>
 				<p>
 					<button onClick={() => partsManager.removeItemType(i)}>Remove item type</button><br />
-					Item cost: <input type="number" value={parts.itemCosts[i]} onInput={
+					Item cost: <Input type="number" value={parts.itemCosts[i]} onInput={
 						ev => partsManager.setItemTypeCost(i, Number(ev.currentTarget.value))} /><br />
-					Item price: <input type="number" value={parts.itemPrices[i]} onInput={
+					Item price: <Input type="number" value={parts.itemPrices[i]} onInput={
 						ev => partsManager.setItemTypePrice(i, Number(ev.currentTarget.value))} /><br />
-					Items produced: <input type="number" value={parts.itemsProduced[i]} onInput={
+					Items produced: <Input type="number" value={parts.itemsProduced[i]} onInput={
 						ev => partsManager.setItemsProduced(i, Number(ev.currentTarget.value))} /><br />
-					Items sold: <input type="number" value={parts.itemsSold[i]} onInput={
+					Items sold: <Input type="number" value={parts.itemsSold[i]} onInput={
 						ev => partsManager.setItemsSold(i, Number(ev.currentTarget.value))} />
 				</p>
 			)
