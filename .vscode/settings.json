@@ -2,8 +2,6 @@
   "typescript.tsdk": ".vscode/pnpify/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.tokenColorCustomizations": {
-    "[Default Dark+]": {
-      "comments": "#e60000"
-    }
+    "comments": "#e60000"
   }
 }
