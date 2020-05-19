@@ -62,6 +62,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:7.9.6"
       ],
       [
+        "@types/node",
+        "npm:14.0.1"
+      ],
+      [
         "@yarnpkg/pnpify",
         "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0-rc.22"
       ],
@@ -125,6 +129,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:7.9.6"],
             ["@babel/preset-typescript", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:7.9.0"],
             ["@babel/runtime", "npm:7.9.6"],
+            ["@types/node", "npm:14.0.1"],
             ["@yarnpkg/pnpify", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0-rc.22"],
             ["babel-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.1.0"],
             ["clean-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.0.0"],
@@ -1649,6 +1654,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-13.13.5-addc076b74-3.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:13.13.5"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:14.0.1", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-14.0.1-1942cab116-3.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:14.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -8007,6 +8019,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:7.9.6"],
             ["@babel/preset-typescript", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:7.9.0"],
             ["@babel/runtime", "npm:7.9.6"],
+            ["@types/node", "npm:14.0.1"],
             ["@yarnpkg/pnpify", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0-rc.22"],
             ["babel-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.1.0"],
             ["clean-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.0.0"],

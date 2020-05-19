@@ -14,7 +14,7 @@
 		"jsx": "react",
 		"jsxFactory": "h",
 		"strictPropertyInitialization": false,
-		"types": [],
+		"types": ["node"],
 		"baseUrl": ".",
 		"paths": {
 			"@interfaces/*": ["src/interfaces/*"],
@@ -22,8 +22,7 @@
 			"@components/*": ["src/components/*"],
 			"@modules/*": ["src/modules/*"],
 			"@utils/*": ["src/utils/*"],
-			"@context/*": ["src/context/*"],
-			"@hooks/*": ["src/hooks/*"],
+			"@view/*": ["src/view/*"],
 		}
 	},
 	"include": [

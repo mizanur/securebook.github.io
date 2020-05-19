@@ -23,8 +23,7 @@ module.exports = {
 			"@components": path.resolve(__dirname, "./src/components"),
 			"@modules": path.resolve(__dirname, "./src/modules"),
 			"@utils": path.resolve(__dirname, "./src/utils"),
-			"@context": path.resolve(__dirname, "./src/context"),
-			"@hooks": path.resolve(__dirname, "./src/hooks"),
+			"@view": path.resolve(__dirname, "./src/view"),
 		}
 	},
 	resolveLoader: {

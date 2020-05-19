@@ -1,4 +1,4 @@
-import { connect } from "typeconnect";
+import { connect, configureConnect } from "typeconnect";
 import { Parts } from "@data/Parts";
 import { Business } from "@data/Business";
 import { PartsManager } from "@modules/PartsManager";

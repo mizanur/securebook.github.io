@@ -1,10 +1,10 @@
-import { render } from '@components/App';
+import { renderApp } from '@view/renderApp';
 
 function main() {
 	const root = document.createElement('div');
 	root.setAttribute('id', 'root');
 	document.body.appendChild(root);
-	render(root);
+	renderApp(root);
 }
 
 main();

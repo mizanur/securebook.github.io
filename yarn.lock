@@ -1274,6 +1274,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^14.0.1":
+  version: 14.0.1
+  resolution: "@types/node@npm:14.0.1"
+  checksum: 3/97255869f674e3324fdef235173bafb7911a0786434703738008d92f5a4ec189bab2c08a1847f80a6569a5622f0f44a190e1479b08e363368a847e84e0c00902
+  languageName: node
+  linkType: hard
+
 "@types/responselike@npm:*, @types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -6912,6 +6919,7 @@ fsevents@^1.2.7:
     "@babel/preset-env": ^7.9.6
     "@babel/preset-typescript": ^7.9.0
     "@babel/runtime": ^7.9.6
+    "@types/node": ^14.0.1
     "@yarnpkg/pnpify": ^2.0.0-rc.22
     babel-loader: ^8.1.0
     clean-webpack-plugin: ^3.0.0
