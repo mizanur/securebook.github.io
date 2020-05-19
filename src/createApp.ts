@@ -1,16 +1,16 @@
-import { connect, configureConnect } from "typeconnect";
-import { Parts } from "@data/Parts";
-import { Business } from "@data/Business";
+import { connectFactory } from "typeconnect";
+import { createParts } from "@data/createParts";
+import { createBusiness } from "@data/createBusiness";
 import { PartsManager } from "@modules/PartsManager";
 import { Store } from "@interfaces/Store";
 import { Managers } from "@interfaces/Managers";
 
 export function createApp(): [Store, Managers] {
-	const PartsConn = connect(Parts);
-	const BusinessConn = connect(Business);
+	const createPartsConn = connectFactory(createParts);
+	const createBusinessConn = connectFactory(createBusiness);
 
-	const parts = new PartsConn;
-	const business = new BusinessConn(parts);
+	const parts = createPartsConn();
+	const business = createBusinessConn(parts);
 	const partsManager = new PartsManager(parts);
 	
 	return [

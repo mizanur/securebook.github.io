@@ -6926,7 +6926,7 @@ fsevents@^1.2.7:
     html-webpack-plugin: ^4.3.0
     pnp-webpack-plugin: ^1.6.4
     preact: ^10.4.1
-    typeconnect: ^0.3.0
+    typeconnect: ^0.3.1
     typescript: ^3.8.3
     webpack: ^4.43.0
     webpack-cli: ^3.3.11
@@ -7736,12 +7736,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"typeconnect@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "typeconnect@npm:0.3.0"
+"typeconnect@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "typeconnect@npm:0.3.1"
   dependencies:
     "@babel/runtime": ^7.3.1
-  checksum: 3/173fb254846e9664861d9d2829b682877eae28d5acb5ef9d593ca5d25f7edf5221d71c682db38d94da37bc79bc29b42d7a761b142a8e37b79d1d561a0c2c4928
+  checksum: 3/60f7cbb517e9a48098ca16d57b37f6c145c42f468f2d374e5f9c8901475ad383800c3eae164a9e88b68d7dd0ad8a1afbfb613d3bc72c1656beba530ecc376b79
   languageName: node
   linkType: hard
 
