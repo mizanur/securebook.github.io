@@ -19,6 +19,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^4.3.0",
     "pnp-webpack-plugin": "^1.6.4",
+    "source-map-loader": "^0.2.4",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
@@ -27,6 +28,6 @@
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "preact": "^10.4.1",
-    "typeconnect": "^0.2.0"
+    "typeconnect": "^0.3.0"
   }
 }

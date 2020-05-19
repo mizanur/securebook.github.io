@@ -1919,7 +1919,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^2.6.2":
+"async@npm:^2.5.0, async@npm:^2.6.2":
   version: 2.6.3
   resolution: "async@npm:2.6.3"
   dependencies:
@@ -5091,7 +5091,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
+"loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -6918,7 +6918,8 @@ fsevents@^1.2.7:
     html-webpack-plugin: ^4.3.0
     pnp-webpack-plugin: ^1.6.4
     preact: ^10.4.1
-    typeconnect: ^0.2.0
+    source-map-loader: ^0.2.4
+    typeconnect: ^0.3.0
     typescript: ^3.8.3
     webpack: ^4.43.0
     webpack-cli: ^3.3.11
@@ -7180,6 +7181,16 @@ fsevents@^1.2.7:
   version: 2.0.1
   resolution: "source-list-map@npm:2.0.1"
   checksum: 3/d8d45f29987d00d995ccda308dcc78b710031a9958fdb5d26674d32220c952eb7a8562062638d91896628ae4eef30e1cd112a6a547563dfda0b013024c2a9bf7
+  languageName: node
+  linkType: hard
+
+"source-map-loader@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "source-map-loader@npm:0.2.4"
+  dependencies:
+    async: ^2.5.0
+    loader-utils: ^1.1.0
+  checksum: 3/32d186c66baec6d87297a35d52e2f793397cde7f28a8430b2a81ccb73b1cce877bb3fe155fb56d383ba4ce6c92dcaf1bba5d1819bbbabedad04c8abb7a59a52e
   languageName: node
   linkType: hard
 
@@ -7728,12 +7739,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"typeconnect@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "typeconnect@npm:0.2.0"
+"typeconnect@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "typeconnect@npm:0.3.0"
   dependencies:
     "@babel/runtime": ^7.3.1
-  checksum: 3/11e5c978a5a7814713f23d74838bd7aad7d31ef45b64583dc54669cdbe25f87f8fece05a5be995a1fe82eb40daaa99ca9e6138189e02e1162945b195a80e6dd2
+  checksum: 3/173fb254846e9664861d9d2829b682877eae28d5acb5ef9d593ca5d25f7edf5221d71c682db38d94da37bc79bc29b42d7a761b142a8e37b79d1d561a0c2c4928
   languageName: node
   linkType: hard
 

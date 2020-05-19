@@ -35,6 +35,11 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.js$/,
+				enforce: 'pre',
+				use: ['source-map-loader'],
+			},
+			{
 				test: /\.(js|jsx|ts|tsx)$/,
 				exclude: /(node_modules|bower_components)/,
 				use: {
@@ -49,7 +54,7 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			title: 'Note Secure'
+			title: 'Secure Book'
 		})
 	],
 	devtool: 'inline-source-map',

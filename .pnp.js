@@ -86,8 +86,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:10.4.1"
       ],
       [
+        "source-map-loader",
+        "npm:0.2.4"
+      ],
+      [
         "typeconnect",
-        "npm:0.2.0"
+        "npm:0.3.0"
       ],
       [
         "typescript",
@@ -127,7 +131,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["html-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:4.3.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
             ["preact", "npm:10.4.1"],
-            ["typeconnect", "npm:0.2.0"],
+            ["source-map-loader", "npm:0.2.4"],
+            ["typeconnect", "npm:0.3.0"],
             ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"],
             ["webpack", "npm:4.43.0"],
             ["webpack-cli", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.3.11"],
@@ -8008,7 +8013,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["html-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:4.3.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
             ["preact", "npm:10.4.1"],
-            ["typeconnect", "npm:0.2.0"],
+            ["source-map-loader", "npm:0.2.4"],
+            ["typeconnect", "npm:0.3.0"],
             ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=8cac75"],
             ["webpack", "npm:4.43.0"],
             ["webpack-cli", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.3.11"],
@@ -8308,6 +8314,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/source-map-npm-0.6.1-1a3621db16-3.zip/node_modules/source-map/",
           "packageDependencies": [
             ["source-map", "npm:0.6.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["source-map-loader", [
+        ["npm:0.2.4", {
+          "packageLocation": "./.yarn/cache/source-map-loader-npm-0.2.4-ce43069426-3.zip/node_modules/source-map-loader/",
+          "packageDependencies": [
+            ["source-map-loader", "npm:0.2.4"],
+            ["async", "npm:2.6.3"],
+            ["loader-utils", "npm:1.4.0"]
           ],
           "linkType": "HARD",
         }]
@@ -8897,10 +8914,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["typeconnect", [
-        ["npm:0.2.0", {
-          "packageLocation": "./.yarn/cache/typeconnect-npm-0.2.0-228dd638fa-3.zip/node_modules/typeconnect/",
+        ["npm:0.3.0", {
+          "packageLocation": "./.yarn/cache/typeconnect-npm-0.3.0-8b0caa4844-3.zip/node_modules/typeconnect/",
           "packageDependencies": [
-            ["typeconnect", "npm:0.2.0"],
+            ["typeconnect", "npm:0.3.0"],
             ["@babel/runtime", "npm:7.9.6"]
           ],
           "linkType": "HARD",
