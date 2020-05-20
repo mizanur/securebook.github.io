@@ -1,4 +1,4 @@
-import { h, render, hydrate } from 'preact';
+import { h, render } from 'preact';
 import { StoreContext } from "@view/StoreContext";
 import { ManagersContext } from "@view/ManagersContext";
 import App from '@components/App';
