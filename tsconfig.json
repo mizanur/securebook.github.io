@@ -16,6 +16,7 @@
 		"types": ["node", "webpack-env"],
 		"baseUrl": ".",
 		"paths": {
+			"@styles/*": ["src/styles/*"],
 			"@interfaces/*": ["src/interfaces/*"],
 			"@data/*": ["src/data/*"],
 			"@components/*": ["src/components/*"],

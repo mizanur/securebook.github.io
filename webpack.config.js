@@ -18,6 +18,7 @@ module.exports = {
 			PnpWebpackPlugin,
 		],
 		alias: {
+			"@styles": path.resolve(__dirname, "./src/styles"),
 			"@interfaces": path.resolve(__dirname, "./src/interfaces"),
 			"@data": path.resolve(__dirname, "./src/data"),
 			"@components": path.resolve(__dirname, "./src/components"),
@@ -33,6 +34,14 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+					'style-loader',
+					'css-loader',
+					'sass-loader',
+				],
+			},
 			{
 				test: /\.(js|jsx|ts|tsx)$/,
 				exclude: /(node_modules|bower_components)/,

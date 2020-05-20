@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 
-export function Input(props: h.JSX.HTMLAttributes<HTMLInputElement>) {
+export default function Input(props: h.JSX.HTMLAttributes<HTMLInputElement>) {
 	const {onInput, onChange} = props;
 	const [,setState] = useState({});
 	if (onInput) {

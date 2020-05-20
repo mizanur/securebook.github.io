@@ -3,15 +3,16 @@ import { connect } from '@view/connect';
 import { StoreContext } from "@view/StoreContext";
 import { ManagersContext } from "@view/ManagersContext";
 import { forNum } from '@utils/iteration';
-import { Input } from '@components/Input';
+import Input from '@components/Input';
 import { useContext } from 'preact/hooks';
+import '@styles/MainView.scss';
 
 function MainView() {
 	const manager = useContext(ManagersContext);
 	const store = useContext(StoreContext);
 
 	return <div>
-		<h1>Parts</h1>
+		<h1 className='MainView__header'>Parts</h1>
 		<button onClick={() => manager.parts.addItemType()}>Add item type</button><br />
 		{
 			forNum(store.parts.itemTypes, i =>
@@ -28,7 +29,7 @@ function MainView() {
 				</p>
 			)
 		}
-		<h1>Business</h1>
+		<h1 className='MainView__header'>Business</h1>
 		<p>
 			Total cost: {store.business.costBreakdown} = {store.business.totalCost}<br />
 			Total revenue: {store.business.revenueBreakdown} = {store.business.totalRevenue}<br />
