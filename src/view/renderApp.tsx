@@ -37,7 +37,7 @@ type FirstRenderData = {
 let firstRenderData: FirstRenderData;
 
 export function renderApp(parent: HTMLElement) {
-	// It looks like the fix for rerendering is in the works
+	// TODO: It looks like the fix for rerendering is in the works
 	// https://github.com/preactjs/preact/issues/2004
 	// after which we'll be able to rerender while preserving local state
 	// rather than totally unrendering and then rerendering, which works for now
