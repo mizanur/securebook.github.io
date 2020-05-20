@@ -20,7 +20,7 @@ export function connect(Component) {
 			}
 		};
 		useUnmount(() => {
-			renderer.isStopped = true;
+			renderer.calculation = null;
 		});
 		return result;
 	}
