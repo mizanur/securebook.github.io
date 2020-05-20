@@ -9,6 +9,24 @@
 			"url": "http://localhost:8080",
 			"firefoxArgs": ["--devtools"],
 			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug current test",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": [
+				"ava",
+				"debug",
+				"--break",
+				"--serial",
+				"${file}"
+			],
+			"port": 9229,
+			"outputCapture": "std",
+			"skipFiles": [
+				"<node_internals>/**/*.js"
+			]
 		}
 	]
 }
