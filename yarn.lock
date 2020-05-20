@@ -1388,6 +1388,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/webpack-env@npm:^1.15.2":
+  version: 1.15.2
+  resolution: "@types/webpack-env@npm:1.15.2"
+  checksum: 3/571fa57efdf276b4feaf6d1fafd6b4d25a5e6f146eb517ad6c9f64ccca0146a8ed759f05428fe224ace5040983334d87259da4758fa1c18f44063243eaa9da85
+  languageName: node
+  linkType: hard
+
 "@types/webpack-sources@npm:*":
   version: 0.1.7
   resolution: "@types/webpack-sources@npm:0.1.7"
@@ -8330,6 +8337,7 @@ fsevents@~2.1.2:
     "@babel/register": ^7.9.0
     "@babel/runtime": ^7.9.6
     "@types/node": ^14.0.1
+    "@types/webpack-env": ^1.15.2
     "@yarnpkg/pnpify": ^2.0.0-rc.22
     ava: ^3.8.2
     babel-loader: ^8.1.0

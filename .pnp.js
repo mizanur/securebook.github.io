@@ -70,6 +70,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:14.0.1"
       ],
       [
+        "@types/webpack-env",
+        "npm:1.15.2"
+      ],
+      [
         "@yarnpkg/pnpify",
         "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0-rc.22"
       ],
@@ -143,6 +147,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:7.9.0"],
             ["@babel/runtime", "npm:7.9.6"],
             ["@types/node", "npm:14.0.1"],
+            ["@types/webpack-env", "npm:1.15.2"],
             ["@yarnpkg/pnpify", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0-rc.22"],
             ["ava", "npm:3.8.2"],
             ["babel-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.1.0"],
@@ -1817,6 +1822,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/uglify-js", "npm:3.9.0"],
             ["@types/webpack-sources", "npm:0.1.7"],
             ["source-map", "npm:0.6.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/webpack-env", [
+        ["npm:1.15.2", {
+          "packageLocation": "./.yarn/cache/@types-webpack-env-npm-1.15.2-0251381829-3.zip/node_modules/@types/webpack-env/",
+          "packageDependencies": [
+            ["@types/webpack-env", "npm:1.15.2"]
           ],
           "linkType": "HARD",
         }]
@@ -9552,6 +9566,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:7.9.0"],
             ["@babel/runtime", "npm:7.9.6"],
             ["@types/node", "npm:14.0.1"],
+            ["@types/webpack-env", "npm:1.15.2"],
             ["@yarnpkg/pnpify", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0-rc.22"],
             ["ava", "npm:3.8.2"],
             ["babel-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.1.0"],

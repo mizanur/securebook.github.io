@@ -1,16 +1,16 @@
 import { useState, useMemo, useContext } from "preact/hooks";
 import { useUnmount } from "@view/useUnmount";
-import { ConnectedRenderContext } from "@view/ConnectedRenderContext";
+import { RendererContext } from "@view/RendererContext";
 
 export function connect(Component) {
 	return function(...args) {
 		let result;
-		const ConnectedRender = useContext(ConnectedRenderContext);
+		const createRenderer = useContext(RendererContext);
 		const [,setState] = useState({});
-		const render = useMemo(() => {
-			return new ConnectedRender;
+		const renderer = useMemo(() => {
+			return createRenderer();
 		}, []);
-		render.calculation = {
+		renderer.calculation = {
 			isInitialRender: true,
 			perform() {
 				result = Component(...args);
@@ -20,7 +20,7 @@ export function connect(Component) {
 			}
 		};
 		useUnmount(() => {
-			render.isStopped = true;
+			renderer.isStopped = true;
 		});
 		return result;
 	}
