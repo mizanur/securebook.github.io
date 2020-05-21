@@ -1,4 +1,4 @@
-import { TransitionManager as ITransitionManager, TransitionConfiguration, OnInterrupt } from '@interfaces/TransitionManager';
+import { TransitionManager as ITransitionManager, TransitionConfiguration } from '@interfaces/TransitionManager';
 import { TransitionProgress } from '@interfaces/TransitionProgress';
 import { EasingProgress } from '@interfaces/EasingProgress';
 import { Wrapped } from '@interfaces/Wrapped';
