@@ -12,6 +12,7 @@ export function useTransition<V,I>(createEP: () => EasingProgress, createTarget:
 	const state = useState(() => wrap(createTarget()));
 
 	useEffectOnce(() => {
+		let isInitial = true;
 		const ep = createEP();
 		const tc = createTC();
 		const tp = createTransitionProgress<V,I>(unwrap(state), null as any);
@@ -21,10 +22,13 @@ export function useTransition<V,I>(createEP: () => EasingProgress, createTarget:
 			onTarget() {
 				if (!this.isStopped) {
 					const target = createTarget();
-					tm.start(target);
+					if (!isInitial) {
+						tm.start(target);
+					}
 				}
 			}
 		});
+		isInitial = false;
 		return () => {
 			val.isStopped = true;
 		}
