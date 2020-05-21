@@ -1,28 +1,18 @@
 import { EasingType } from "@interfaces/Easing";
 import { EasingProgress } from "@interfaces/EasingProgress";
-import { rememberLast } from "@utils/array";
-import { wrap, unwrap } from "@utils/wrap";
 
-export function createEasingProgress({ type, duration }: {type: EasingType, duration: number}): EasingProgress {
+export function createEasingProgress(type: EasingType, duration: number): EasingProgress {
 	return {
-		data: wrap({
-			time0: 0,
-			time1: 0,
-			lastTimestamps: []
-		}),
+		time0: 0,
+
+		time1: 0,
 
 		get time() {
-			const data = unwrap(this.data);
-			return data.time1 - data.time0;
+			return this.time1 - this.time0;
 		},
 
 		get progress() {
 			return type(this.time / duration);
-		},
-
-		updateLastTimestamps() {
-			const data = unwrap(this.data);
-			rememberLast(2, data.lastTimestamps, data.time1);
 		}
 	};
 }

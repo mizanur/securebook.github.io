@@ -4,9 +4,11 @@ import "@styles/AnimatedPlayground.scss";
 import { useState } from '@view/useState';
 import { createEasingProgress } from '@data/createEasingProgress';
 import { easing } from '@view/easing';
-import { rememberLast } from '@utils/array';
-import { getTimeInMS } from '@utils/time';
-import { wrap, unwrap } from '@utils/wrap';
+import { wrap } from '@utils/wrap';
+import { useTransition } from '@view/useTransition';
+import { getInterpolationWithInertia, getInertia } from '@utils/transition';
+
+type XY = { x: number, y: number };
 
 function AnimatedPlayground() {
 	const v = useState(() => wrap({
@@ -14,93 +16,36 @@ function AnimatedPlayground() {
 		y: 0,
 	}))
 
-	const duration = 1500;
-
-	const easingProgress = useState(() =>
-		createEasingProgress({
-			type: easing.easeInOutCubic,
-			duration,
+	const state = useTransition<XY,XY>(
+		() => createEasingProgress(easing.easeInOutCubic, 1000),
+		() => ({ x: v.value.x, y: v.value.y }),
+		() => ({
+			getInertia: tp => (
+				tp.lastValues.length === 2 && tp.lastTimestamps.length === 2 ? {
+					x: getInertia(tp.lastValues[1].x, tp.lastValues[0].x, tp.lastTimestamps[1], tp.lastTimestamps[0]),
+					y: getInertia(tp.lastValues[1].y, tp.lastValues[0].y, tp.lastTimestamps[1], tp.lastTimestamps[0]),
+				} : {
+					x: 0,
+					y: 0,
+				}
+			),
+			getValue: tp => ({
+				x: getInterpolationWithInertia(tp.progress, tp.source.x, tp.target.x, tp.inertia.x, tp.time),
+				y: getInterpolationWithInertia(tp.progress, tp.source.y, tp.target.y, tp.inertia.y, tp.time),
+			})
 		})
 	);
 
-	var state = useState(() => {
-		let value: any;
-		let lastValues: any = [];
-		let lastTimestamps: any = [];
-		let isAnimating = false;
-
-		function animate() {
-			isAnimating = true;
-			window.requestAnimationFrame(() => {
-				isAnimating = false;
-				const data = unwrap(easingProgress.data);
-				const time1 = getTimeInMS();
-				if (time1 - data.time0 < duration) {
-					data.time1 = time1;
-					animate();
-				}
-				else {
-					lastValues = [];
-					data.time1 = data.time0 + duration;
-				}
-				easingProgress.data = wrap(data);
-			});
-		}
-
-		return {
-			data: wrap({
-				oldValue: { x: v.value.x, y: v.value.y },
-				newValue: null as any,
-				inertia: { x: 0, y: 0 },
-			}),
-
-			get value() {
-				console.log('value');
-				const data = unwrap(this.data);
-				if (!data.newValue) {
-					return data.oldValue;
-				}
-				else {
-					const p = easingProgress.progress;
-					const t = easingProgress.time;
-					return {
-						x: data.oldValue.x * (1 - p) + data.newValue.x * p + data.inertia.x * t * (1 - p),
-						y: data.oldValue.y * (1 - p) + data.newValue.y * p + data.inertia.y * t * (1 - p),
-					}
-				}
-			},
-			onValueChanged() {
-				value = this.value;
-				rememberLast(2, lastValues, value);
-			},
-
-			onLastTimestampsUpdate() {
-				lastTimestamps = unwrap(easingProgress.data).lastTimestamps;
-			},
-
-			onNewValueChanged() {
-				const deltaT = lastTimestamps.length === 2 ? lastTimestamps[1] - lastTimestamps[0] : Infinity;
-				this.data = wrap({
-					newValue: { x: v.value.x, y: v.value.y },
-					oldValue: { x: value.x, y: value.y },
-					inertia: lastValues.length === 2
-						? {
-							x: (lastValues[1].x - lastValues[0].x) / deltaT,
-							y: (lastValues[1].y - lastValues[0].y) / deltaT
-						}
-						: { x: 0, y: 0 }
-				});
-				easingProgress.data = wrap({
-					lastTimestamps: [],
-					time0: getTimeInMS(),
-					time1: getTimeInMS()
-				});
-				if (!isAnimating) {
-					animate();
-				}
-			},
-		};
-	});
+	// const state = useTransition(
+	// 	() => createEasingProgress(easing.easeInCubic, 500),
+	// 	() => ({ x: v.value.x, y: v.value.y }),
+	// 	() => ({
+	// 		getValue: tp => ({
+	// 			x: getInterpolation(tp.progress, tp.source.x, tp.target.x),
+	// 			y: getInterpolation(tp.progress, tp.source.y, tp.target.y),
+	// 		})
+	// 	})
+	// );
 
 	return (
 		<div className='AnimatedPlayground' onClick={e => {
@@ -111,7 +56,7 @@ function AnimatedPlayground() {
 			};
 		}}>
 			<div className='AnimatedPlayground__animatedDot' style={{
-				transform: `translateX(-50%) translateY(-50%) translateX(${state.value.x}px) translateY(${state.value.y}px)`
+				transform: `translateX(-50%) translateY(-50%) translateX(${state.x}px) translateY(${state.y}px)`
 			}}></div>
 		</div>
 	);
