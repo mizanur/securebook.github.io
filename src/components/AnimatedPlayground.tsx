@@ -14,7 +14,7 @@ function AnimatedPlayground() {
 		y: 0,
 	}))
 
-	const duration = 1000;
+	const duration = 1500;
 
 	const easingProgress = useState(() =>
 		createEasingProgress({
@@ -23,7 +23,7 @@ function AnimatedPlayground() {
 		})
 	);
 
-	const state = useState(() => {
+	var state = useState(() => {
 		let value: any;
 		let lastValues: any = [];
 		let lastTimestamps: any = [];
@@ -40,6 +40,7 @@ function AnimatedPlayground() {
 					animate();
 				}
 				else {
+					lastValues = [];
 					data.time1 = data.time0 + duration;
 				}
 				easingProgress.data = wrap(data);
