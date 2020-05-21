@@ -6,6 +6,7 @@ import { forNum } from '@utils/iteration';
 import Input from '@components/Input';
 import { useContext } from 'preact/hooks';
 import '@styles/MainView.scss';
+import AnimatedPlayground from '@components/AnimatedPlayground';
 
 function MainView() {
 	const manager = useContext(ManagersContext);
@@ -35,6 +36,8 @@ function MainView() {
 			Total revenue: {store.business.revenueBreakdown} = {store.business.totalRevenue}<br />
 			Profit: {store.business.profit}
 		</p>
+		<h1 className='MainView__header'>Animation Playground</h1>
+		<AnimatedPlayground />
 	</div>
 }
 

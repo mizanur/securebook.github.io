@@ -13,3 +13,13 @@ export function withSetItem<T>(arr: Array<T>, index: number, value: T): Array<T>
 	newArr[index] = value;
 	return newArr;
 }
+
+export function rememberLast<T>(num: number, arr: T[], item: T) {
+	if (arr.length >= num) {
+		arr.shift();
+		arr.push(item);
+	}
+	else {
+		arr.push(item);
+	}
+}

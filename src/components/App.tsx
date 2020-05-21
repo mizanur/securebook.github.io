@@ -1,11 +1,14 @@
 import { h } from 'preact';
 import MainView from "@components/MainView";
-import { useState } from 'preact/hooks';
+import { useState } from '@view/useState';
+import { connect } from '@view/connect';
 
-export default function App() {
-	const [isShown, setIsShown] = useState(true);
+function App() {
+	const state = useState(() => ({ isShown: true }));
 	return <div>
-		<button onClick={() => setIsShown(!isShown)}>{isShown ? 'Hide App' : 'Show App'}</button>
-		{isShown ? <MainView /> : <h1>App is gone!</h1>}
+		<button onClick={() => (state.isShown = !state.isShown)}>{state.isShown ? 'Hide App' : 'Show App'}</button>
+		{state.isShown ? <MainView /> : <h1>App is gone!</h1>}
 	</div>
 }
+
+export default connect(App);

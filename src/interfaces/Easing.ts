@@ -1,0 +1,1 @@
+export type EasingType = (progress: number) => number;
