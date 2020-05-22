@@ -16,6 +16,7 @@
 		"types": ["node", "webpack-env"],
 		"baseUrl": ".",
 		"paths": {
+			"@assets/*": ["assets/*"],
 			"@configs/*": ["src/configs/*"],
 			"@styles/*": ["src/styles/*"],
 			"@interfaces/*": ["src/interfaces/*"],
@@ -24,7 +25,11 @@
 			"@modules/*": ["src/modules/*"],
 			"@utils/*": ["src/utils/*"],
 			"@view/*": ["src/view/*"],
-		}
+		},
+        "typeRoots": [
+            "node_modules/@types",
+            "./src/typings"
+        ]
 	},
 	"include": [
 		"src"

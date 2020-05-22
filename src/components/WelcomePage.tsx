@@ -4,6 +4,7 @@ import { connect } from "@view/connect";
 import { useContext } from "preact/hooks";
 import { StoreContext } from "@view/StoreContext";
 import { ManagersContext } from "@view/ManagersContext";
+import { Logo } from "@components/Logo";
 
 function WelcomePage() {
 	const { authData } = useContext(StoreContext);
@@ -12,7 +13,7 @@ function WelcomePage() {
 	return (
 		<main className="WelcomePage">
 			<article className="WelcomePage__WelcomeCard">
-				<section className="WelcomePage__Header">Secure Book</section>
+				<section className="WelcomePage__Header"><Logo /> Secure Book</section>
 				<section className="WelcomePage__Information">
 					<p>Secure Book is a private note-taking web application.</p>
 					<p>It allows you to create your own private notebooks and write encrypted notes.</p>
