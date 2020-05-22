@@ -36,17 +36,6 @@ function AnimatedPlayground() {
 		})
 	);
 
-	// const state = useTransition(
-	// 	() => createEasingProgress(easing.easeInCubic, 500),
-	// 	() => ({ x: v.value.x, y: v.value.y }),
-	// 	() => ({
-	// 		getValue: tp => ({
-	// 			x: getInterpolation(tp.progress, tp.source.x, tp.target.x),
-	// 			y: getInterpolation(tp.progress, tp.source.y, tp.target.y),
-	// 		})
-	// 	})
-	// );
-
 	return (
 		<div className='AnimatedPlayground' onClick={e => {
 			var rect = e.currentTarget.getBoundingClientRect();

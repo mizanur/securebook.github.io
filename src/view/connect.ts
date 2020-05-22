@@ -1,12 +1,12 @@
 import { useState, useContext } from "preact/hooks";
 import { useUnmount } from "@view/useUnmount";
-import { RendererContext } from "@view/RendererContext";
+import { ConnectedContext } from "@view/ConnectedContext";
 import { useOnce } from "@view/useOnce";
 
 export function connect(Component) {
 	return function(...args) {
 		let result;
-		const createRenderer = useContext(RendererContext);
+		const { createRenderer } = useContext(ConnectedContext);
 		const [,setState] = useState({});
 		const renderer = useOnce(() => {
 			return createRenderer();

@@ -2,30 +2,29 @@ import { h, render } from 'preact';
 import { StoreContext } from "@view/StoreContext";
 import { ManagersContext } from "@view/ManagersContext";
 import App from '@components/App';
-import { createApp } from '../createApp';
-import { connectFactory } from 'typeconnect';
+import { createApp } from '@view/createApp';
 import { defineWindowApp } from '@view/defineWindowApp';
-import { RendererContext } from '@view/RendererContext';
+import { ConnectedContext } from '@view/ConnectedContext';
 import { configureConnect } from '@view/configureConnect';
-import { createRenderer } from '@data/createRenderer';
 import { Managers } from '@interfaces/Managers';
 import { Store } from '@interfaces/Store';
+import { Connected } from '@interfaces/Connected';
 
 type AppWithWrappersProps = {
-	createConnectedRenderer: typeof createRenderer,
+	connected: Connected,
 	store: Store,
 	managers: Managers
 }
 
-function AppWithWrappers({ createConnectedRenderer, store, managers }: AppWithWrappersProps) {
+function AppWithWrappers({ connected, store, managers }: AppWithWrappersProps) {
 	return (
-		<RendererContext.Provider value={createConnectedRenderer}>
+		<ConnectedContext.Provider value={connected}>
 			<StoreContext.Provider value={store}>
 				<ManagersContext.Provider value={managers}>
 					<App />
 				</ManagersContext.Provider>
 			</StoreContext.Provider>
-		</RendererContext.Provider>
+		</ConnectedContext.Provider>
 	);
 }
 
@@ -51,14 +50,13 @@ export function renderApp(parent: HTMLElement) {
 	}
 	else {
 		configureConnect();
-		const [store, managers] = createApp();
-		const createConnectedRenderer = connectFactory(createRenderer);
+		const [connected, store, managers] = createApp();
 		defineWindowApp(store, managers);
 
 		firstRenderData = {
 			parent,
 			appProps: {
-				createConnectedRenderer,
+				connected,
 				store,
 				managers
 			}

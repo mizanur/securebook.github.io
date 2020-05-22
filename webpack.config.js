@@ -5,12 +5,13 @@ const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 module.exports = {
 	entry: {
-		main: './src/main.ts'
+		'main': './src/main.ts',
+		'crypto-worker': './src/modules/CryptoWorker.ts',
 	},
 	output: {
 		path: path.resolve(__dirname, '.build'),
 		filename: '[name].js',
-		chunkFilename: '[id].js'
+		chunkFilename: '[id].js',
 	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
