@@ -23,12 +23,16 @@ import { GitlabAuthStorage } from "@modules/GitlabAuthStorage";
 import { GitlabAuthStorage as IGitlabAuthStorage } from "@interfaces/GitlabAuthStorage";
 import { GitlabConfig } from "@interfaces/GitlabConfig";
 import { GitlabAuthData } from "@interfaces/GitlabAuthData";
+import { PathManager } from "@modules/PathManager";
+import { PathManager as IPathManager } from "@interfaces/PathManager";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
 		createRenderer: connectFactory(createRenderer),
 		createLocation: connectFactory(createLocation),
 		createGitlabAuthIntent: connectFactory(createGitlabAuthIntent),
+		createGitlabAuthData: connectFactory(createGitlabAuthData),
+		createIntentManager: connectFactory(createIntentManager),
 	};
 
 	const crypter: ICrypter = new Crypter();
@@ -37,21 +41,24 @@ export function createApp(): [Connected, Store, Managers] {
 	const locationManager: ILocationManager = new LocationManager(location);
 	const gitlabConfig: GitlabConfig = new GitlabDev();
 	const gitlabAuthStorage: IGitlabAuthStorage = new GitlabAuthStorage();
-	const gitlabAuthData: GitlabAuthData = createGitlabAuthData();
+	const gitlabAuthData: GitlabAuthData = connected.createGitlabAuthData();
 	const gitlabAuth: Auth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
-	const gitlabAuthIntent: Intent = connected.createGitlabAuthIntent(location, gitlabAuth);
+	const pathManager: IPathManager = new PathManager(locationManager);
+	const gitlabAuthIntent: Intent = connected.createGitlabAuthIntent(location, pathManager, gitlabAuth);
 
 	const allIntents: Intent[] = [
 		gitlabAuthIntent,
 	];
-	const intent: IntentManager = createIntentManager(allIntents);
+	const intent: IntentManager = connected.createIntentManager(allIntents);
 	
 	return [
 		connected,
 		{
+			authData: gitlabAuthData,
 		},
 		{
 			crypter,
+			auth: gitlabAuth,
 		}
 	]
 }

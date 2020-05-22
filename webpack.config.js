@@ -48,6 +48,10 @@ module.exports = {
 				],
 			},
 			{
+				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+				use: ['file-loader'],
+			},
+			{
 				test: /\.(js|jsx|ts|tsx)$/,
 				exclude: /(node_modules|bower_components)/,
 				use: {

@@ -1,7 +1,8 @@
 import { Location } from "@interfaces/Location";
 import { Auth } from "@interfaces/Auth";
+import { PathManager } from "@interfaces/PathManager";
 
-export function createGitlabAuthIntent(location: Location, auth: Auth) {
+export function createGitlabAuthIntent(location: Location, pathManager: PathManager, auth: Auth) {
 	return {
 		isCurrentIntentValid: false,
 
@@ -23,6 +24,7 @@ export function createGitlabAuthIntent(location: Location, auth: Auth) {
 						query.error_description || ''
 					);
 				}
+				pathManager.onAuthCompleted();
 			}
 		}
 	}

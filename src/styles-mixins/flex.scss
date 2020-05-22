@@ -1,0 +1,17 @@
+@mixin flexParent($dir: column) {
+    display: flex;
+    flex-direction: $dir;
+}
+
+@mixin flexChildExpand {
+    flex: 1 1 auto;
+}
+
+@mixin flexChildCollapse {
+    flex: 0 0 auto;
+}
+
+@mixin flexParentCenterChildren {
+    justify-content: center;
+    align-items: center;
+}

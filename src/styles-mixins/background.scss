@@ -1,0 +1,15 @@
+@mixin bgCenter($url) {
+    background-image: url($url);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+@mixin bgCenterCover($url) {
+    @include bgCenter($url);
+    background-size: cover;
+}
+
+@mixin bgCenterContain($url) {
+    @include bgCenter($url);
+    background-size: contain;
+}
