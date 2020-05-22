@@ -6166,7 +6166,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
+"loader-utils@npm:^1.0.0, loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -8503,6 +8503,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"schema-utils@npm:^0.4.0":
+  version: 0.4.7
+  resolution: "schema-utils@npm:0.4.7"
+  dependencies:
+    ajv: ^6.1.0
+    ajv-keywords: ^3.1.0
+  checksum: 3/ad28f47a2cfcd9d576efab7a74447bbb4dbbaa8f8adcfeaf6dc38c8462d79cf04ecc1f6f4d5825856cff615bda3d2836c17dc0b6ed565ea454c5f15a82c2c0c0
+  languageName: node
+  linkType: hard
+
 "schema-utils@npm:^1.0.0":
   version: 1.0.0
   resolution: "schema-utils@npm:1.0.0"
@@ -8560,6 +8570,7 @@ fsevents@~2.1.2:
     webpack: ^4.43.0
     webpack-cli: ^3.3.11
     webpack-dev-server: ^3.11.0
+    worker-loader: ^2.0.0
   languageName: unknown
   linkType: soft
 
@@ -10198,6 +10209,18 @@ typescript@^3.8.3:
   dependencies:
     errno: ~0.1.7
   checksum: 3/ef76a6892bdf6a4231e6d657c13e2e960278535915d6235d9e0e3e23b65da94a56e5bed17ac5fda282370601d4cd18f4cba9552aa52f4fa9a25cc9fd3fcf58a9
+  languageName: node
+  linkType: hard
+
+"worker-loader@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "worker-loader@npm:2.0.0"
+  dependencies:
+    loader-utils: ^1.0.0
+    schema-utils: ^0.4.0
+  peerDependencies:
+    webpack: ^3.0.0 || ^4.0.0-alpha.0 || ^4.0.0
+  checksum: 3/7e107c33c6feba43490484591b257b4252cf62c5c27b0a51aa59430d50dd3b8da33ccaed71ab7af564075b0b6134a2953f1bd12b718656c08ccf68c62fef084c
   languageName: node
   linkType: hard
 

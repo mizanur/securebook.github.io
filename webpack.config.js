@@ -6,7 +6,6 @@ const PnpWebpackPlugin = require('pnp-webpack-plugin');
 module.exports = {
 	entry: {
 		'main': './src/main.ts',
-		'crypto-worker': './src/modules/CryptoWorker.ts',
 	},
 	output: {
 		path: path.resolve(__dirname, '.build'),
@@ -19,6 +18,7 @@ module.exports = {
 			PnpWebpackPlugin,
 		],
 		alias: {
+			"@configs": path.resolve(__dirname, "./src/configs"),
 			"@styles": path.resolve(__dirname, "./src/styles"),
 			"@interfaces": path.resolve(__dirname, "./src/interfaces"),
 			"@data": path.resolve(__dirname, "./src/data"),
@@ -35,6 +35,10 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.worker\.(js|jsx|ts|tsx)$/,
+				use: { loader: 'worker-loader' }
+			},
 			{
 				test: /\.s[ac]ss$/i,
 				use: [

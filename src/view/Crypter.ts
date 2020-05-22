@@ -1,3 +1,5 @@
+// @ts-ignore: worker-loader has a problem with typescript
+import Worker from '@view/Crypter.worker';
 import { Crypter as ICrypter } from "@interfaces/Crypter";
 import { getRequestId } from "@utils/crypter";
 import { EncryptData, EncryptError, DecryptData, DecryptError, EncryptResult, DecryptResult } from "@interfaces/CryptoWorker";
@@ -6,7 +8,7 @@ export class Crypter implements ICrypter {
 	private readonly worker: Worker;
 
 	constructor() {
-		this.worker = new Worker('/crypto-worker.js');
+		this.worker = new Worker();
 	}
 
 	private crypt(actionType: 'encrypt' | 'decrypt', text: string, hash: number[]): Promise<string> {
