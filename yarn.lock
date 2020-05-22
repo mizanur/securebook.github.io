@@ -7924,6 +7924,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"query-string@npm:^6.12.1":
+  version: 6.12.1
+  resolution: "query-string@npm:6.12.1"
+  dependencies:
+    decode-uri-component: ^0.2.0
+    split-on-first: ^1.0.0
+    strict-uri-encode: ^2.0.0
+  checksum: 3/b2db992d195633b56100eecc8a3e87bfaf30a80b997b3cfeda1accc28195a71eda112ef16b7a6ee4c7d06cfcd372a8a2d627967158dc8d20f80430f32ffaa4c7
+  languageName: node
+  linkType: hard
+
 "querystring-es3@npm:^0.2.0":
   version: 0.2.1
   resolution: "querystring-es3@npm:0.2.1"
@@ -8540,6 +8551,7 @@ fsevents@~2.1.2:
     js-sha256: ^0.9.0
     pnp-webpack-plugin: ^1.6.4
     preact: ^10.4.1
+    query-string: ^6.12.1
     sass: ^1.26.5
     sass-loader: ^8.0.2
     style-loader: ^1.2.1
@@ -8972,6 +8984,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"split-on-first@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "split-on-first@npm:1.1.0"
+  checksum: 3/2ef26fee62665be9547e8035734b856e658b08fd13e70271a2f258147f29d1f18e12b5cb7f7670d83e113c172a9c5fe3d87d9d7c02a1d3d57824818d75d942ab
+  languageName: node
+  linkType: hard
+
 "split-string@npm:^3.0.1, split-string@npm:^3.0.2":
   version: 3.1.0
   resolution: "split-string@npm:3.1.0"
@@ -9108,6 +9127,13 @@ fsevents@~2.1.2:
     end-of-stream: ~1.1.0
     stream-to-array: ~2.3.0
   checksum: 3/1f26f85d571d94a308f9332c79f2652697f9893733e3a2aebca1aaaf4d2a0d0655150b8b0a88105256a50510d9e9b8a0b1e5d9139b464ee1f9285be3647c3b83
+  languageName: node
+  linkType: hard
+
+"strict-uri-encode@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "strict-uri-encode@npm:2.0.0"
+  checksum: 3/775012e88b9d8dff939d514bf376d615a15e8228a5dd587a94ac3c71fce41aa3635cd808aa796e2c1cd33f3f2fe2fbf89b74ee18a504a1905efa1854311e04bb
   languageName: node
   linkType: hard
 

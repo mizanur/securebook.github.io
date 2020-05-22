@@ -1,5 +1,7 @@
 import { PartsManager } from "@interfaces/PartsManager";
+import { Crypter } from "@interfaces/Crypter";
 
 export interface Managers {
-	parts: PartsManager;
+	partsManager: PartsManager;
+	crypter: Crypter;
 }

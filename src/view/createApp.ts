@@ -6,6 +6,7 @@ import { Store } from "@interfaces/Store";
 import { Managers } from "@interfaces/Managers";
 import { Connected } from "@interfaces/Connected";
 import { createRenderer } from "@data/createRenderer";
+import { Crypter } from "@view/Crypter";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected = {
@@ -17,6 +18,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const parts = connected.createParts();
 	const business = connected.createBusiness(parts);
 	const partsManager = new PartsManager(parts);
+	const crypter = new Crypter();
 	
 	return [
 		connected,
@@ -25,7 +27,8 @@ export function createApp(): [Connected, Store, Managers] {
 			business
 		},
 		{
-			parts: partsManager
+			partsManager,
+			crypter,
 		}
 	]
 }

@@ -9,24 +9,24 @@ import '@styles/MainView.scss';
 import AnimatedPlayground from '@components/AnimatedPlayground';
 
 function MainView() {
-	const manager = useContext(ManagersContext);
+	const { partsManager } = useContext(ManagersContext);
 	const store = useContext(StoreContext);
 
 	return <div>
 		<h1 className='MainView__header'>Parts</h1>
-		<button onClick={() => manager.parts.addItemType()}>Add item type</button><br />
+		<button onClick={() => partsManager.addItemType()}>Add item type</button><br />
 		{
 			forNum(store.parts.itemTypes, i =>
 				<p>
-					<button onClick={() => manager.parts.removeItemType(i)}>Remove item type</button><br />
+					<button onClick={() => partsManager.removeItemType(i)}>Remove item type</button><br />
 					Item cost: <Input type="number" value={store.parts.itemCosts[i]} onInput={
-						ev => manager.parts.setItemTypeCost(i, Number(ev.currentTarget.value))} /><br />
+						ev => partsManager.setItemTypeCost(i, Number(ev.currentTarget.value))} /><br />
 					Item price: <Input type="number" value={store.parts.itemPrices[i]} onInput={
-						ev => manager.parts.setItemTypePrice(i, Number(ev.currentTarget.value))} /><br />
+						ev => partsManager.setItemTypePrice(i, Number(ev.currentTarget.value))} /><br />
 					Items produced: <Input type="number" value={store.parts.itemsProduced[i]} onInput={
-						ev => manager.parts.setItemsProduced(i, Number(ev.currentTarget.value))} /><br />
+						ev => partsManager.setItemsProduced(i, Number(ev.currentTarget.value))} /><br />
 					Items sold: <Input type="number" value={store.parts.itemsSold[i]} onInput={
-						ev => manager.parts.setItemsSold(i, Number(ev.currentTarget.value))} />
+						ev => partsManager.setItemsSold(i, Number(ev.currentTarget.value))} />
 				</p>
 			)
 		}

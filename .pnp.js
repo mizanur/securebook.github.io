@@ -122,6 +122,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:10.4.1"
       ],
       [
+        "query-string",
+        "npm:6.12.1"
+      ],
+      [
         "sass",
         "npm:1.26.5"
       ],
@@ -184,6 +188,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["js-sha256", "npm:0.9.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
             ["preact", "npm:10.4.1"],
+            ["query-string", "npm:6.12.1"],
             ["sass", "npm:1.26.5"],
             ["sass-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.0.2"],
             ["style-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:1.2.1"],
@@ -9148,6 +9153,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["query-string", [
+        ["npm:6.12.1", {
+          "packageLocation": "./.yarn/cache/query-string-npm-6.12.1-491daa1822-3.zip/node_modules/query-string/",
+          "packageDependencies": [
+            ["query-string", "npm:6.12.1"],
+            ["decode-uri-component", "npm:0.2.0"],
+            ["split-on-first", "npm:1.1.0"],
+            ["strict-uri-encode", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["querystring", [
         ["npm:0.2.0", {
           "packageLocation": "./.yarn/cache/querystring-npm-0.2.0-421b870c92-3.zip/node_modules/querystring/",
@@ -9815,6 +9832,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["js-sha256", "npm:0.9.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
             ["preact", "npm:10.4.1"],
+            ["query-string", "npm:6.12.1"],
             ["sass", "npm:1.26.5"],
             ["sass-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.0.2"],
             ["style-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:1.2.1"],
@@ -10288,6 +10306,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["split-on-first", [
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/split-on-first-npm-1.1.0-e2f3ab5e4e-3.zip/node_modules/split-on-first/",
+          "packageDependencies": [
+            ["split-on-first", "npm:1.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["split-string", [
         ["npm:3.1.0", {
           "packageLocation": "./.yarn/cache/split-string-npm-3.1.0-df5d83450e-3.zip/node_modules/split-string/",
@@ -10437,6 +10464,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["any-promise", "npm:1.3.0"],
             ["end-of-stream", "npm:1.1.0"],
             ["stream-to-array", "npm:2.3.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["strict-uri-encode", [
+        ["npm:2.0.0", {
+          "packageLocation": "./.yarn/cache/strict-uri-encode-npm-2.0.0-1ec3189376-3.zip/node_modules/strict-uri-encode/",
+          "packageDependencies": [
+            ["strict-uri-encode", "npm:2.0.0"]
           ],
           "linkType": "HARD",
         }]
