@@ -1,4 +1,4 @@
 export interface Intent {
-    isCurrentIntentValid: boolean;
-    isCurrentIntent: boolean;
+	isCurrentIntentValid: boolean;
+	isCurrentIntent: boolean;
 }

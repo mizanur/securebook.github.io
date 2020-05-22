@@ -41,7 +41,6 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabAuth: Auth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
 	const gitlabAuthIntent: Intent = connected.createGitlabAuthIntent(location, gitlabAuth);
 
-	// Intents:
 	const allIntents: Intent[] = [
 		gitlabAuthIntent,
 	];
