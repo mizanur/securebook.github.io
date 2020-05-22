@@ -1,0 +1,61 @@
+import test from "ava";
+import { createIntentManager } from "@data/createIntentManager";
+import { Intent } from "@interfaces/Intent";
+
+type TestContext = {
+	intents: {
+		a: Intent,
+		b: Intent,
+		c: Intent
+	},
+	intentManager: ReturnType<typeof createIntentManager>
+};
+
+function createIntent() {
+	return {
+		isCurrentIntentValid: false,
+		isCurrentIntent: false,
+	}
+}
+
+test.beforeEach(t => {
+	const a = createIntent();
+	const b = createIntent();
+	const c = createIntent();
+	const context: TestContext = {
+		intents: { a, b, c },
+		intentManager: createIntentManager([a, b, c])
+	};
+	t.context = context;
+});
+
+test(`if no intent is current, no intent should be valid`, t => {
+	const context = t.context as TestContext;
+	const { intents, intentManager } = context;
+	intentManager.determineAndNotifyValidIntent();
+	t.assert(intents.a.isCurrentIntentValid === false);
+	t.assert(intents.b.isCurrentIntentValid === false);
+	t.assert(intents.c.isCurrentIntentValid === false);
+});
+
+test(`if one intent is current, only that intent is valid`, t => {
+	const context = t.context as TestContext;
+	const { intents, intentManager } = context;
+	intents.b.isCurrentIntent = true;
+	intentManager.determineAndNotifyValidIntent();
+	t.assert(intents.a.isCurrentIntentValid === false);
+	t.assert(intents.b.isCurrentIntentValid === true);
+	t.assert(intents.c.isCurrentIntentValid === false);
+});
+
+test(`if more than one intent is current, one of those intents is valid`, t => {
+	const context = t.context as TestContext;
+	const { intents, intentManager } = context;
+	intents.b.isCurrentIntent = true;
+	intents.c.isCurrentIntent = true;
+	intentManager.determineAndNotifyValidIntent();
+	t.assert(
+		(intents.b.isCurrentIntentValid === true || intents.c.isCurrentIntentValid === true) &&
+		!(intents.b.isCurrentIntentValid === true && intents.c.isCurrentIntentValid === true)
+	);
+});
