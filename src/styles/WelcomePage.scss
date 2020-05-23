@@ -8,7 +8,6 @@
 	@include flexChildExpand;
 	@include flexParentCenterChildren;
 
-	
 	@include sizes("4000x2851","2000x1426","1500x1070","1000x713","701x500") using ($w,$h) {
 		@include bgCenterCover("/assets/used/WelcomePage__Background-#{$w}x#{$h}.jpg");
 	}
@@ -27,7 +26,7 @@
 		max-height: 100vh;
 		background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.8), rgba(224, 204, 204, 0.9));
 		box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 1);
-		border-radius: 2px;
+		border-radius: 4px;
 		font-family: 'Montserrat', sans-serif;
 		overflow: auto;
 		
@@ -44,15 +43,11 @@
 		@include buttonInit;
 		display: inline-block;
 		width: 100%;
-		background: rgba(255, 255, 255, 0.05);
-		border-top: 1px solid rgba(0, 0, 0, 0.3);
+		background: #a30316;
+		color: #e6e5d8;
 		padding: 24px;
 		text-align: center;
 		font-weight: bold;
-
-		&:hover {
-			background: rgba(255, 255, 255, 0.1);
-		}
 	}
 
 	&__Header {

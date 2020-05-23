@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
+var WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = {
 	entry: {
@@ -67,7 +68,29 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			title: 'Secure Book'
+			title: 'Secure Book',
+			favicon: './assets/original/favicon.ico',
+		}),
+		new WebpackPwaManifest({
+			"name": "Secure Book",
+			"short_name": "Secure Book",
+			"description": "Write notes securely",
+			"start_url": "/",
+			"theme_color": "#A30316",
+			"background_color": "#643C22",
+			"display": "standalone",
+			"icons": [
+				{
+					"src": "./assets/original/logo-192x192.png",
+					"type": "image/png",
+					"sizes": "192x192"
+				},
+				{
+					"src": "./assets/original/logo-512x512.png",
+					"type": "image/png",
+					"sizes": "512x512"
+				}
+			]
 		})
 	],
 	devtool: 'inline-source-map',

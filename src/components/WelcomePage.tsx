@@ -4,7 +4,6 @@ import { connect } from "@view/connect";
 import { useContext } from "preact/hooks";
 import { StoreContext } from "@view/StoreContext";
 import { ManagersContext } from "@view/ManagersContext";
-import { Logo } from "@components/Logo";
 
 function WelcomePage() {
 	const { authData } = useContext(StoreContext);
@@ -21,7 +20,7 @@ function WelcomePage() {
 				<section className="WelcomePage__HowSection">
 					<p className="WelcomePage__How">How does it work?</p>
 					<ol className="WelcomePage__HowList">
-						<li className="WelcomePage__HowListItem">Sign in via GitLab. GitLab is a service that allows you to create private / public repositories and store content inside of them.</li>
+						<li className="WelcomePage__HowListItem">Sign in via GitLab. GitLab is a service that allows you to create private repositories and store content inside of them.</li>
 						<li className="WelcomePage__HowListItem">Create a notebook and choose a password for it. Nobody will be able to read the contents of the notebook without knowing the password.</li>
 						<li className="WelcomePage__HowListItem">Create, edit and delete private notes, create and customize multiple notebooks.</li>
 					</ol>
