@@ -1,0 +1,17 @@
+@import "./string.scss";
+
+@mixin sizes($resolutions...) {
+	@for $i from 1 through length($resolutions) {
+		$resolution: nth($resolutions, $i);
+		$d: str-split($resolution, 'x');
+		$w: nth($d,1);
+		$h: nth($d,2);
+		@if $i == 1 {
+			@content($w,$h);
+		} @else {
+			@media (max-width: #{$w}px) and (max-height: #{$h}px) {
+				@content($w,$h);
+			}
+		}
+	}
+}

@@ -13,9 +13,9 @@ function WelcomePage() {
 	return (
 		<main className="WelcomePage">
 			<article className="WelcomePage__WelcomeCard">
-				<section className="WelcomePage__Header"><Logo /> Secure Book</section>
+				<section className="WelcomePage__Header WelcomePage__AppName">Secure Book</section>
 				<section className="WelcomePage__Information">
-					<p>Secure Book is a private note-taking web application.</p>
+					<p><span className="WelcomePage__AppName">Secure Book</span> is a private note-taking web application.</p>
 					<p>It allows you to create your own private notebooks and write encrypted notes.</p>
 				</section>
 				<section className="WelcomePage__HowSection">

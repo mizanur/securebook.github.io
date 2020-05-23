@@ -1,14 +1,25 @@
 @import "../styles-mixins/flex.scss";
 @import "../styles-mixins/background.scss";
 @import "../styles-mixins/button.scss";
+@import "../styles-mixins/media.scss";
 
 .WelcomePage {
 	@include flexParent;
 	@include flexChildExpand;
 	@include flexParentCenterChildren;
-	// @include bgCenterCover("/assets/images/background-1.jpg");
+
+	
+	@include sizes("4000x2851","2000x1426","1500x1070","1000x713","701x500") using ($w,$h) {
+		@include bgCenterCover("/assets/used/WelcomePage__Background-#{$w}x#{$h}.jpg");
+	}
+
 	overflow: hidden;
 	line-height: 1.5;
+
+	&__AppName {
+		font-family: 'Srisakdi', sans-serif;
+		font-weight: bold;
+	}
 
 	&__WelcomeCard {
 		flex: 0 0 auto;
@@ -46,10 +57,19 @@
 
 	&__Header {
 		text-align: center;
-		font-size: 30px;
+		font-size: 40px;
+	}
+
+	&__How {
+		font-weight: bold;
 	}
 
 	&__HowListItem {
 		margin-top: 0.5em;
+	}
+
+	ol {
+		list-style: decimal;
+		padding-left: 24px;
 	}
 }
