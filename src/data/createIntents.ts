@@ -1,6 +1,6 @@
 import { Intent } from "@interfaces/Intent";
 
-export function createIntentManager(intents: Intent[]) {
+export function createIntents(intents: Intent[]) {
 	return {
 		currentIntent: null as Intent | null,
 

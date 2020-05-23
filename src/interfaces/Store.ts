@@ -1,6 +1,7 @@
 import { AuthData } from "@interfaces/AuthData";
-import { Auth } from "@interfaces/Auth";
+import { Intents } from "@interfaces/Intents";
 
 export interface Store {
 	authData: AuthData;
+	intents: Intents,
 }

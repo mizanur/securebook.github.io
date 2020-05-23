@@ -1,0 +1,88 @@
+$left-page-size: 350px;
+$bookmark-width: 30px;
+
+.BookLayout {
+	position: absolute;
+	background: #333333;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	&__LeftPage {
+		position: absolute;
+		background: linear-gradient(to right, #F1F0E9, #F1F0E9 95%, #E1DFD2 100%);
+		top: 40px;
+		left: 0px;
+		bottom: 0px;
+		width: $left-page-size;
+		padding: 40px;
+		z-index: 1;
+	}
+
+	&__RightPage {
+		position: absolute;
+		background: linear-gradient(to right, #ECEBE4, #F4F3EC 5%, #F4F3EC 100%);
+		top: 40px;
+		left: $left-page-size;
+		right: 80px;
+		bottom: 0px;
+		border-top-right-radius: 3px;
+		padding: 40px 40px 40px $bookmark-width + 40px;
+		z-index: 1;
+	}
+
+	&__BehindPageTop {
+		position: absolute;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 40px 0 0 42px;
+		border-color: transparent transparent transparent #D6D5CE;
+		top: 40px;
+		right: 40px;
+	}
+
+	&__BehindPage {
+		position: absolute;
+		background: #D6D5CE;
+		top: 80px;
+		bottom: 0;
+		right: 40px;
+		width: 40px;
+	}
+
+	&__Bookmark {
+		position: absolute;
+		top: 38px;
+		left: $left-page-size;
+		width: $bookmark-width;
+		bottom: 80px;
+		z-index: 2;
+		background: #a30316;
+	}
+
+	&__BookmarkBottomLeft {
+		position: absolute;
+		left: $left-page-size;
+		bottom: 65px;
+		z-index: 2;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 15px 15px 0 0;
+		border-color: #a30316 transparent transparent transparent;
+	}
+
+	&__BookmarkBottomRight {
+		position: absolute;
+		left: $left-page-size + 15px;
+		bottom: 65px;
+		z-index: 2;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 15px 15px 0;
+		border-color: transparent #a30316 transparent transparent;
+	}
+}

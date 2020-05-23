@@ -1,5 +1,5 @@
 import test from "ava";
-import { createIntentManager } from "@data/createIntentManager";
+import { createIntents } from "@data/createIntents";
 import { Intent } from "@interfaces/Intent";
 
 type TestContext = {
@@ -8,7 +8,7 @@ type TestContext = {
 		b: Intent,
 		c: Intent
 	},
-	intentManager: ReturnType<typeof createIntentManager>
+	intentManager: ReturnType<typeof createIntents>
 };
 
 function createIntent() {
@@ -24,7 +24,7 @@ test.beforeEach(t => {
 	const c = createIntent();
 	const context: TestContext = {
 		intents: { a, b, c },
-		intentManager: createIntentManager([a, b, c])
+		intentManager: createIntents([a, b, c])
 	};
 	t.context = context;
 });

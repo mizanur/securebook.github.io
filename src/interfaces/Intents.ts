@@ -1,5 +1,5 @@
 import { Intent } from "@interfaces/Intent";
 
-export interface IntentManager {
+export interface Intents {
 	currentIntent: Intent | null;
 }

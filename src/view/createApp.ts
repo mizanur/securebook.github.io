@@ -8,8 +8,8 @@ import { Crypter as ICrypter } from "@interfaces/Crypter";
 import { createLocation } from "@view/createLocation";
 import { QueryBuilder } from "@modules/QueryBuilder";
 import { QueryBuilder as IQueryBuilder } from "@interfaces/QueryBuilder";
-import { createIntentManager } from "@data/createIntentManager";
-import { IntentManager } from "@interfaces/IntentManager";
+import { createIntents } from "@data/createIntents";
+import { Intents } from "@interfaces/Intents";
 import { createGitlabAuthIntent } from "@data/createGitlabAuthIntent";
 import { Intent } from "@interfaces/Intent";
 import { Location } from "@interfaces/Location";
@@ -25,6 +25,7 @@ import { GitlabConfig } from "@interfaces/GitlabConfig";
 import { GitlabAuthData } from "@interfaces/GitlabAuthData";
 import { PathManager } from "@modules/PathManager";
 import { PathManager as IPathManager } from "@interfaces/PathManager";
+import { createBookSelectIntent } from "@data/createBookSelectIntent";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -32,7 +33,8 @@ export function createApp(): [Connected, Store, Managers] {
 		createLocation: connectFactory(createLocation),
 		createGitlabAuthIntent: connectFactory(createGitlabAuthIntent),
 		createGitlabAuthData: connectFactory(createGitlabAuthData),
-		createIntentManager: connectFactory(createIntentManager),
+		createIntents: connectFactory(createIntents),
+		createBookSelectIntent: connectFactory(createBookSelectIntent),
 	};
 
 	const crypter: ICrypter = new Crypter();
@@ -45,15 +47,17 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabAuth: Auth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
 	const pathManager: IPathManager = new PathManager(locationManager);
 	const gitlabAuthIntent: Intent = connected.createGitlabAuthIntent(location, pathManager, gitlabAuth);
+	const bookSelectIntent: Intent = connected.createBookSelectIntent(location);
 
-	const allIntents: Intent[] = [
+	const intents: Intents = connected.createIntents([
 		gitlabAuthIntent,
-	];
-	const intent: IntentManager = connected.createIntentManager(allIntents);
+		bookSelectIntent,
+	]);
 	
 	return [
 		connected,
 		{
+			intents,
 			authData: gitlabAuthData,
 		},
 		{
