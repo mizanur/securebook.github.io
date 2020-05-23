@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import WelcomePage from '@components/WelcomePage';
+import Welcome from '@components/Welcome';
 import { connect } from '@view/connect';
 import { useContext } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
@@ -15,7 +15,7 @@ function App() {
 				Logged in!<br />
 				<button onClick={() => { auth.logout(); }}>Log out</button>
 			</div>
-			: <WelcomePage />
+			: <Welcome />
 	);
 }
 
