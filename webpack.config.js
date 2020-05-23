@@ -19,6 +19,7 @@ module.exports = {
 			PnpWebpackPlugin,
 		],
 		alias: {
+			"@errors": path.resolve(__dirname, "./src/errors"),
 			"@assets": path.resolve(__dirname, "./assets"),
 			"@configs": path.resolve(__dirname, "./src/configs"),
 			"@styles": path.resolve(__dirname, "./src/styles"),

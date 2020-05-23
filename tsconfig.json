@@ -16,6 +16,7 @@
 		"types": ["node", "webpack-env"],
 		"baseUrl": ".",
 		"paths": {
+			"@errors/*": ["src/errors/*"],
 			"@assets/*": ["assets/*"],
 			"@configs/*": ["src/configs/*"],
 			"@styles/*": ["src/styles/*"],

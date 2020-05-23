@@ -12,13 +12,13 @@ function Welcome() {
 	return (
 		<main className="Welcome">
 			<article className="Welcome__WelcomeCard">
-				<section className="Welcome__Header Welcome__AppName">Secure Book</section>
+				<h1 className="Welcome__Header Welcome__AppName">Secure Book</h1>
 				<section className="Welcome__Information">
 					<p><span className="Welcome__AppName">Secure Book</span> is a private note-taking web application.</p>
 					<p>It allows you to create your own private notebooks and write <strong>aes-256</strong> encrypted notes.</p>
 				</section>
 				<section className="Welcome__HowSection">
-					<p className="Welcome__How">How does it work?</p>
+					<h2 className="Welcome__How">How does it work?</h2>
 					<ol className="Welcome__HowList">
 						<li className="Welcome__HowListItem">Sign in via GitLab. GitLab is a service that allows you to create private repositories and store content inside of them.</li>
 						<li className="Welcome__HowListItem">Create a notebook and choose a password for it. Nobody will be able to read the contents of the notebook without knowing the password.</li>
