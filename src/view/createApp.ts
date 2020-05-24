@@ -14,7 +14,7 @@ import { GitlabDev } from "@configs/GitlabDev";
 import { createGitlabAuthData } from "@data/createGitlabAuthData";
 import { GitlabAuthStorage } from "@modules/GitlabAuthStorage";
 import { PathManager } from "@modules/PathManager";
-import { createBookSelectIntent } from "@data/createBookSelectIntent";
+import { createNoteViewerIntent } from "@data/createNoteViewerIntent";
 import { GitlabFilesystem } from "@modules/GitlabFilesystem";
 import { GitlabRequest } from "@modules/GitlabRequest";
 import { GitlabProjectManager } from "@modules/GitlabProjectManager";
@@ -29,7 +29,7 @@ export function createApp(): [Connected, Store, Managers] {
 		createGitlabAuthIntent: connectFactory(createGitlabAuthIntent),
 		createGitlabAuthData: connectFactory(createGitlabAuthData),
 		createIntents: connectFactory(createIntents),
-		createBookSelectIntent: connectFactory(createBookSelectIntent),
+		createNoteViewerIntent: connectFactory(createNoteViewerIntent),
 		createGitlabData: connectFactory(createGitlabData),
 	};
 
@@ -43,7 +43,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
 	const pathManager = new PathManager(locationManager);
 	const gitlabAuthIntent = connected.createGitlabAuthIntent(location, pathManager, gitlabAuth);
-	const bookSelectIntent = connected.createBookSelectIntent(location);
+	const bookSelectIntent = connected.createNoteViewerIntent(location);
 	const gitlabProjectManager = new GitlabProjectManager(gitlabAuthData, gitlabConfig);
 	const gitlabData = connected.createGitlabData();
 	const request = new Request();

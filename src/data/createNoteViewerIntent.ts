@@ -1,6 +1,6 @@
 import { Location } from "@interfaces/Location";
 
-export function createBookSelectIntent(location: Location) {
+export function createNoteViewerIntent(location: Location) {
 	return {
 		isCurrentIntentValid: false,
 

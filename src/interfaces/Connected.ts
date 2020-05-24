@@ -3,7 +3,7 @@ import { createLocation } from "@view/createLocation";
 import { createGitlabAuthIntent } from "@data/createGitlabAuthIntent";
 import { createGitlabAuthData } from "@data/createGitlabAuthData";
 import { createIntents } from "@data/createIntents";
-import { createBookSelectIntent } from "@data/createBookSelectIntent";
+import { createNoteViewerIntent } from "@data/createNoteViewerIntent";
 import { createGitlabData } from "@data/createGitlabData";
 
 export interface Connected {
@@ -12,6 +12,6 @@ export interface Connected {
 	createGitlabAuthIntent: typeof createGitlabAuthIntent,
 	createGitlabAuthData: typeof createGitlabAuthData,
 	createIntents: typeof createIntents,
-	createBookSelectIntent: typeof createBookSelectIntent,
+	createNoteViewerIntent: typeof createNoteViewerIntent,
 	createGitlabData: typeof createGitlabData,
 }
