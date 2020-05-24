@@ -14,7 +14,7 @@ import { createGitlabAuthIntent } from "@data/createGitlabAuthIntent";
 import { Intent } from "@interfaces/Intent";
 import { Location } from "@interfaces/Location";
 import { GitlabAuth } from "@modules/GitlabAuth";
-import { Auth } from "@interfaces/Auth";
+import { GitlabAuth as IGitlabAuth } from "@interfaces/GitlabAuth";
 import { LocationManager } from "@view/LocationManager";
 import { LocationManager as ILocationManager } from "@interfaces/LocationManager";
 import { GitlabDev } from "@configs/GitlabDev";
@@ -26,6 +26,13 @@ import { GitlabAuthData } from "@interfaces/GitlabAuthData";
 import { PathManager } from "@modules/PathManager";
 import { PathManager as IPathManager } from "@interfaces/PathManager";
 import { createBookSelectIntent } from "@data/createBookSelectIntent";
+import { Filesystem } from "@interfaces/Filesystem";
+import { GitlabFilesystem } from "@modules/GitlabFilesystem";
+import { GitlabRequest } from "@modules/GitlabRequest";
+import { GitlabProjectManager } from "@modules/GitlabProjectManager";
+import { createGitlabData } from "@data/createGitlabData";
+import { Request } from "@view/Request";
+import { GitlabCommits } from "@modules/GitlabCommits";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -35,6 +42,7 @@ export function createApp(): [Connected, Store, Managers] {
 		createGitlabAuthData: connectFactory(createGitlabAuthData),
 		createIntents: connectFactory(createIntents),
 		createBookSelectIntent: connectFactory(createBookSelectIntent),
+		createGitlabData: connectFactory(createGitlabData),
 	};
 
 	const crypter: ICrypter = new Crypter();
@@ -44,10 +52,16 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabConfig: GitlabConfig = new GitlabDev();
 	const gitlabAuthStorage: IGitlabAuthStorage = new GitlabAuthStorage();
 	const gitlabAuthData: GitlabAuthData = connected.createGitlabAuthData();
-	const gitlabAuth: Auth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
+	const gitlabAuth: IGitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
 	const pathManager: IPathManager = new PathManager(locationManager);
 	const gitlabAuthIntent: Intent = connected.createGitlabAuthIntent(location, pathManager, gitlabAuth);
 	const bookSelectIntent: Intent = connected.createBookSelectIntent(location);
+	const gitlabProjectManager = new GitlabProjectManager(gitlabAuthData, gitlabConfig);
+	const gitlabData = connected.createGitlabData();
+	const request = new Request();
+	const gitlabRequest = new GitlabRequest(gitlabAuthData, gitlabProjectManager, gitlabConfig, gitlabData, request);
+	const gitlabCommits = new GitlabCommits(gitlabRequest);
+	const filesystem: Filesystem = new GitlabFilesystem(gitlabRequest, gitlabCommits, queryBuilder);
 
 	const intents: Intents = connected.createIntents([
 		gitlabAuthIntent,
@@ -63,6 +77,7 @@ export function createApp(): [Connected, Store, Managers] {
 		{
 			crypter,
 			auth: gitlabAuth,
+			filesystem,
 		}
 	]
 }

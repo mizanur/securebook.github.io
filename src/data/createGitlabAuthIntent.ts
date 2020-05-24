@@ -1,8 +1,8 @@
 import { Location } from "@interfaces/Location";
-import { Auth } from "@interfaces/Auth";
+import { GitlabAuth } from "@interfaces/GitlabAuth";
 import { PathManager } from "@interfaces/PathManager";
 
-export function createGitlabAuthIntent(location: Location, pathManager: PathManager, auth: Auth) {
+export function createGitlabAuthIntent(location: Location, pathManager: PathManager, auth: GitlabAuth) {
 	return {
 		isCurrentIntentValid: false,
 

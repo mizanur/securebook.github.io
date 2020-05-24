@@ -3,9 +3,9 @@ import { GitlabConfig } from "@interfaces/GitlabConfig";
 import { QueryBuilder } from "@interfaces/QueryBuilder";
 import { GitlabAuthStorage } from "@interfaces/GitlabAuthStorage";
 import { GitlabAuthData } from "@interfaces/GitlabAuthData";
-import { Auth } from "@interfaces/Auth";
+import { GitlabAuth as IGitlabAuth } from "@interfaces/GitlabAuth";
 
-export class GitlabAuth implements Auth {
+export class GitlabAuth implements IGitlabAuth {
 	private readonly locationManager: LocationManager;
 	private readonly config: GitlabConfig;
 	private readonly queryBuilder: QueryBuilder;

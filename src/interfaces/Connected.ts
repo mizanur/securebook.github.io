@@ -4,6 +4,7 @@ import { createGitlabAuthIntent } from "@data/createGitlabAuthIntent";
 import { createGitlabAuthData } from "@data/createGitlabAuthData";
 import { createIntents } from "@data/createIntents";
 import { createBookSelectIntent } from "@data/createBookSelectIntent";
+import { createGitlabData } from "@data/createGitlabData";
 
 export interface Connected {
 	createRenderer: typeof createRenderer,
@@ -12,4 +13,5 @@ export interface Connected {
 	createGitlabAuthData: typeof createGitlabAuthData,
 	createIntents: typeof createIntents,
 	createBookSelectIntent: typeof createBookSelectIntent,
+	createGitlabData: typeof createGitlabData,
 }
