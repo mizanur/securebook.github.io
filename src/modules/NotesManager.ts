@@ -63,7 +63,7 @@ export class NotesManager implements INotesManager {
 				notes.loaded = { ...notes.loaded, status: 'loaded', noteList: content };
 			}
 		} catch(e) {
-			notes.loaded = { ...notes.loaded, status: 'unknown' };
+			notes.loaded = { ...notes.loaded, status: 'error' };
 			throw e;
 		}
 
