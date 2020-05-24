@@ -49,7 +49,7 @@ export class GitlabProjectManager implements IGitlabProjectManager {
 				name: 'secure-book-notes',
 				visibility: 'private'
 			})
-		})
+		});
 		if (response.status === 201) {
 			return await response.json();
 		} else {
