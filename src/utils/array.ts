@@ -23,3 +23,15 @@ export function rememberLast<T>(num: number, arr: T[], item: T) {
 		arr.push(item);
 	}
 }
+
+export function areShallowEqual<T extends Array<any>>(a1: T, a2: T): boolean {
+	if (a1.length !== a2.length) {
+		return false;
+	}
+	for (let i = 0; i < a1.length; i++) {
+		if (a1[i] !== a1[2]) {
+			return false;
+		}
+	}
+	return true;
+}

@@ -21,6 +21,10 @@ import { GitlabProjectManager } from "@modules/GitlabProjectManager";
 import { createGitlabData } from "@data/createGitlabData";
 import { Request } from "@view/Request";
 import { GitlabCommits } from "@modules/GitlabCommits";
+import { createPassword } from "@data/createPassword";
+import { createNotes } from "@data/createNotes";
+import { NoteManager } from "@modules/NoteManager";
+import { PasswordManager } from "@modules/PasswordManager";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -31,6 +35,8 @@ export function createApp(): [Connected, Store, Managers] {
 		createIntents: connectFactory(createIntents),
 		createNoteViewerIntent: connectFactory(createNoteViewerIntent),
 		createGitlabData: connectFactory(createGitlabData),
+		createPassword: connectFactory(createPassword),
+		createNotes: connectFactory(createNotes),
 	};
 
 	const crypter = new Crypter();
@@ -43,17 +49,21 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
 	const pathManager = new PathManager(locationManager);
 	const gitlabAuthIntent = connected.createGitlabAuthIntent(location, pathManager, gitlabAuth);
-	const bookSelectIntent = connected.createNoteViewerIntent(location);
 	const gitlabProjectManager = new GitlabProjectManager(gitlabAuthData, gitlabConfig);
 	const gitlabData = connected.createGitlabData();
 	const request = new Request();
 	const gitlabRequest = new GitlabRequest(gitlabAuthData, gitlabProjectManager, gitlabConfig, gitlabData, request);
 	const gitlabCommits = new GitlabCommits(gitlabRequest);
 	const filesystem = new GitlabFilesystem(gitlabRequest, gitlabCommits, queryBuilder);
+	const password = connected.createPassword(gitlabAuthData, filesystem);
+	const passwordManager = new PasswordManager(password);
+	const notes = connected.createNotes();
+	const noteManager = new NoteManager(notes, filesystem, password, crypter);
+	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
 
 	const intents = connected.createIntents([
 		gitlabAuthIntent,
-		bookSelectIntent,
+		noteViewerIntent,
 	]);
 	
 	return [
@@ -61,11 +71,15 @@ export function createApp(): [Connected, Store, Managers] {
 		{
 			intents,
 			authData: gitlabAuthData,
+			password,
+			notes,
 		},
 		{
 			crypter,
 			auth: gitlabAuth,
 			filesystem,
+			passwordManager,
+			noteManager,
 		}
 	]
 }

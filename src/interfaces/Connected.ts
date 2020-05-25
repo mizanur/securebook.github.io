@@ -5,6 +5,8 @@ import { createGitlabAuthData } from "@data/createGitlabAuthData";
 import { createIntents } from "@data/createIntents";
 import { createNoteViewerIntent } from "@data/createNoteViewerIntent";
 import { createGitlabData } from "@data/createGitlabData";
+import { createPassword } from "@data/createPassword";
+import { createNotes } from "@data/createNotes";
 
 export interface Connected {
 	createRenderer: typeof createRenderer,
@@ -14,4 +16,6 @@ export interface Connected {
 	createIntents: typeof createIntents,
 	createNoteViewerIntent: typeof createNoteViewerIntent,
 	createGitlabData: typeof createGitlabData,
+	createPassword: typeof createPassword,
+	createNotes: typeof createNotes,
 }

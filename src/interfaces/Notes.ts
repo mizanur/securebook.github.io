@@ -4,7 +4,7 @@ export type NoteFileContent = {
 
 export type NoteFile = {
 	id: string,
-	status: 'not created' | 'created' | 'creating' | 'loading' | 'loaded' | 'error',
+	status: 'not created' | 'created' | 'creating' | 'loading' | 'loaded' | 'updating' | 'deleting' | 'error',
 	content: NoteFileContent,
 };
 
@@ -21,15 +21,44 @@ export type NoteListFileContent = {
 	notes: Note[],
 };
 
+export type CreateNoteChange = {
+	type: 'Create',
+	id: string,
+	noteFileContent: NoteFileContent,
+	note: Note,
+};
+
+export type UpdateNoteChange = {
+	type: 'Update',
+	id: string,
+	noteFileContent: NoteFileContent,
+	note: Note,
+};
+
+export type DeleteNoteChange = {
+	type: 'Delete',
+	id: string,
+};
+
+export type NoteChange = CreateNoteChange | UpdateNoteChange | DeleteNoteChange;
+
 export type Notes = {
 	loaded: {
-		status: 'unknown' | 'created' | 'creating' | 'loading' | 'loaded' | 'error',
+		status: 'unknown' | 'created' | 'creating' | 'loading' | 'loaded' | 'creating note' | 'updating note' | 'deleting note' | 'error',
 		noteList: NoteListFileContent,
 		noteFiles: { [k: string]: NoteFile },
-	}
-
+	},
+	
 	working: {
 		noteList: NoteListFileContent,
-		noteFiles: { [k: string]: NoteFile },
-	}
+		noteFileContents: { [k: string]: NoteFileContent },
+	},
+
+	selectedId: string | null,
+	
+	selected: null | {
+		status: NoteFile['status'],
+		noteFileContent: NoteFileContent,
+		note: Note,
+	},
 };
