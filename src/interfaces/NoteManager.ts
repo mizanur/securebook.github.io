@@ -7,7 +7,7 @@ export interface NoteManager {
 	updateWorkingNoteContent(id: string, content: NoteFileContent): UpdateNoteChange;
 	updateWorkingNoteTags(id: string, tags: string[]): UpdateNoteChange;
 	deleteWorkingNote(id: string): DeleteNoteChange;
-	selectNote(id: string): void;
+	selectNote(id: string | null): void;
 	createNoteAndSelect(): void;
 	updateSelectedNoteContent(content: NoteFileContent): void;
 	updateSelectedNoteTags(tags: string[]): void;

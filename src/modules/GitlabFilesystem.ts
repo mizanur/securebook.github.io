@@ -40,10 +40,15 @@ export class GitlabFilesystem implements IGitlabFilesystem {
 			const queryString = this.queryBuilder.getStringFromQuery(query);
 			const url = 'repository/tree?' + queryString;
 			const response = await this.request.fetch(url);
-			if (response.status !== 200) {
+			if (response.status === 404) {
+				result = [];
+			}
+			else if (response.status !== 200) {
 				throw new ResponseError(url, response.status, response.statusText);
 			}
-			result = await response.json();
+			else {
+				result = await response.json();
+			}
 			folderContent.push(...result);
 			page++;
 		}

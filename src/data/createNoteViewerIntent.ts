@@ -6,6 +6,8 @@ import { NoteManager } from "@modules/NoteManager";
 
 export function createNoteViewerIntent(location: Location, auth: AuthData, password: Password, notes: Notes, noteManager: NoteManager) {
 	return {
+		loadingStarted: false,
+
 		isCurrentIntentValid: false,
 
 		get isCurrentIntent() {
@@ -13,7 +15,8 @@ export function createNoteViewerIntent(location: Location, auth: AuthData, passw
 		},
 
 		loadNotesWhenAvailable() {
-			if (this.isCurrentIntentValid && notes.loaded.status === 'unknown' && auth.data.status === 'Authenticated' && (password.status === 'provided' || password.status === 'verified')) {
+			if (!this.loadingStarted && this.isCurrentIntentValid && notes.loaded.status === 'unknown' && (password.status === 'provided' || password.status === 'verified')) {
+				this.loadingStarted = true;
 				noteManager.loadNotes();
 			}
 		}

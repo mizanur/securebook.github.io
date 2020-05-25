@@ -1,0 +1,45 @@
+$sidebar-width: 350px;
+
+.SecureBook {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #FCFBFB;
+
+	&__Sidebar {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		width: $sidebar-width;
+		overflow: auto;
+	}
+
+	&__Main {
+		position: absolute;
+		top: 0px;
+		left: $sidebar-width;
+		right: 0px;
+		bottom: 0px;
+		border-left: 1px solid #D9D9D9;
+	}
+
+	h1 {
+		font-weight: bold;
+	}
+
+	&__Section {
+		padding: 16px;
+		border-bottom: 1px solid #D9D9D9;
+	}
+
+	&__NoteSelected {
+		background: #eee;
+	}
+
+	&__NoteName {
+		font-weight: bold;
+	}
+}

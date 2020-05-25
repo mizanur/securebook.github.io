@@ -8,7 +8,6 @@ import { getDefaultNoteListContent, getDefaultNoteContent } from "@utils/notes";
 import { getTimeInMS } from "@utils/time";
 import { getUUID } from "@utils/uuid";
 import { deepCopy, deepEqual } from "@utils/deep";
-import { all } from "@utils/promise";
 
 const maxNameCharacters = 50;
 const noteListFileName = 'noteList';
@@ -101,13 +100,16 @@ export class NoteManager implements INoteManager {
 	async loadNote(id: string) {
 		const { notes } = this;
 		const { noteFiles } = notes.loaded;
+		const { noteFileContents } = notes.working;
 		try {
 			noteFiles[id].status === 'loading';
 			notes.loaded = { ...notes.loaded, noteFiles };
 			const noteFileContent: NoteFileContent = JSON.parse(await this.crypter.decrypt(await this.filesystem.getFileContent(id), this.password.hash));
-			noteFiles[id].status === 'loaded';
-			noteFiles[id].content === noteFileContent;
+			noteFiles[id].status = 'loaded';
+			noteFiles[id].content = noteFileContent;
+			noteFileContents[id] = noteFileContent;
 			notes.loaded = { ...notes.loaded, noteFiles };
+			notes.working = { ...notes.working, noteFileContents };
 		}
 		catch(e) {
 			noteFiles[id].status === 'error';
@@ -119,17 +121,18 @@ export class NoteManager implements INoteManager {
 		const { notes } = this;
 		try {
 			if (noteChange.type === 'Create') {
-				notes.loaded.noteFiles[noteChange.id].status === 'creating';
+				notes.loaded.noteFiles[noteChange.id] = {
+					status: 'creating',
+					id: noteChange.id,
+					content: noteChange.noteFileContent,
+				};
 				notes.loaded = { ...notes.loaded, status: 'creating note' };
-				const copy = deepCopy(notes.loaded);
-				copy.noteList.notes.push(noteChange.note);
-				copy.noteFiles[noteChange.id].content = noteChange.noteFileContent;
-				await all(
-					this.filesystem.createFile(noteChange.id, await this.crypter.encrypt(JSON.stringify(noteChange.noteFileContent), this.password.hash)),
-					this.filesystem.updateFile(noteListFileName, await this.crypter.encrypt(JSON.stringify(copy.noteList), this.password.hash))
-				);
+				const copyNoteList = deepCopy(notes.loaded.noteList);
+				copyNoteList.notes.push(noteChange.note);
+				await this.filesystem.createFile(noteChange.id, await this.crypter.encrypt(JSON.stringify(noteChange.noteFileContent), this.password.hash));
+				await this.filesystem.updateFile(noteListFileName, await this.crypter.encrypt(JSON.stringify(copyNoteList), this.password.hash));
 				notes.loaded.noteFiles[noteChange.id].status === 'loaded';
-				notes.loaded = { ...notes.loaded, status: 'loaded', noteList: copy.noteList, noteFiles: copy.noteFiles };
+				notes.loaded = { ...notes.loaded, status: 'loaded', noteList: copyNoteList };
 			}
 			else if (noteChange.type === 'Update') {
 				notes.loaded.noteFiles[noteChange.id].status === 'updating';
@@ -137,13 +140,11 @@ export class NoteManager implements INoteManager {
 				const copy = deepCopy(notes.loaded);
 				const index = copy.noteList.notes.findIndex(note => note.id === noteChange.id);
 				if (index >= 0) {
-					copy.noteList[index] = noteChange.note;
+					copy.noteList.notes[index] = noteChange.note;
 				}
 				copy.noteFiles[noteChange.id].content = noteChange.noteFileContent;
-				await all(
-					this.filesystem.updateFile(noteChange.id, await this.crypter.encrypt(JSON.stringify(noteChange.noteFileContent), this.password.hash)),
-					this.filesystem.updateFile(noteListFileName, await this.crypter.encrypt(JSON.stringify(copy.noteList), this.password.hash))
-				);
+				await this.filesystem.updateFile(noteChange.id, await this.crypter.encrypt(JSON.stringify(noteChange.noteFileContent), this.password.hash));
+				await this.filesystem.updateFile(noteListFileName, await this.crypter.encrypt(JSON.stringify(copy.noteList), this.password.hash));
 				notes.loaded.noteFiles[noteChange.id].status === 'loaded';
 				notes.loaded = { ...notes.loaded, status: 'loaded', noteList: copy.noteList, noteFiles: copy.noteFiles };
 			}
@@ -156,10 +157,8 @@ export class NoteManager implements INoteManager {
 					copy.noteList.notes.splice(index, 1);
 				}
 				delete copy.noteFiles[noteChange.id];
-				await all(
-					this.filesystem.deleteFile(noteChange.id),
-					this.filesystem.updateFile(noteListFileName, await this.crypter.encrypt(JSON.stringify(copy.noteList), this.password.hash))
-				);
+				await this.filesystem.deleteFile(noteChange.id);
+				await this.filesystem.updateFile(noteListFileName, await this.crypter.encrypt(JSON.stringify(copy.noteList), this.password.hash));
 				notes.loaded = { ...notes.loaded, status: 'loaded', noteList: copy.noteList, noteFiles: copy.noteFiles };
 			}
 		}
@@ -169,7 +168,7 @@ export class NoteManager implements INoteManager {
 		}
 	}
 
-	getChanges(): NoteChange[] {
+	private getChanges(): NoteChange[] {
 		const { notes } = this;
 		const noteChanges: NoteChange[] = [];
 
@@ -293,10 +292,10 @@ export class NoteManager implements INoteManager {
 		};
 	}
 
-	selectNote(id: string): void {
+	selectNote(id: string | null): void {
 		this.notes.selectedId = id;
 		
-		if (this.notes.selected && this.notes.selected.status === 'created') {
+		if (id && this.notes.selected && this.notes.selected.status === 'created') {
 			this.loadNote(id);
 		}
 	}
