@@ -6,12 +6,14 @@ import { useState, useContext } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import { ManagersContext } from '@view/ManagersContext';
 import { filterNotesByTags } from '@utils/tags';
+import { getValues } from '@utils/object';
 
 function SecureBook() {
 	const { password, notes } = useContext(StoreContext);
 	const { passwordManager, noteManager } = useContext(ManagersContext);
 	const [tagSearch, setTagSearch] = useState('');
 	const trimmedTagSearch = tagSearch.trim();
+	const list = getValues(notes.list);
 	return <div className="SecureBook">
 		<aside className="SecureBook__Sidebar">
 			<article className="SecureBook__Section">
@@ -23,12 +25,12 @@ function SecureBook() {
 				<h1>Tag search</h1>
 				<Input type="text" value={tagSearch} onInput={e => setTagSearch(e.currentTarget.value)} />
 			</article>
-			<div className="SecureBook__Section">Note status: { notes.loaded.status }</div>
+			<div className="SecureBook__Section">Note status: { notes.status }</div>
 			<div className="SecureBook__Section"><button onClick={() => noteManager.createNoteAndSelect()}>Add note</button></div>
 			{
 				(trimmedTagSearch
-					? filterNotesByTags(notes.working.noteList.notes, trimmedTagSearch)
-					: notes.working.noteList.notes)
+					? filterNotesByTags(list, trimmedTagSearch)
+					: list)
 				.map(note => (
 					<article className={`SecureBook__Section ${notes.selectedId === note.id ? `SecureBook__NoteSelected` : ``}`}
 						onClick={() => noteManager.selectNote(notes.selectedId !== note.id ? note.id : null)}
@@ -48,14 +50,14 @@ function SecureBook() {
 				notes.selected
 					? <div>
 						<button onClick={() => noteManager.saveSelectedNote()}>Save note</button>
-						<div>Status: {notes.selected.status}</div>
+						<div>Status: {notes.selected.content.status}</div>
 						<div>
-							Tags: <Input value={notes.selected.note.tags.join(' ')}
+							Tags: <Input value={notes.selected.tags.join(' ')}
 								onInput={e => noteManager.updateSelectedNoteTags(e.currentTarget.value.split(/\s+/))}
 							/>
 						</div>
 						<div>
-							<Input value={notes.selected.noteFileContent.text}
+							<Input value={notes.selected.content.value?.text || ''}
 								onInput={e => noteManager.updateSelectedNoteContent({ text: e.currentTarget.value })}
 							/>
 						</div>

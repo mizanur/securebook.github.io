@@ -22,9 +22,13 @@ import { createGitlabData } from "@data/createGitlabData";
 import { Request } from "@view/Request";
 import { GitlabCommits } from "@modules/GitlabCommits";
 import { createPassword } from "@data/createPassword";
-import { createNotes } from "@data/createNotes";
+import { createNotes, getDefaultNote } from "@data/createNotes";
 import { NoteManager } from "@modules/NoteManager";
 import { PasswordManager } from "@modules/PasswordManager";
+import { createEntityData } from "@data/createEntityData";
+import { NoteContent, Note } from "@interfaces/Notes";
+import { EntityManager } from "@modules/EntityManager";
+import { ConnectEntityTransform } from "@modules/ConnectEntityTransform";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -36,6 +40,8 @@ export function createApp(): [Connected, Store, Managers] {
 		createNoteViewerIntent: connectFactory(createNoteViewerIntent),
 		createGitlabData: connectFactory(createGitlabData),
 		createPassword: connectFactory(createPassword),
+		// @ts-ignore: Not sure how to deal with generics in the following case
+		createEntityData: connectFactory(createEntityData),
 		createNotes: connectFactory(createNotes),
 	};
 
@@ -57,8 +63,11 @@ export function createApp(): [Connected, Store, Managers] {
 	const filesystem = new GitlabFilesystem(gitlabRequest, gitlabCommits, queryBuilder);
 	const password = connected.createPassword(gitlabAuthData, filesystem);
 	const passwordManager = new PasswordManager(password);
-	const notes = connected.createNotes();
-	const noteManager = new NoteManager(notes, filesystem, password, crypter);
+	const notesEntityData = connected.createEntityData<NoteContent, Note>();
+	const notes = connected.createNotes(notesEntityData);
+	const connectEntityTransform = new ConnectEntityTransform<NoteContent,Note>();
+	const noteEntityManager = new EntityManager<NoteContent,Note>('notes', notesEntityData, filesystem, password, crypter, [connectEntityTransform], getDefaultNote);
+	const noteManager = new NoteManager(notes, noteEntityManager);
 	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
 
 	const intents = connected.createIntents([

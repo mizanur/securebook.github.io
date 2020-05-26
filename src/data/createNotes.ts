@@ -1,36 +1,34 @@
-import { Notes } from "@interfaces/Notes";
-import { getDefaultNoteListContent } from "@utils/notes";
+import { Notes, NoteContent, Note } from "@interfaces/Notes";
+import { EntityData, UserEntity } from "@interfaces/EntityData";
+import { getTimeInMS } from "@utils/time";
 
-export function createNotes(): Notes {
+export function getDefaultNote(id: string): UserEntity<NoteContent, Note> {
 	return {
+		id,
+		name: '',
+		tags: [],
+		createdTime: getTimeInMS(),
+		lastUpdatedTime: getTimeInMS(),
+		content: {
+			value: { text: '' }
+		}
+	}
+}
+
+export function createNotes(notesEntityData: EntityData<NoteContent, Note>): Notes {
+	return {
+		get status() {
+			return notesEntityData.status;
+		},
+
+		get list() {
+			return notesEntityData.workingList;
+		},
+
 		selectedId: null,
 
-		loaded: {
-			status: 'unknown',
-			noteList: getDefaultNoteListContent(),
-			noteFiles: {},
-		},
-
-		working: {
-			noteList: getDefaultNoteListContent(),
-			noteFileContents: {},
-		},
-
 		get selected() {
-			if (!this.selectedId) {
-				return null;
-			}
-			const note = this.working.noteList.notes.find(note => note.id === this.selectedId);
-			if (!note) {
-				console.error('This should not happen: trying to select a non-existent note');
-				return null;
-			}
-			const loadedNote = this.loaded.noteFiles[this.selectedId];
-			return {
-				status: loadedNote && loadedNote.status || 'not created',
-				noteFileContent: this.working.noteFileContents[this.selectedId],
-				note,
-			};
-		}
+			return this.selectedId && this.list[this.selectedId] || null;
+		},
 	}
 }

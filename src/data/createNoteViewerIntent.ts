@@ -15,7 +15,7 @@ export function createNoteViewerIntent(location: Location, auth: AuthData, passw
 		},
 
 		loadNotesWhenAvailable() {
-			if (!this.loadingStarted && this.isCurrentIntentValid && notes.loaded.status === 'unknown' && (password.status === 'provided' || password.status === 'verified')) {
+			if (!this.loadingStarted && this.isCurrentIntentValid && notes.status === 'not loaded' && (password.status === 'provided' || password.status === 'verified')) {
 				this.loadingStarted = true;
 				noteManager.loadNotes();
 			}
