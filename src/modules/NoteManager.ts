@@ -15,14 +15,13 @@ export class NoteManager implements INoteManager {
 
 	async loadNotes() {
 		await this.noteEntityManager.loadList();
-		this.noteEntityManager.loadWorkingList();
 	}
 
-	selectNote(id: string | null) {
+	async selectNote(id: string | null) {
 		this.notes.selectedId = id;
 		
 		if (id && this.notes.selected && this.notes.selected.content.status === 'not loaded: created') {
-			this.noteEntityManager.loadItem(id);
+			await this.noteEntityManager.loadItem(id);
 		}
 	}
 
@@ -58,18 +57,16 @@ export class NoteManager implements INoteManager {
 		if (id === this.notes.selectedId) {
 			this.notes.selectedId = null;
 		}
-		const note = this.notes.list[id];
-		this.noteEntityManager.deleteWorkingItem(note);
-		this.noteEntityManager.deleteItem(note);
+		this.noteEntityManager.deleteItem(id);
 	}
 
 	saveSelectedNote(): void {
 		if (this.notes.selectedId && this.notes.selected) {
-			if (this.notes.selected.content.status === 'loaded: not created') {
-				this.noteEntityManager.createItem(this.notes.selected);
+			if (this.notes.selected.content.status === 'loaded: not created' || this.notes.selected.content.status === 'not loaded: not created') {
+				this.noteEntityManager.createItem(this.notes.selectedId);
 			}
 			else if (this.notes.selected.content.status === 'loaded') {
-				this.noteEntityManager.updateItem(this.notes.selected);
+				this.noteEntityManager.updateItem(this.notes.selectedId);
 			}
 			else {
 				console.error('This should not happen: trying to save non-loaded note');

@@ -16,6 +16,6 @@ export type UserEntity<C, T extends BaseEntity<C>> = Omit<T, 'content'> & {
 
 export interface EntityData<C, T extends BaseEntity<C>> {
 	status: 'not loaded' | 'loading' | 'loaded' | 'loading entity' | 'creating entity' | 'updating entity' | 'deleting entity' | 'error',
-	loadedlist: { [k: string]: T },
+	loadedList: { [k: string]: T },
 	workingList: { [k: string]: T },
 }

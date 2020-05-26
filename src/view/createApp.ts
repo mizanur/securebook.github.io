@@ -28,7 +28,6 @@ import { PasswordManager } from "@modules/PasswordManager";
 import { createEntityData } from "@data/createEntityData";
 import { NoteContent, Note } from "@interfaces/Notes";
 import { EntityManager } from "@modules/EntityManager";
-import { ConnectEntityTransform } from "@modules/ConnectEntityTransform";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -65,8 +64,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const passwordManager = new PasswordManager(password);
 	const notesEntityData = connected.createEntityData<NoteContent, Note>();
 	const notes = connected.createNotes(notesEntityData);
-	const connectEntityTransform = new ConnectEntityTransform<NoteContent,Note>();
-	const noteEntityManager = new EntityManager<NoteContent,Note>('notes', notesEntityData, filesystem, password, crypter, [connectEntityTransform], getDefaultNote);
+	const noteEntityManager = new EntityManager<NoteContent,Note>('notes', notesEntityData, filesystem, password, crypter, getDefaultNote);
 	const noteManager = new NoteManager(notes, noteEntityManager);
 	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
 
