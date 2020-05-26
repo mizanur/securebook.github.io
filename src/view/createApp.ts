@@ -7,7 +7,7 @@ import { Crypter } from "@view/Crypter";
 import { createLocation } from "@view/createLocation";
 import { QueryBuilder } from "@modules/QueryBuilder";
 import { createIntents } from "@data/createIntents";
-import { createGitlabAuthIntent } from "@data/createGitlabAuthIntent";
+import { createGitlabNotifyAuth } from "@data/createGitlabNotifyAuth";
 import { GitlabAuth } from "@modules/GitlabAuth";
 import { LocationManager } from "@view/LocationManager";
 import { GitlabDev } from "@configs/GitlabDev";
@@ -33,7 +33,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
 		createRenderer: connectFactory(createRenderer),
 		createLocation: connectFactory(createLocation),
-		createGitlabAuthIntent: connectFactory(createGitlabAuthIntent),
+		createGitlabNotifyAuth: connectFactory(createGitlabNotifyAuth),
 		createGitlabAuthData: connectFactory(createGitlabAuthData),
 		createIntents: connectFactory(createIntents),
 		createNoteViewerIntent: connectFactory(createNoteViewerIntent),
@@ -53,7 +53,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabAuthData = connected.createGitlabAuthData();
 	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
 	const pathManager = new PathManager(locationManager);
-	const gitlabAuthIntent = connected.createGitlabAuthIntent(location, pathManager, gitlabAuth);
+	connected.createGitlabNotifyAuth(location, pathManager, gitlabAuth);
 	const gitlabProjectManager = new GitlabProjectManager(gitlabAuthData, gitlabConfig);
 	const gitlabData = connected.createGitlabData();
 	const request = new Request();
@@ -69,7 +69,6 @@ export function createApp(): [Connected, Store, Managers] {
 	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
 
 	const intents = connected.createIntents([
-		gitlabAuthIntent,
 		noteViewerIntent,
 	]);
 	

@@ -2,30 +2,22 @@ import { Location } from "@interfaces/Location";
 import { GitlabAuth } from "@interfaces/GitlabAuth";
 import { PathManager } from "@interfaces/PathManager";
 
-export function createGitlabAuthIntent(location: Location, pathManager: PathManager, auth: GitlabAuth) {
+export function createGitlabNotifyAuth(location: Location, pathManager: PathManager, auth: GitlabAuth) {
 	return {
-		isCurrentIntentValid: false,
-
-		get isCurrentIntent() {
+		notifyAuthWhenLoggedIn() {
 			const query = location.query;
-			return (
-				query.token_response === 'gitlab_oauth'
-			);
-		},
-	
-		notifyAuth() {
-			if (this.isCurrentIntentValid) {
-				const query = location.query;
+			if (query.token_response === 'gitlab_oauth') {
 				if (query.access_token) {
 					auth.onLoginSucceeded(query.access_token);
-				} else {
+				}
+				else {
 					auth.onLoginFailed(
 						query.error || '',
 						query.error_description || ''
 					);
 				}
-				pathManager.onAuthCompleted();
 			}
+			pathManager.onAuthCompleted();
 		}
 	}
 }

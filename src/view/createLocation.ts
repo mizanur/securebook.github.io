@@ -3,7 +3,7 @@ import { QueryBuilder } from "@interfaces/QueryBuilder";
 
 export function createLocation(queryBuilder: QueryBuilder): Location {
 	return {
-		location: window.location,
+		location: { ...window.location },
 	
 		get pathname() {
 			return this.location.pathname;

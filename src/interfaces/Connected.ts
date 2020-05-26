@@ -1,6 +1,6 @@
 import { createRenderer } from "@data/createRenderer";
 import { createLocation } from "@view/createLocation";
-import { createGitlabAuthIntent } from "@data/createGitlabAuthIntent";
+import { createGitlabNotifyAuth } from "@data/createGitlabNotifyAuth";
 import { createGitlabAuthData } from "@data/createGitlabAuthData";
 import { createIntents } from "@data/createIntents";
 import { createNoteViewerIntent } from "@data/createNoteViewerIntent";
@@ -12,7 +12,7 @@ import { createEntityData } from "@data/createEntityData";
 export interface Connected {
 	createRenderer: typeof createRenderer,
 	createLocation: typeof createLocation,
-	createGitlabAuthIntent: typeof createGitlabAuthIntent,
+	createGitlabNotifyAuth: typeof createGitlabNotifyAuth,
 	createGitlabAuthData: typeof createGitlabAuthData,
 	createIntents: typeof createIntents,
 	createNoteViewerIntent: typeof createNoteViewerIntent,
