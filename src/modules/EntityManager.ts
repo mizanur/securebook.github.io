@@ -35,7 +35,14 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 		return `${this.entityName}/${id}`;
 	}
 
-	async performAfterCurrentRequest<T>(fun: () => Promise<T>): Promise<T> {
+	private performOnLists(fun: (val: EntityData<C,T>['loadedList'] | EntityData<C,T>['workingList']) => any) {
+		fun(this.entityData.loadedList);
+		this.entityData.loadedList = { ...this.entityData.loadedList };
+		fun(this.entityData.workingList);
+		this.entityData.workingList = { ...this.entityData.workingList };
+	}
+
+	private async performAfterCurrentRequest<T>(fun: () => Promise<T>): Promise<T> {
 		await this.currentRequest;
 		const funPromise = fun();
 		this.currentRequest = new Promise(resolve => {
@@ -103,13 +110,6 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 			this.entityData.loadedList = loadedList;
 			this.entityData.workingList = deepCopy(loadedList);
 		});
-	}
-
-	private performOnLists(fun: (val: EntityData<C,T>['loadedList'] | EntityData<C,T>['workingList']) => any) {
-		fun(this.entityData.loadedList);
-		this.entityData.loadedList = { ...this.entityData.loadedList };
-		fun(this.entityData.workingList);
-		this.entityData.workingList = { ...this.entityData.workingList };
 	}
 
 	async loadItem(id: string) {
