@@ -10,7 +10,7 @@ export function getDefaultNote(id: string): UserEntity<NoteContent, Note> {
 		createdTime: getTimeInMS(),
 		lastUpdatedTime: getTimeInMS(),
 		content: {
-			value: { text: '' }
+			value: { html: '' }
 		}
 	}
 }

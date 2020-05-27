@@ -28,6 +28,7 @@ import { PasswordManager } from "@modules/PasswordManager";
 import { createEntityData } from "@data/createEntityData";
 import { NoteContent, Note } from "@interfaces/Notes";
 import { EntityManager } from "@modules/EntityManager";
+import { createEditor } from "@editor/createEditor";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -67,6 +68,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const noteEntityManager = new EntityManager<NoteContent,Note>('notes', notesEntityData, filesystem, password, crypter, getDefaultNote);
 	const noteManager = new NoteManager(notes, noteEntityManager);
 	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
+	const editor = createEditor();
 
 	const intents = connected.createIntents([
 		noteViewerIntent,
@@ -79,6 +81,7 @@ export function createApp(): [Connected, Store, Managers] {
 			authData: gitlabAuthData,
 			password,
 			notes,
+			editor,
 		},
 		{
 			crypter,

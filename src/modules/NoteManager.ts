@@ -30,13 +30,13 @@ export class NoteManager implements INoteManager {
 		this.notes.selectedId = id;
 	}
 
-	updateSelectedNoteContent(contentValue: NoteContent): void {
+	updateSelectedNoteContent(textContent: string, contentValue: NoteContent): void {
 		if (!this.notes.selectedId || !this.notes.selected) {
 			console.error('This should not happen: trying to update non-selected note content')
 		}
 		else {
 			const note = this.notes.selected;
-			note.name = contentValue.text.substring(0, maxNameCharacters);
+			note.name = textContent.substring(0, maxNameCharacters);
 			note.content.value = contentValue;
 			this.noteEntityManager.updateWorkingItem(note);
 		}

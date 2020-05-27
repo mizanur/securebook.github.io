@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { connect } from '@view/connect';
 import "@styles/SecureBook.scss";
 import Input from '@components/Input';
@@ -7,6 +7,7 @@ import { StoreContext } from '@view/StoreContext';
 import { ManagersContext } from '@view/ManagersContext';
 import { filterNotesByTags } from '@utils/tags';
 import { getValues } from '@utils/object';
+import EditorPresenter from '@components/EditorPresenter';
 
 function SecureBook() {
 	const { password, notes } = useContext(StoreContext);
@@ -14,6 +15,9 @@ function SecureBook() {
 	const [tagSearch, setTagSearch] = useState('');
 	const trimmedTagSearch = tagSearch.trim();
 	const list = getValues(notes.list);
+	const isContentLoaded = notes.selected
+		&& (notes.selected.content.status === 'loaded'
+			|| notes.selected.content.status === 'loaded: not created');
 	return <div className="SecureBook">
 		<aside className="SecureBook__Sidebar">
 			<article className="SecureBook__Section">
@@ -48,20 +52,27 @@ function SecureBook() {
 		<main className="SecureBook__Main">
 			{
 				notes.selected
-					? <div>
-						<button onClick={() => noteManager.saveSelectedNote()}>Save note</button>
-						<div>Status: {notes.selected.content.status}</div>
-						<div>
-							Tags: <Input value={notes.selected.tags.join(' ')}
-								onInput={e => noteManager.updateSelectedNoteTags(e.currentTarget.value.split(/\s+/))}
+					? <Fragment>
+						<div className="SecureBook__Editor">
+							<EditorPresenter
+								disabled={!isContentLoaded}
+								contentId={isContentLoaded && notes.selected.id}
+								content={notes.selected.content.value || { html: '' }}
+								onContentChange={(text, content) => {
+									noteManager.updateSelectedNoteContent(text, content);
+								}}
 							/>
 						</div>
-						<div>
-							<Input value={notes.selected.content.value?.text || ''}
-								onInput={e => noteManager.updateSelectedNoteContent({ text: e.currentTarget.value })}
-							/>
+						<div className="SecureBook__BottomBar">
+							<button onClick={() => noteManager.saveSelectedNote()}>Save note</button>
+							<div>Status: {notes.selected.content.status}</div>
+							<div>
+								Tags: <Input value={notes.selected.tags.join(' ')}
+									onInput={e => noteManager.updateSelectedNoteTags(e.currentTarget.value.split(/\s+/))}
+								/>
+							</div>
 						</div>
-					</div>
+					</Fragment>
 					: <div>Not selected</div>
 			}
 		</main>

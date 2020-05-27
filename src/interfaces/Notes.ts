@@ -1,7 +1,7 @@
 import { BaseEntity, EntityData } from "@interfaces/EntityData";
 
 export type NoteContent = {
-	text: string,
+	html: string,
 };
 
 export type Note = BaseEntity<NoteContent> & {

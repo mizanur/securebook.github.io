@@ -3,9 +3,10 @@ import { useUnmount } from "@view/useUnmount";
 import { ConnectedContext } from "@view/ConnectedContext";
 import { useOnce } from "@view/useOnce";
 
-export function connect(Component) {
+export function connect<T>(Component: T): T {
 	return function(...args) {
 		let result;
+		const C = Component as any;
 		const { createRenderer } = useContext(ConnectedContext);
 		const [,setState] = useState({});
 		const renderer = useOnce(() => {
@@ -14,7 +15,7 @@ export function connect(Component) {
 		renderer.calculation = {
 			isInitialRender: true,
 			perform() {
-				result = Component(...args);
+				result = C(...args);
 			},
 			onUpdate() {
 				setState({});
@@ -24,5 +25,5 @@ export function connect(Component) {
 			renderer.calculation = null;
 		});
 		return result;
-	}
+	} as unknown as T;
 }
