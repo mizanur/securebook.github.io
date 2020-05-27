@@ -1,5 +1,5 @@
 import { useRef } from 'preact/hooks';
-import { useEffectOnce } from './useEffectOnce';
+import { useEffectOnce } from '@view/useEffectOnce';
 
 export const useUnmount = (fn: () => any): void => {
 	const fnRef = useRef(fn);

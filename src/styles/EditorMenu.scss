@@ -1,0 +1,10 @@
+$editor-menu-height: 50px;
+
+.EditorMenu {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: $editor-menu-height;
+	border-bottom: 1px solid #D9D9D9;
+}

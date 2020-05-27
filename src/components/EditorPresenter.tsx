@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { EditorView } from "prosemirror-view";
 import "@styles/EditorPresenter.scss";
 import { useRef, useContext, useEffect } from "preact/hooks";
@@ -7,6 +7,7 @@ import { NoteContent } from '@interfaces/Notes';
 import { connect } from '@view/connect';
 import { StoreContext } from '@view/StoreContext';
 import { EditorState, Transaction } from 'prosemirror-state';
+import EditorMenu from '@components/EditorMenu';
 
 function EditorPresenter({ contentId, content, onContentChange, disabled = false }: { contentId: any, content: NoteContent, disabled?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }) {
 	const { editor } = useContext(StoreContext);
@@ -42,7 +43,10 @@ function EditorPresenter({ contentId, content, onContentChange, disabled = false
 		setStateFromProps();
 		view.current.updateState(state.current);
 	}, [contentId]);
-	return <div className={`EditorPresenter ${disabled ? 'EditorPresenter--disabled': ``}`} ref={element}></div>;
+	return <Fragment>
+		<EditorMenu />
+		<div className={`EditorPresenter ${disabled ? 'EditorPresenter--disabled': ``}`} ref={element}></div>
+	</Fragment>;
 }
 
 export default connect(EditorPresenter);
