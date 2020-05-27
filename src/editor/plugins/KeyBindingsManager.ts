@@ -6,27 +6,27 @@ import { keymap } from "prosemirror-keymap";
 import { baseKeymap } from "prosemirror-commands";
 
 export class KeyBindingsManager implements IKeyBindingsManager, EditorPlugins {
-    private readonly keyBindings: KeyBindings[];
+	private readonly keyBindings: KeyBindings[];
 
-    constructor(keyBindings: KeyBindings[]) {
-        this.keyBindings = keyBindings;
-    }
+	constructor(keyBindings: KeyBindings[]) {
+		this.keyBindings = keyBindings;
+	}
 
-    addEditorPlugins(addEditorPlugin: AddEditorPlugin, schema: Schema) {
-        addEditorPlugin(keymap(this.getKeyMap(schema)));
-        addEditorPlugin(keymap(baseKeymap));
-    }
+	addEditorPlugins(addEditorPlugin: AddEditorPlugin, schema: Schema) {
+		addEditorPlugin(keymap(this.getKeyMap(schema)));
+		addEditorPlugin(keymap(baseKeymap));
+	}
 
-    getKeyMap(schema: Schema) {
-        const isMac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false;
-        const keys: KeyMap = {};
-        const addKeyBinding: AddKeyBinding = (key, cmd) => {
-            keys[key] = cmd;
-        };
-        for (let i = 0; i < this.keyBindings.length; i++) {
-            const keyBindings = this.keyBindings[i];
-            keyBindings.addKeyBindings(addKeyBinding, schema, isMac);
-        }
-        return keys;
-    }
+	getKeyMap(schema: Schema) {
+		const isMac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false;
+		const keys: KeyMap = {};
+		const addKeyBinding: AddKeyBinding = (key, cmd) => {
+			keys[key] = cmd;
+		};
+		for (let i = 0; i < this.keyBindings.length; i++) {
+			const keyBindings = this.keyBindings[i];
+			keyBindings.addKeyBindings(addKeyBinding, schema, isMac);
+		}
+		return keys;
+	}
 }
