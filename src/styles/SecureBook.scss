@@ -15,7 +15,6 @@
 		bottom: 0px;
 		width: $sidebar-width;
 		overflow: auto;
-		font-family: 'Montserrat', sans-serif;
 		letter-spacing: 0.3px;
 		line-height: 1.5;
 	}
@@ -77,5 +76,9 @@
 
 	em {
 		font-style: italic;
+	}
+
+	&__Note {
+		cursor: pointer;
 	}
 }

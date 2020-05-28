@@ -1,0 +1,39 @@
+@import "../styles-mixins/variables.scss";
+
+.DropDown {
+	position: relative;
+	max-width: 250px;
+	border: 1px solid #D9D9D9;
+	-webkit-box-shadow: 3px 3px 9px -5px rgba(0,0,0,0.75);
+	-moz-box-shadow: 3px 3px 9px -5px rgba(0,0,0,0.75);
+	box-shadow: 3px 3px 9px -5px rgba(0,0,0,0.75);
+	background: #F2F2F2;
+
+	&__Item {
+		padding: $default-padding / 2;
+		position: relative;
+		width: 250px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		border-bottom: 1px solid #D9D9D9;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		&--with-click {
+			cursor: pointer;
+		}
+	}
+
+	&__Icon {
+		display: inline-block;
+		text-align: center;
+		margin-right: $default-padding / 2;
+	}
+
+	&__Label {
+		vertical-align: middle;
+	}
+}

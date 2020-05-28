@@ -29,7 +29,6 @@ export function ContextMenu(
 	useEffectOnce(() => {
 		const closeOnClickElsewhere = (e: Event) => {
 			if (!nodeIsOrHasAncestor(e.target as Node, element.current)) {
-				console.log(e.type);
 				onClose();
 			}
 		};

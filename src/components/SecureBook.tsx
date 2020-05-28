@@ -13,6 +13,7 @@ import { getFormattedDateTime } from '@utils/time';
 import ContextMenu from '@components/ContextMenu';
 import { useContextMenu } from '@view/useContextMenu';
 import { Portal } from '@components/Portals';
+import { DropDown, DropDownItem } from '@components/DropDown';
 
 function SecureBook() {
 	const { password, notes } = useContext(StoreContext);
@@ -46,7 +47,7 @@ function SecureBook() {
 				.map(note => (
 					<article
 						key={note.id}
-						className={`SecureBook__Section ${notes.selectedId === note.id ? `SecureBook__NoteSelected` : ``}`}
+						className={`SecureBook__Section SecureBook__Note ${notes.selectedId === note.id ? `SecureBook__NoteSelected` : ``}`}
 						onClick={() => noteManager.selectNote(notes.selectedId !== note.id ? note.id : null)}
 						{...getTriggerProps(note.id)}
 					>
@@ -59,12 +60,13 @@ function SecureBook() {
 							"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
 							"Created: " + getFormattedDateTime(note.createdTime, true)}>
 							<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
-						<button onClick={() => noteManager.deleteNote(note.id)}>Delete note</button>
-						{contextMenuId === note.id && <Portal><ContextMenu {...contextMenuProps}>
-							<div style={{ width: '200px', height: '300px', overflowY: 'scroll' }}>
-								<div style={{ background: '#EEE', height: '600px' }}></div>
-							</div>
-						</ContextMenu></Portal>}
+						{contextMenuId === note.id && <Portal>
+							<ContextMenu {...contextMenuProps}>
+								<DropDown>
+									<DropDownItem type="delete" label="Delete note" onClick={() => noteManager.deleteNote(note.id)} />
+								</DropDown>
+							</ContextMenu>
+						</Portal>}
 					</article>
 				))
 			}
