@@ -8,15 +8,18 @@ import { connect } from '@view/connect';
 import { StoreContext } from '@view/StoreContext';
 import { EditorState, Transaction } from 'prosemirror-state';
 import EditorMenu from '@components/EditorMenu';
+import TextLoading from '@components/TextLoading';
 
-function EditorPresenter({ contentId, content, onContentChange, disabled = false }: { contentId: any, content: NoteContent, disabled?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }) {
+function EditorPresenter({ contentId, content, onContentChange, disabled = false, showLoading = false, }: { contentId: any, content: NoteContent, disabled?: boolean, showLoading?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }) {
 	const { editor } = useContext(StoreContext);
 	const element = useRef<HTMLDivElement>(null);
 	const view = useRef<EditorView>(null);
 	const state = useRef<EditorState>(null);
+	const contentRef = useRef<NoteContent>(null);
+	contentRef.current = content;
 	function setStateFromProps() {
 		const contentNode = document.createElement('span');
-		contentNode.innerHTML = content.html;
+		contentNode.innerHTML = contentRef.current.html;
 		state.current = EditorState.create({
 			schema: editor.editorSchema.schema,
 			doc: editor.domParser.parse(contentNode),
@@ -32,7 +35,9 @@ function EditorPresenter({ contentId, content, onContentChange, disabled = false
 				state.current = state.current.apply(transaction);
 				view.current.updateState(state.current);
 				div.appendChild(editor.domSerializer.serializeFragment(state.current.doc.content));
-				onContentChange(element.current.textContent || '', { html: div.innerHTML });
+				if (contentRef.current.html !== div.innerHTML) {
+					onContentChange(element.current.innerText || '', { html: div.innerHTML });
+				}
 			},
 		});
 		return () => {
@@ -43,10 +48,11 @@ function EditorPresenter({ contentId, content, onContentChange, disabled = false
 		setStateFromProps();
 		view.current.updateState(state.current);
 	}, [contentId]);
-	return <Fragment>
+	return <div className={`EditorPresenter ${disabled ? 'EditorPresenter--disabled': ``}`} >
 		<EditorMenu />
-		<div className={`EditorPresenter ${disabled ? 'EditorPresenter--disabled': ``}`} ref={element}></div>
-	</Fragment>;
+		{showLoading && <TextLoading className="EditorPresenter__TextLoading" />}
+		<div className="EditorPresenter__Content" ref={element}></div>
+	</div>;
 }
 
 export default connect(EditorPresenter);

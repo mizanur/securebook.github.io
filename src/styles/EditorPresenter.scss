@@ -1,8 +1,8 @@
-$editor-menu-height: 50px;
+@import "../styles-mixins/variables.scss";
 
 .EditorPresenter {
 	position: absolute;
-	top: $editor-menu-height;
+	top: 0px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
@@ -12,13 +12,31 @@ $editor-menu-height: 50px;
 		pointer-events: none;
 	}
 
-	> [contenteditable] {
+	&__TextLoading {
 		position: absolute;
-		top: 0px;
+		top: $editor-menu-height + $default-padding;
+		left: $default-padding;
+		right: $default-padding;
+	}
+
+	&__Content {
+		position: absolute;
+		top: $editor-menu-height;
 		left: 0px;
 		right: 0px;
 		bottom: 0px;
-		overflow-y: scroll;
+
+		> [contenteditable] {
+			padding: $default-padding;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			overflow-y: scroll;
+			line-height: 1.5;
+			font-size: 18px;
+		}
 	}
 
 	strong {

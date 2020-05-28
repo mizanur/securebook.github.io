@@ -9,6 +9,7 @@ import { configureConnect } from '@view/configureConnect';
 import { Managers } from '@interfaces/Managers';
 import { Store } from '@interfaces/Store';
 import { Connected } from '@interfaces/Connected';
+import { PortalValue, PortalValueContext } from '@view/PortalValueContext';
 
 type AppWithWrappersProps = {
 	connected: Connected,
@@ -18,13 +19,15 @@ type AppWithWrappersProps = {
 
 function AppWithWrappers({ connected, store, managers }: AppWithWrappersProps) {
 	return (
-		<ConnectedContext.Provider value={connected}>
-			<StoreContext.Provider value={store}>
-				<ManagersContext.Provider value={managers}>
-					<App />
-				</ManagersContext.Provider>
-			</StoreContext.Provider>
-		</ConnectedContext.Provider>
+		<PortalValueContext.Provider value={{} as PortalValue}>
+			<ConnectedContext.Provider value={connected}>
+				<StoreContext.Provider value={store}>
+					<ManagersContext.Provider value={managers}>
+						<App />
+					</ManagersContext.Provider>
+				</StoreContext.Provider>
+			</ConnectedContext.Provider>
+		</PortalValueContext.Provider>
 	);
 }
 

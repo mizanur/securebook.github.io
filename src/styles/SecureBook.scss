@@ -1,5 +1,4 @@
-$sidebar-width: 350px;
-$bottom-bar-height: 100px;
+@import "../styles-mixins/variables.scss";
 
 .SecureBook {
 	position: absolute;
@@ -16,6 +15,9 @@ $bottom-bar-height: 100px;
 		bottom: 0px;
 		width: $sidebar-width;
 		overflow: auto;
+		font-family: 'Montserrat', sans-serif;
+		letter-spacing: 0.3px;
+		line-height: 1.5;
 	}
 
 	&__Main {
@@ -37,18 +39,17 @@ $bottom-bar-height: 100px;
 
 	&__BottomBar {
 		position: absolute;
+		padding: $default-padding;
+		border-top: 1px solid #D9D9D9;
 		height: $bottom-bar-height;
 		bottom: 0px;
 		left: 0px;
 		right: 0px;
 	}
 
-	h1 {
-		font-weight: bold;
-	}
-
 	&__Section {
-		padding: 16px;
+		position: relative;
+		padding: $default-padding;
 		border-bottom: 1px solid #D9D9D9;
 	}
 
@@ -57,6 +58,24 @@ $bottom-bar-height: 100px;
 	}
 
 	&__NoteName {
-		font-weight: bold;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		font-weight: 600;
+		overflow: hidden;
+		max-height: 3em;
+		font-size: 18px;
+	}
+
+	&__Tags,
+	&__DateTime {
+		font-size: 14px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	em {
+		font-style: italic;
 	}
 }

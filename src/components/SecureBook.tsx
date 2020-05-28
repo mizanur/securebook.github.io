@@ -8,6 +8,11 @@ import { ManagersContext } from '@view/ManagersContext';
 import { filterNotesByTags } from '@utils/tags';
 import { getValues } from '@utils/object';
 import EditorPresenter from '@components/EditorPresenter';
+import Icon from '@components/Icon';
+import { getFormattedDateTime } from '@utils/time';
+import ContextMenu from '@components/ContextMenu';
+import { useContextMenu } from '@view/useContextMenu';
+import { Portal } from '@components/Portals';
 
 function SecureBook() {
 	const { password, notes } = useContext(StoreContext);
@@ -18,6 +23,9 @@ function SecureBook() {
 	const isContentLoaded = notes.selected
 		&& (notes.selected.content.status === 'loaded'
 			|| notes.selected.content.status === 'loaded: not created');
+	const isContentLoading = notes.selected
+		&& (notes.selected.content.status === 'loading');
+	const { contextMenuId, getTriggerProps, contextMenuProps } = useContextMenu();
 	return <div className="SecureBook">
 		<aside className="SecureBook__Sidebar">
 			<article className="SecureBook__Section">
@@ -36,15 +44,27 @@ function SecureBook() {
 					? filterNotesByTags(list, trimmedTagSearch)
 					: list)
 				.map(note => (
-					<article className={`SecureBook__Section ${notes.selectedId === note.id ? `SecureBook__NoteSelected` : ``}`}
+					<article
+						key={note.id}
+						className={`SecureBook__Section ${notes.selectedId === note.id ? `SecureBook__NoteSelected` : ``}`}
 						onClick={() => noteManager.selectNote(notes.selectedId !== note.id ? note.id : null)}
+						{...getTriggerProps(note.id)}
 					>
-						<h1 className="SecureBook__NoteName">{note.name}</h1>
-						<div>ID: {note.id}</div>
-						<div>Tags: {note.tags.join(' ')}</div>
-						<div>Created time: {note.createdTime}</div>
-						<div>Last updated time: {note.lastUpdatedTime}</div>
+						<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
+						{note.tags.length > 0 &&
+							<div className="SecureBook__Tags" title={note.tags.join(' ')}>
+								<Icon type="local_offer" /> {note.tags.join(' ')}
+							</div>}
+						<div className="SecureBook__DateTime" title={
+							"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
+							"Created: " + getFormattedDateTime(note.createdTime, true)}>
+							<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
 						<button onClick={() => noteManager.deleteNote(note.id)}>Delete note</button>
+						{contextMenuId === note.id && <Portal><ContextMenu {...contextMenuProps}>
+							<div style={{ width: '200px', height: '300px', overflowY: 'scroll' }}>
+								<div style={{ background: '#EEE', height: '600px' }}></div>
+							</div>
+						</ContextMenu></Portal>}
 					</article>
 				))
 			}
@@ -56,7 +76,8 @@ function SecureBook() {
 						<div className="SecureBook__Editor">
 							<EditorPresenter
 								disabled={!isContentLoaded}
-								contentId={isContentLoaded && notes.selected.id}
+								showLoading={!!isContentLoading}
+								contentId={!isContentLoading && notes.selected.id}
 								content={notes.selected.content.value || { html: '' }}
 								onContentChange={(text, content) => {
 									noteManager.updateSelectedNoteContent(text, content);
@@ -68,7 +89,10 @@ function SecureBook() {
 							<div>Status: {notes.selected.content.status}</div>
 							<div>
 								Tags: <Input value={notes.selected.tags.join(' ')}
-									onInput={e => noteManager.updateSelectedNoteTags(e.currentTarget.value.split(/\s+/))}
+									onInput={e => noteManager.updateSelectedNoteTags(
+										e.currentTarget.value.length
+											? e.currentTarget.value.split(/\s+/)
+											: [])}
 								/>
 							</div>
 						</div>

@@ -1,8 +1,9 @@
 import { NoteManager as INoteManager } from "@interfaces/NoteManager";
 import { Notes, Note, NoteContent } from "@interfaces/Notes";
 import { EntityManager } from "@interfaces/EntityManager";
+import { getTimeInMS } from "@utils/time";
 
-const maxNameCharacters = 50;
+const maxNameCharacters = 100;
 
 export class NoteManager implements INoteManager {
 	private readonly notes: Notes;
@@ -35,9 +36,15 @@ export class NoteManager implements INoteManager {
 			console.error('This should not happen: trying to update non-selected note content')
 		}
 		else {
+			let name = textContent.trim().substring(0, maxNameCharacters);
+			const newLineIndex = name.indexOf("\n");
+			if (newLineIndex >= 0) {
+				name = name.substring(0, newLineIndex);
+			}
 			const note = this.notes.selected;
-			note.name = textContent.substring(0, maxNameCharacters);
+			note.name = name;
 			note.content.value = contentValue;
+			note.lastUpdatedTime = getTimeInMS();
 			this.noteEntityManager.updateWorkingItem(note);
 		}
 	}
@@ -49,6 +56,7 @@ export class NoteManager implements INoteManager {
 		else {
 			const note = this.notes.selected;
 			note.tags = tags;
+			note.lastUpdatedTime = getTimeInMS();
 			this.noteEntityManager.updateWorkingItem(note);
 		}
 	}
