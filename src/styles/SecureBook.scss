@@ -1,5 +1,10 @@
 @import "../styles-mixins/variables.scss";
 
+@keyframes noteSelectionBGAppear {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
 .SecureBook {
 	position: absolute;
 	top: 0;
@@ -53,7 +58,14 @@
 	}
 
 	&__NoteSelected {
-		background: #eee;
+		pointer-events: none;
+		position: absolute !important;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		background: linear-gradient(to right, #EEE, #FCFBFB);
+		animation: noteSelectionBGAppear 100ms linear;
 	}
 
 	&__NoteName {
@@ -80,5 +92,31 @@
 
 	&__Note {
 		cursor: pointer;
+		> * {
+			position: relative;
+		}
+	}
+
+	&__FocusedNote-1 {
+		position: absolute !important;
+		pointer-events: none;
+		border-left: 5px solid #a30316;
+		top: $default-padding;
+		bottom: $default-padding;
+		left: 0px;
+		right: 0px;
+		animation: noteSelectionBGAppear 100ms linear;
+	}
+
+	&__FocusedNote-2 {
+		position: absolute !important;
+		pointer-events: none;
+		border-top: 1px solid #a30316;
+		border-bottom: 1px solid #a30316;
+		top: 0px;
+		bottom: 0px;
+		left: $default-padding * 2;
+		right: $default-padding * 2;
+		animation: noteSelectionBGAppear 100ms linear;
 	}
 }

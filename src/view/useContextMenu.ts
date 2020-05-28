@@ -1,7 +1,7 @@
 import { useState, useMemo } from "preact/hooks";
 
 type ContextMenuState = {
-	id: any,
+	id: string | null,
 	x: number,
 	y: number,
 };

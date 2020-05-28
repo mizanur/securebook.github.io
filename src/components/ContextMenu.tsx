@@ -3,6 +3,7 @@ import { useRef, useState } from 'preact/hooks';
 import { useEffectOnce } from '@view/useEffectOnce';
 import { nodeIsOrHasAncestor } from '@utils/html';
 import '@styles/ContextMenu.scss';
+import { useUnmount } from '@view/useUnmount';
 
 type Direction = {
 	v: 'top' | 'bottom',
@@ -23,12 +24,14 @@ export function ContextMenu(
 	{ direction = { v: 'bottom', h: 'right' }, children, onClose, position }:
 	{ direction?: Direction, children: ComponentChildren, onClose: (...args: any) => any, position: Position }
 ) {
+	let isClosed = useRef<boolean>(false);
 	const element = useRef<HTMLDivElement>(null);
 	const [isSizing, setIsSizing] = useState<boolean>(true);
 	const [elementPosition, setElementPosition] = useState<ElementPosition>({ top: 0, left: 0 });
 	useEffectOnce(() => {
 		const closeOnClickElsewhere = (e: Event) => {
 			if (!nodeIsOrHasAncestor(e.target as Node, element.current)) {
+				isClosed.current = true;
 				onClose();
 			}
 		};
@@ -77,6 +80,11 @@ export function ContextMenu(
 				? position.x + positionDirectionModifier.left + positionFitModifier.left
 				: position.x + positionDirectionModifier.left,
 		});
+	});
+	useUnmount(() => {
+		if (!isClosed.current) {
+			onClose();
+		}
 	});
 	return <div className={`ContextMenu ${isSizing ? `ContextMenu--sizing` : `ContextMenu--visible`}`} ref={element} style={{
 		top: `${elementPosition.top}px`,

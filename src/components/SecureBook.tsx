@@ -27,6 +27,7 @@ function SecureBook() {
 	const isContentLoading = notes.selected
 		&& (notes.selected.content.status === 'loading');
 	const { contextMenuId, getTriggerProps, contextMenuProps } = useContextMenu();
+	const focusedId = contextMenuId ?? notes.selectedId;
 	return <div className="SecureBook">
 		<aside className="SecureBook__Sidebar">
 			<article className="SecureBook__Section">
@@ -47,10 +48,16 @@ function SecureBook() {
 				.map(note => (
 					<article
 						key={note.id}
-						className={`SecureBook__Section SecureBook__Note ${notes.selectedId === note.id ? `SecureBook__NoteSelected` : ``}`}
+						className={`SecureBook__Section SecureBook__Note`}
 						onClick={() => noteManager.selectNote(notes.selectedId !== note.id ? note.id : null)}
 						{...getTriggerProps(note.id)}
 					>
+						{notes.selectedId === note.id && <div className="SecureBook__NoteSelected"></div>}
+						{focusedId === note.id &&
+							<Fragment>
+								<div className="SecureBook__FocusedNote-1"></div>
+								<div className="SecureBook__FocusedNote-2"></div>
+							</Fragment>}
 						<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
 						{note.tags.length > 0 &&
 							<div className="SecureBook__Tags" title={note.tags.join(' ')}>
@@ -60,13 +67,14 @@ function SecureBook() {
 							"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
 							"Created: " + getFormattedDateTime(note.createdTime, true)}>
 							<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
-						{contextMenuId === note.id && <Portal>
-							<ContextMenu {...contextMenuProps}>
-								<DropDown>
-									<DropDownItem type="delete" label="Delete note" onClick={() => noteManager.deleteNote(note.id)} />
-								</DropDown>
-							</ContextMenu>
-						</Portal>}
+						{contextMenuId === note.id &&
+							<Portal>
+								<ContextMenu {...contextMenuProps}>
+									<DropDown>
+										<DropDownItem type="delete" label="Delete note" onClick={() => noteManager.deleteNote(note.id)} />
+									</DropDown>
+								</ContextMenu>
+							</Portal>}
 					</article>
 				))
 			}
