@@ -76,6 +76,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 					const content = await this.crypter.decrypt(await this.filesystem.getFileContent(entityListName), this.password.hash);
 					try {
 						entityListFileContent = JSON.parse(content);
+						this.password.status = 'verified';
 					}
 					catch(e) {
 						this.password.status = 'incorrect';
@@ -84,6 +85,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 				}
 				else {
 					await this.filesystem.createFile(entityListName, await this.crypter.encrypt(JSON.stringify(entityListFileContent), this.password.hash));
+					this.password.status = 'verified';
 				}
 			}
 			catch(e) {

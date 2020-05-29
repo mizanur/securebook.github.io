@@ -11,7 +11,8 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background: #FCFBFB;
+	background: $main-bg-color;
+	color: $main-text-color;
 
 	&__Sidebar {
 		position: absolute;
@@ -20,8 +21,6 @@
 		bottom: 0px;
 		width: $sidebar-width;
 		overflow: auto;
-		letter-spacing: 0.3px;
-		line-height: 1.5;
 	}
 
 	&__Main {
@@ -30,7 +29,7 @@
 		left: $sidebar-width;
 		right: 0px;
 		bottom: 0px;
-		border-left: 1px solid #D9D9D9;
+		border-left: 1px solid $main-border-color;
 	}
 
 	&__Editor {
@@ -44,7 +43,7 @@
 	&__BottomBar {
 		position: absolute;
 		padding: $default-padding;
-		border-top: 1px solid #D9D9D9;
+		border-top: 1px solid $main-border-color;
 		height: $bottom-bar-height;
 		bottom: 0px;
 		left: 0px;
@@ -64,11 +63,11 @@
 		left: 0px;
 		right: 0px;
 		bottom: 0px;
-		background: #EEE;
-		animation: noteSelectionBGAppear 100ms linear;
+		background: $main-selected-bg-color;
 	}
 
 	&__NoteName {
+		position: relative;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
@@ -80,6 +79,7 @@
 
 	&__Tags,
 	&__DateTime {
+		position: relative;
 		font-size: 14px;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -92,31 +92,10 @@
 
 	&__Note {
 		cursor: pointer;
-		> * {
-			position: relative;
-		}
 	}
 
-	&__FocusedNote-1 {
-		position: absolute !important;
-		pointer-events: none;
-		border-left: 5px solid #a30316;
-		top: $default-padding;
-		bottom: $default-padding;
-		left: 0px;
-		right: 0px;
-		animation: noteSelectionBGAppear 100ms linear;
-	}
-
-	&__FocusedNote-2 {
-		position: absolute !important;
-		pointer-events: none;
-		border-top: 1px solid #a30316;
-		border-bottom: 1px solid #a30316;
-		top: 0px;
-		bottom: 0px;
-		left: $default-padding * 2;
-		right: $default-padding * 2;
+	&__NoteSelected,
+	&__NoteThemeBorder {
 		animation: noteSelectionBGAppear 100ms linear;
 	}
 }

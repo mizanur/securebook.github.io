@@ -1,4 +1,4 @@
-import { h, Fragment, ComponentChildren } from "preact";
+import { h, Fragment, ComponentChildren, FunctionalComponent, ComponentConstructor } from "preact";
 import { useContext, useState, useEffect, useRef } from "preact/hooks";
 import { useUnmount } from "@view/useUnmount";
 import { PortalValueContext } from "@view/PortalValueContext";
@@ -37,4 +37,13 @@ export function Portal({ children }: { children: ComponentChildren }) {
 		portalValue.updateChildren();
 	});
 	return null;
+}
+
+
+export function withPortal<P,S>(Component: FunctionalComponent<P> | ComponentConstructor<P, S>) {
+	return function NewComponent(props: P) {
+		return <Portal>
+			<Component {...props} />
+		</Portal>;
+	}
 }

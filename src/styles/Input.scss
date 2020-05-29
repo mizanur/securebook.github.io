@@ -1,0 +1,51 @@
+@import "../styles-mixins/variables.scss";
+
+$icon-width: 34px;
+
+@keyframes inputBorderAppear {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+.Input {
+	display: inline-block;
+	width: 100%;
+	position: relative;
+
+	&__Icon {
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		left: 0px;
+		transform: translateY(-50%);
+		width: $icon-width;
+		text-align: center;
+	}
+
+	&__Basic {
+		width: 100%;
+		height: 100%;
+		border: none;
+		outline: none;
+		background: transparent;
+		font-family: inherit;
+		line-height: inherit;
+		font-size: inherit;
+		letter-spacing: inherit;
+		padding-top: $default-padding / 4;
+		padding-bottom: $default-padding / 4;
+		border-bottom: 1px solid $main-border-color;
+
+		&--with-icon {
+			padding-left: $icon-width;
+		}
+
+		&::placeholder {
+			font-weight: 600;
+		}
+	}
+
+	&__ThemeBorder {
+		animation: inputBorderAppear 100ms linear;
+	}
+}

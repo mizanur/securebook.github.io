@@ -4,6 +4,7 @@ import { useEffectOnce } from '@view/useEffectOnce';
 import { nodeIsOrHasAncestor } from '@utils/html';
 import '@styles/ContextMenu.scss';
 import { useUnmount } from '@view/useUnmount';
+import { withPortal } from '@components/Portals';
 
 type Direction = {
 	v: 'top' | 'bottom',
@@ -92,4 +93,4 @@ export function ContextMenu(
 	}}>{children}</div>;
 }
 
-export default ContextMenu;
+export default withPortal(ContextMenu);

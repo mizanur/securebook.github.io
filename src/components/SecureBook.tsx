@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { connect } from '@view/connect';
 import "@styles/SecureBook.scss";
+import BasicInput from '@components/BasicInput';
 import Input from '@components/Input';
 import { useState, useContext } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
@@ -12,12 +13,13 @@ import Icon from '@components/Icon';
 import { getFormattedDateTime } from '@utils/time';
 import ContextMenu from '@components/ContextMenu';
 import { useContextMenu } from '@view/useContextMenu';
-import { Portal } from '@components/Portals';
 import { DropDown, DropDownItem } from '@components/DropDown';
+import ThemeBorder from '@components/ThemeBorder';
+import PasswordDialog from '@components/PasswordDialog';
 
 function SecureBook() {
-	const { password, notes } = useContext(StoreContext);
-	const { passwordManager, noteManager } = useContext(ManagersContext);
+	const { notes } = useContext(StoreContext);
+	const { noteManager } = useContext(ManagersContext);
 	const [tagSearch, setTagSearch] = useState('');
 	const trimmedTagSearch = tagSearch.trim();
 	const list = getValues(notes.list);
@@ -31,13 +33,7 @@ function SecureBook() {
 	return <div className="SecureBook">
 		<aside className="SecureBook__Sidebar">
 			<article className="SecureBook__Section">
-				<h1>Password</h1>
-				<Input type="text" value={password.value} onChange={e => passwordManager.providePassword(e.currentTarget.value)} />
-				<div>Status: {password.status}</div>
-			</article>
-			<article className="SecureBook__Section">
-				<h1>Tag search</h1>
-				<Input type="text" value={tagSearch} onInput={e => setTagSearch(e.currentTarget.value)} />
+				<Input iconType="search" type="text" value={tagSearch} onInput={e => setTagSearch(e.currentTarget.value)} placeholder="Tag search" />
 			</article>
 			<div className="SecureBook__Section">Note status: { notes.status }</div>
 			<div className="SecureBook__Section"><button onClick={() => noteManager.createNoteAndSelect()}>Add note</button></div>
@@ -53,11 +49,7 @@ function SecureBook() {
 						{...getTriggerProps(note.id)}
 					>
 						{notes.selectedId === note.id && <div className="SecureBook__NoteSelected"></div>}
-						{focusedId === note.id &&
-							<Fragment>
-								<div className="SecureBook__FocusedNote-1"></div>
-								<div className="SecureBook__FocusedNote-2"></div>
-							</Fragment>}
+						{focusedId === note.id && <ThemeBorder className="SecureBook__NoteThemeBorder" widths={{ top: 1, bottom: 1, left: 4 }} />}
 						<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
 						{note.tags.length > 0 &&
 							<div className="SecureBook__Tags" title={note.tags.join(' ')}>
@@ -68,13 +60,11 @@ function SecureBook() {
 							"Created: " + getFormattedDateTime(note.createdTime, true)}>
 							<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
 						{contextMenuId === note.id &&
-							<Portal>
-								<ContextMenu {...contextMenuProps}>
-									<DropDown>
-										<DropDownItem type="delete" label="Delete note" onClick={() => noteManager.deleteNote(note.id)} />
-									</DropDown>
-								</ContextMenu>
-							</Portal>}
+							<ContextMenu {...contextMenuProps}>
+								<DropDown>
+									<DropDownItem type="delete" label="Delete note" onClick={() => noteManager.deleteNote(note.id)} />
+								</DropDown>
+							</ContextMenu>}
 					</article>
 				))
 			}
@@ -98,7 +88,7 @@ function SecureBook() {
 							<button onClick={() => noteManager.saveSelectedNote()}>Save note</button>
 							<div>Status: {notes.selected.content.status}</div>
 							<div>
-								Tags: <Input value={notes.selected.tags.join(' ')}
+								Tags: <BasicInput value={notes.selected.tags.join(' ')}
 									onInput={e => noteManager.updateSelectedNoteTags(
 										e.currentTarget.value.length
 											? e.currentTarget.value.split(/\s+/)
@@ -109,6 +99,7 @@ function SecureBook() {
 					</Fragment>
 					: <div>Not selected</div>
 			}
+			<PasswordDialog />
 		</main>
 	</div>;
 }

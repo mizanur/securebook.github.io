@@ -2,6 +2,7 @@
 @import "../styles-mixins/background.scss";
 @import "../styles-mixins/button.scss";
 @import "../styles-mixins/media.scss";
+@import "../styles-mixins/variables.scss";
 
 .Welcome {
 	@include flexParent;
@@ -14,7 +15,6 @@
 
 	font-size: 16px;
 	overflow: hidden;
-	line-height: 1.5;
 
 	&__AppName {
 		font-family: 'Srisakdi', sans-serif;
@@ -26,8 +26,8 @@
 		max-width: 512px;
 		max-height: 100vh;
 		background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.8), rgba(224, 204, 204, 0.9));
-		box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 1);
-		border-radius: 4px;
+		box-shadow: $big-shadow;
+		border-radius: $dialog-border-radius;
 		font-family: 'Montserrat', sans-serif;
 		overflow: auto;
 		
@@ -44,8 +44,8 @@
 		@include buttonInit;
 		display: inline-block;
 		width: 100%;
-		background: #a30316;
-		color: #e6e5d8;
+		background: $main-theme-color;
+		color: $main-theme-text-color;
 		padding: 24px;
 		text-align: center;
 		font-weight: bold;

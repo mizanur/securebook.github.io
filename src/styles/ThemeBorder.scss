@@ -1,0 +1,47 @@
+@import "../styles-mixins/variables.scss";
+
+.ThemeBorder {
+	$edge-border-color: adjust-color($main-theme-color, $alpha: -1);
+
+	&__BorderRight,
+	&__BorderBottom,
+	&__BorderTop,
+	&__BorderLeft {
+		position: absolute;
+		pointer-events: none;
+	}
+
+	&__BorderLeft {
+		left: 0px;
+		top: 15%;
+		bottom: 15%;
+	}
+
+	&__BorderRight {
+		right: 0px;
+		top: 15%;
+		bottom: 15%;
+	}
+
+	&__BorderTop {
+		top: 0px;
+		left: 15%;
+		right: 15%;
+	}
+
+	&__BorderBottom {
+		bottom: 0px;
+		left: 15%;
+		right: 15%;
+	}
+
+	&__BorderTop,
+	&__BorderBottom {
+		background: linear-gradient(to right, $edge-border-color, $main-theme-color, $edge-border-color);
+	}
+
+	&__BorderRight,
+	&__BorderLeft {
+		background: linear-gradient(to bottom, $edge-border-color, $main-theme-color, $edge-border-color);
+	}
+}
