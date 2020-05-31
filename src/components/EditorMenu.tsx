@@ -4,10 +4,11 @@ import Icon from '@components/Icon';
 
 function EditorMenu() {
 	return <div className='EditorMenu'>
-		<Icon type="format_bold" />
-		<Icon type="format_italic" />
-		<Icon type="format_list_bulleted" />
-		<Icon type="format_list_numbered" />
+		<button><Icon type="format_bold" /></button>
+		<button><Icon type="format_italic" /></button>
+		<button><Icon type="format_underlined" /></button>
+		<button><Icon type="format_list_bulleted" /></button>
+		<button><Icon type="format_list_numbered" /></button>
 	</div>
 }
 

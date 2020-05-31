@@ -16,20 +16,56 @@
 
 	&__Sidebar {
 		position: absolute;
-		top: 0px;
+		top: $editor-menu-height;
 		left: 0px;
 		bottom: 0px;
 		width: $sidebar-width;
 		overflow: auto;
 	}
 
-	&__Main {
+	&__SidebarTop {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: $editor-menu-height;
+		width: $sidebar-width;
+		display: flex;
+		align-items: center;
+		padding: $default-padding $default-padding $default-padding ($default-padding - ($min-button-size - $main-icon-size) / 2);
+	}
+
+	&__MainTop {
 		position: absolute;
 		top: 0px;
 		left: $sidebar-width;
 		right: 0px;
+		height: $editor-menu-height;
+	}
+
+	&__Loading {
+		padding: $default-padding;
+	}
+
+	&__Notes {
+		position: absolute;
+		top: 0px;
 		bottom: 0px;
-		border-left: 1px solid $main-border-color;
+		left: 0px;
+		width: 100%;
+		overflow: auto;
+	}
+
+	&__TagSearch {
+		padding-right: 20px;
+	}
+
+	&__Main {
+		position: absolute;
+		top: $editor-menu-height;
+		left: $sidebar-width;
+		right: 0px;
+		bottom: 0px;
+		border-left: 3px solid $main-border-color;
 	}
 
 	&__Editor {
@@ -48,22 +84,35 @@
 		bottom: 0px;
 		left: 0px;
 		right: 0px;
+		overflow: hidden;
 	}
 
 	&__Section {
 		position: relative;
+		border-bottom: 1px solid $lighter-border-color;
+	}
+
+	&__Note {
 		padding: $default-padding;
-		border-bottom: 1px solid #D9D9D9;
+		cursor: pointer;
+
+		&:hover {
+			background: $main-hovered-bg-color;
+		}
 	}
 
 	&__NoteSelected {
 		pointer-events: none;
-		position: absolute !important;
+		position: absolute;
 		top: 0px;
 		left: 0px;
 		right: 0px;
 		bottom: 0px;
 		background: $main-selected-bg-color;
+
+		&--selected:hover {
+			background: #333;
+		}
 	}
 
 	&__NoteName {
@@ -88,10 +137,6 @@
 
 	em {
 		font-style: italic;
-	}
-
-	&__Note {
-		cursor: pointer;
 	}
 
 	&__NoteSelected,

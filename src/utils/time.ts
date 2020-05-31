@@ -11,11 +11,16 @@ export function getFormattedDateTime(timeInMS: number, isFull: boolean = false):
 	const day = date.getDate();
 	const hours = date.getHours();
 	const minutes = date.getMinutes();
+	const time = `${withAppendedZeros(hours)}:${withAppendedZeros(minutes)}`
 	if (!isFull && curDate.getFullYear() === year) {
 		if (curDate.getMonth() === month && curDate.getDate() === day) {
-			return `${hours}:${minutes}`;
+			return time;
 		}
-		return `${months[month]} ${day}, ${hours}:${minutes}`;
+		return `${months[month]} ${day}, ${time}`;
 	}
-	return `${months[month]} ${day}, ${year}, ${hours}:${minutes}`;
+	return `${months[month]} ${day}, ${year}, ${time}`;
+}
+
+function withAppendedZeros(num: number): string {
+	return num >= 10 ? `${num}` : `0${num}`;
 }

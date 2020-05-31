@@ -37,11 +37,11 @@
 
 	&__BorderTop,
 	&__BorderBottom {
-		background: linear-gradient(to right, $edge-border-color, $main-theme-color, $edge-border-color);
+		background: linear-gradient(to right, $edge-border-color, $main-theme-color, $main-theme-color, $edge-border-color);
 	}
 
 	&__BorderRight,
 	&__BorderLeft {
-		background: linear-gradient(to bottom, $edge-border-color, $main-theme-color, $edge-border-color);
+		background: linear-gradient(to bottom, $edge-border-color, $main-theme-color, $main-theme-color, $edge-border-color);
 	}
 }

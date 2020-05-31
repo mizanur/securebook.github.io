@@ -14,14 +14,14 @@
 
 	&__TextLoading {
 		position: absolute;
-		top: $editor-menu-height + $default-padding;
+		top: $default-padding;
 		left: $default-padding;
 		right: $default-padding;
 	}
 
 	&__Content {
 		position: absolute;
-		top: $editor-menu-height;
+		top: 0px;
 		left: 0px;
 		right: 0px;
 		bottom: 0px;

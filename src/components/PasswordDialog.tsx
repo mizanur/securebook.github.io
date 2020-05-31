@@ -38,7 +38,7 @@ function PasswordDialog() {
 				<h1>Please enter password</h1>
 				<p>
 					If this is your first time using the app, choose a secure password.
-					This password will be used to store all of your notes. Without knowing
+					This password will be used to encrypt all of your notes. Without knowing
 					the password, nobody will be able to see your notes.
 				</p>
 				<h2><Icon type="warning" /> A word of caution</h2>
@@ -46,7 +46,7 @@ function PasswordDialog() {
 					If the password is lost, all notes will be lost too. There is no way to
 					recover the password, because it's not stored anywhere in any
 					shape or form. In addition, it's currently impossible to change password
-					once it was chosen; however, this feature is under development.
+					once it was chosen (this feature is still under development).
 				</p>
 				<div className="PasswordDialog__PasswordField">
 					<Input

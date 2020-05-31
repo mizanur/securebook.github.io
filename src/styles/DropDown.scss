@@ -3,7 +3,7 @@
 .DropDown {
 	position: relative;
 	max-width: 250px;
-	border: 1px solid #D9D9D9;
+	border: 1px solid $main-border-color;
 	box-shadow: $gentle-shadow;
 	background: #F2F2F2;
 
@@ -14,7 +14,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		border-bottom: 1px solid #D9D9D9;
+		border-bottom: 1px solid $main-border-color;
 
 		&:last-child {
 			border-bottom: none;
