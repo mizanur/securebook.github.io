@@ -21,6 +21,7 @@
 		bottom: 0px;
 		width: $sidebar-width;
 		overflow: auto;
+		border-right: 3px solid $main-border-color;
 	}
 
 	&__SidebarTop {
@@ -32,6 +33,7 @@
 		display: flex;
 		align-items: center;
 		padding: $default-padding $default-padding $default-padding ($default-padding - ($min-button-size - $main-icon-size) / 2);
+		border-right: 3px solid $main-border-color;
 	}
 
 	&__MainTop {
@@ -65,7 +67,6 @@
 		left: $sidebar-width;
 		right: 0px;
 		bottom: 0px;
-		border-left: 3px solid $main-border-color;
 	}
 
 	&__Editor {
@@ -78,13 +79,29 @@
 
 	&__BottomBar {
 		position: absolute;
+		display: flex;
+		align-items: center;
 		padding: $default-padding;
 		border-top: 1px solid $main-border-color;
 		height: $bottom-bar-height;
 		bottom: 0px;
 		left: 0px;
 		right: 0px;
-		overflow: hidden;
+	}
+
+	&__SaveButton {
+		flex: 0 0 auto;
+		min-width: 100px;
+		margin-right: $default-padding / 2;
+		text-align: left;
+		
+		i {
+			margin-right: $default-padding / 4;
+		}
+	}
+
+	&__AddTags {
+		flex: 1 1 auto;
 	}
 
 	&__Section {

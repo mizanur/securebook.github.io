@@ -116,16 +116,30 @@ function SecureBook() {
 							/>
 						</div>
 						<div className="SecureBook__BottomBar">
-							<button onClick={() => noteManager.saveSelectedNote()}>Save note</button>
-							<div>Status: {notes.selected.content.status}</div>
-							<div>
-								Tags: <BasicInput value={notes.selected.tags.join(' ')}
-									onInput={e => noteManager.updateSelectedNoteTags(
-										e.currentTarget.value.length
-											? e.currentTarget.value.split(/\s+/)
-											: [])}
-								/>
-							</div>
+							<button
+								className="SecureBook__SaveButton"
+								onClick={() => noteManager.saveSelectedNote()}
+							>
+								<Icon type="save" />
+								{
+									notes.selected.content.status === 'creating' ||
+									notes.selected.content.status === 'updating'
+										? <span>Saving</span> :
+									notes.selected.content.status === 'loading'
+										? <span>Loading</span>
+										: <span>Save</span>
+								}
+							</button>
+							<Input
+								className="SecureBook__AddTags"
+								iconType="local_offer"
+								placeholder="Add tags"
+								value={notes.selected.tags.join(' ')}
+								onInput={e => noteManager.updateSelectedNoteTags(
+									e.currentTarget.value.length
+										? e.currentTarget.value.split(/\s+/)
+										: [])}
+							/>
 						</div>
 					</Fragment>
 					: <div>Not selected</div>
