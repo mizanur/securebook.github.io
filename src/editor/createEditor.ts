@@ -30,7 +30,10 @@ import { DOMParser, DOMSerializer } from 'prosemirror-model';
 import { EditorState, Transaction } from "prosemirror-state";
 import { connectObject } from "typeconnect";
 import { Wrapped } from "@interfaces/Wrapped";
-import { wrap, unwrap } from "@utils/wrap";
+import { wrap } from "@utils/wrap";
+import { UnderlineMark } from "@editor/marks/UnderlineMark";
+import { StrikethroughMark } from "@editor/marks/StrikethroughMark";
+import { ActionDeclarations, AddMenuActions, Actions } from "@editor/interfaces/Actions";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -48,6 +51,8 @@ export function createEditor(): Editor {
 	const linkMark = new LinkMark();
 	const emMark = new EmMark();
 	const strongMark = new StrongMark();
+	const underlineMark = new UnderlineMark();
+	const strikethroughMark = new StrikethroughMark();
 	const codeMark = new CodeMark();
 	const history = new History();
 	const cursor = new Cursor();
@@ -66,9 +71,11 @@ export function createEditor(): Editor {
 		listItemNode,
 	];
 	const editorMarks: EditorMark[] = [
-		linkMark,
-		emMark,
 		strongMark,
+		emMark,
+		underlineMark,
+		strikethroughMark,
+		linkMark,
 		codeMark,
 	];
 	const inputRules: InputRules[] = [
@@ -88,8 +95,9 @@ export function createEditor(): Editor {
 		orderedListNode,
 		bulletListNode,
 		listItemNode,
-		emMark,
 		strongMark,
+		emMark,
+		underlineMark,
 		codeMark,
 		history,
 		inputRulesManager,
@@ -113,17 +121,33 @@ export function createEditor(): Editor {
 		domParser,
 		domSerializer,
 		createMenu(state: Wrapped<EditorState>, dispatchTransaction: (t: Transaction) => any) {
+			const cmd = <T extends ActionDeclarations>(fun: AddMenuActions<T>) => {
+				const actions: Actions<T> = {} as Actions<T>;
+				const actionDeclarations = fun(editorSchema.schema);
+				for (const key in actionDeclarations) {
+					actions[key] = (...args: any) => {
+						actionDeclarations[key](...args)(state.value, dispatchTransaction);
+					};
+				}
+				return actions;
+			};
 			menu.value = {
 				state: connectObject({
 					strong: strongMark.getMenuState(state, editorSchema.schema),
+					em: emMark.getMenuState(state, editorSchema.schema),
+					underline: underlineMark.getMenuState(state, editorSchema.schema),
+					strikethrough: strikethroughMark.getMenuState(state, editorSchema.schema),
+					link: linkMark.getMenuState(state, editorSchema.schema),
+					code: codeMark.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
-					strong: {
-						toggleStrong: () => {
-							strongMark.getMenuActions(editorSchema.schema).toggleStrong(unwrap(state), dispatchTransaction);
-						},
-					}
-				}
+					strong: cmd(strongMark.getMenuActions),
+					em: cmd(emMark.getMenuActions),
+					underline: cmd(underlineMark.getMenuActions),
+					strikethrough: cmd(strikethroughMark.getMenuActions),
+					link: cmd(linkMark.getMenuActions),
+					code: cmd(codeMark.getMenuActions),
+				},
 			};
 		}
 	};

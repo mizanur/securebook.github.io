@@ -1,5 +1,5 @@
 import { h, ComponentChildren } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useRef, useState, Ref } from 'preact/hooks';
 import { useEffectOnce } from '@view/useEffectOnce';
 import { nodeIsOrHasAncestor } from '@utils/html';
 import '@styles/ContextMenu.scss';
@@ -21,9 +21,9 @@ type ElementPosition = {
 	left: number,
 };
 
-export function ContextMenu(
-	{ direction = { v: 'bottom', h: 'right' }, children, onClose, position }:
-	{ direction?: Direction, children: ComponentChildren, onClose: (...args: any) => any, position: Position }
+function ContextMenu(
+	{ direction = { v: 'bottom', h: 'right' }, children, onClose, position = { x: 0, y: 0 }, relativeRef = { current: null } }:
+	{ direction?: Direction, children: ComponentChildren, onClose: (...args: any) => any, position?: Position, relativeRef?: Ref<null | HTMLElement> }
 ) {
 	let isClosed = useRef<boolean>(false);
 	const element = useRef<HTMLDivElement>(null);
@@ -46,19 +46,31 @@ export function ContextMenu(
 		};
 	});
 	useEffectOnce(() => {
+		const oppositeDirection = { 'top': 'bottom', 'bottom': 'top', 'left': 'right', 'right': 'left' };
 		const rect = element.current.getBoundingClientRect();
+		const relativeRect = relativeRef.current
+			? relativeRef.current.getBoundingClientRect()
+			: null;
+		const dir: Direction = !relativeRect
+			? direction
+			: { v: direction.v, h: oppositeDirection[direction.h] as 'right' | 'left' };
+		const pos = !relativeRect
+			? position
+			: {
+				x: dir.h === 'right' ? relativeRect.left : relativeRect.left + relativeRect.width,
+				y: dir.v === 'top' ? relativeRect.top : relativeRect.top + relativeRect.height,
+			};
 		const spaceAvailable = {
-			top: position.y,
-			right: window.innerWidth - position.x,
-			bottom: window.innerHeight - position.y,
-			left: position.x,
+			top: pos.y,
+			right: window.innerWidth - pos.x,
+			bottom: window.innerHeight - pos.y,
+			left: pos.x,
 		};
-		const oppositeVerticalDirection = { 'top': 'bottom', 'bottom': 'top' };
 		const actualDirection = {
-			v: spaceAvailable[direction.v] < rect.height
-				? oppositeVerticalDirection[direction.v]
-				: direction.v,
-			h: direction.h,
+			v: spaceAvailable[dir.v] < rect.height
+				? oppositeDirection[dir.v]
+				: dir.v,
+			h: dir.h,
 		};
 		const positionFit = {
 			v: spaceAvailable[actualDirection.v] - rect.height,
@@ -75,11 +87,11 @@ export function ContextMenu(
 		setIsSizing(false);
 		setElementPosition({
 			top: positionFit.v < 0
-				? position.y + positionDirectionModifier.top + positionFitModifier.top
-				: position.y + positionDirectionModifier.top,
+				? pos.y + positionDirectionModifier.top + positionFitModifier.top
+				: pos.y + positionDirectionModifier.top,
 			left: positionFit.h < 0
-				? position.x + positionDirectionModifier.left + positionFitModifier.left
-				: position.x + positionDirectionModifier.left,
+				? pos.x + positionDirectionModifier.left + positionFitModifier.left
+				: pos.x + positionDirectionModifier.left,
 		});
 	});
 	useUnmount(() => {

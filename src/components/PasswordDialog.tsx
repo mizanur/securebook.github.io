@@ -9,6 +9,7 @@ import { StoreContext } from '@view/StoreContext';
 import { ManagersContext } from '@view/ManagersContext';
 import "@styles/PasswordDialog.scss";
 import { keycodes } from '@utils/keycode';
+import { useFocusOnMount } from '@view/useFocusOnMount';
 
 function PasswordDialog() {
 	const { password } = useContext(StoreContext);
@@ -16,15 +17,8 @@ function PasswordDialog() {
 
 	const [passwordValue, setPasswordValue] = useState('');
 	const [isRevealed, setRevealed] = useState(false);
-	const inputField = useRef<HTMLInputElement>(null);
 
-	const useField = () => {
-		useEffectOnce(() => {
-			if (inputField.current) {
-				inputField.current.focus();
-			}
-		});
-	};
+	const useFocusProps = useFocusOnMount();
 
 	const submitOnEnter = (e: KeyboardEvent) => {
 		if (e.keyCode === keycodes.enter) {
@@ -56,9 +50,8 @@ function PasswordDialog() {
 						value={passwordValue}
 						onInput={e => setPasswordValue(e.currentTarget.value)}
 						className="Dialog__PasswordInputField"
-						fieldRef={inputField}
-						useField={useField}
 						onKeyUp={submitOnEnter}
+						{...useFocusProps}
 					/>
 					<button
 						title={isRevealed ? 'Stop revealing password' : 'Reveal password'}

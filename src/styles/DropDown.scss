@@ -1,20 +1,22 @@
 @import "../styles-mixins/variables.scss";
 
+$drop-down-item-width: 250px;
+
 .DropDown {
 	position: relative;
-	max-width: 250px;
+	max-width: $drop-down-item-width;
 	border: 1px solid $main-border-color;
 	box-shadow: $gentle-shadow;
-	background: #F2F2F2;
+	background: $main-selected-bg-color;
 
 	&__Item {
 		padding: $default-padding / 2;
 		position: relative;
-		width: 250px;
+		width: $drop-down-item-width;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		border-bottom: 1px solid $main-border-color;
+		border-bottom: 2px solid $main-border-color;
 
 		&:last-child {
 			border-bottom: none;

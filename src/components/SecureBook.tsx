@@ -78,8 +78,7 @@ function SecureBook() {
 								onClick={() => noteManager.selectNote(notes.selectedId !== note.id ? note.id : null)}
 								{...getTriggerProps(note.id)}
 							>
-								{notes.selectedId === note.id && <div className="SecureBook__NoteSelected"></div>}
-								{focusedId === note.id && <ThemeBorder className="SecureBook__NoteThemeBorder" widths={{ left: 4 }} />}
+								{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
 								<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
 								{note.tags.length > 0 &&
 									<div className="SecureBook__Tags" title={note.tags.join(' ')}>
@@ -92,7 +91,11 @@ function SecureBook() {
 								{contextMenuId === note.id &&
 									<ContextMenu {...contextMenuProps}>
 										<DropDown>
-											<DropDownItem type="delete" label="Delete note" onClick={() => noteManager.deleteNote(note.id)} />
+											<DropDownItem
+												iconType="delete"
+												label="Delete note"
+												onClick={() => noteManager.deleteNote(note.id)}
+											/>
 										</DropDown>
 									</ContextMenu>}
 							</article>

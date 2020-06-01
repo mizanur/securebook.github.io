@@ -41,7 +41,7 @@ export class StrongMark implements EditorMark, KeyBindings {
 
 	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
 		return {
-			get isStrong() {
+			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.strong);
 			}
 		}
@@ -49,7 +49,7 @@ export class StrongMark implements EditorMark, KeyBindings {
 
 	getMenuActions(schema: Schema) {
 		return {
-			toggleStrong: toggleMark(schema.marks.strong),
+			toggle: () => toggleMark(schema.marks.strong),
 		}
 	}
 }

@@ -6,4 +6,24 @@
 	padding: $default-padding;
 	height: $editor-menu-height;
 	border-bottom: 2px solid $main-border-color;
+
+	&__Button {
+		border-radius: 3px;
+
+		&:hover {
+			background: $main-hovered-bg-color;
+		}
+
+		&--active {
+			background: $main-selected-bg-color;
+
+			&:hover {
+				background: $main-hovered-selected-bg-color;
+			}
+		}
+	}
+
+	&__LinkEditorUnselected {
+		font-weight: 500;
+	}
 }

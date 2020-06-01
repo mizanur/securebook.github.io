@@ -7,36 +7,39 @@ import { EditorState } from "prosemirror-state";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { unwrap } from "@utils/wrap";
 
-export class EmMark implements EditorMark, KeyBindings {
-	name: string = "em";
+export class UnderlineMark implements EditorMark, KeyBindings {
+	name: string = "underline";
 
 	markSpec: MarkSpec = {
 		parseDOM: [
-			{tag: "i"},
-			{tag: "em"},
-			{style: "font-style=italic"}
+			{
+				style: "text-decoration",
+				getAttrs(value: any) {
+					return (/(^|\s)underline(\s|$)/).test(value) && null;
+				}
+			}
 		],
 		toDOM() {
-			return ["em", 0];
+			return ["span", { style: "text-decoration: underline;" }, 0];
 		}
 	}
 
 	addKeyBindings(addKeyBinding: AddKeyBinding, schema: Schema) {
-		addKeyBinding("Mod-i", toggleMark(schema.marks.em));
-		addKeyBinding("Mod-I", toggleMark(schema.marks.em));
+		addKeyBinding("Mod-u", toggleMark(schema.marks.underline));
+		addKeyBinding("Mod-U", toggleMark(schema.marks.underline));
 	}
 
 	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(unwrap(state), schema.marks.em);
+				return isActiveMark(unwrap(state), schema.marks.underline);
 			}
 		}
 	}
 
 	getMenuActions(schema: Schema) {
 		return {
-			toggle: () => toggleMark(schema.marks.em),
+			toggle: () => toggleMark(schema.marks.underline),
 		}
 	}
 }
