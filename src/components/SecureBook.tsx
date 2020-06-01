@@ -124,9 +124,9 @@ function SecureBook() {
 								{
 									notes.selected.content.status === 'creating' ||
 									notes.selected.content.status === 'updating'
-										? <span>Saving</span> :
+										? <span>Saving...</span> :
 									notes.selected.content.status === 'loading'
-										? <span>Loading</span>
+										? <span>Loading...</span>
 										: <span>Save</span>
 								}
 							</button>

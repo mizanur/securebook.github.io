@@ -35,6 +35,13 @@
 			bottom: 0px;
 			overflow-y: scroll;
 			font-size: 18px;
+
+			// This solves a problem with
+			// the bottom padding not shown
+			&::after {
+				content: '';
+				display: block;
+			}
 		}
 	}
 
