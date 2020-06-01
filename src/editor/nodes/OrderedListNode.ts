@@ -1,7 +1,7 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
-import { wrapInList } from "@editor/commands/wrapInList";
+import { wrapInList } from "@editor/utils/wrapInList";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { wrappingInputRule } from "prosemirror-inputrules";
 

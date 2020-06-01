@@ -2,6 +2,10 @@ import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { toggleMark } from "prosemirror-commands";
+import { Wrapped } from "@interfaces/Wrapped";
+import { EditorState } from "prosemirror-state";
+import { isActiveMark } from "@editor/utils/isActiveMark";
+import { unwrap } from "@utils/wrap";
 
 export class StrongMark implements EditorMark, KeyBindings {
 	name: string = "strong";
@@ -33,5 +37,19 @@ export class StrongMark implements EditorMark, KeyBindings {
 	addKeyBindings(addKeyBinding: AddKeyBinding, schema: Schema) {
 		addKeyBinding("Mod-b", toggleMark(schema.marks.strong));
 		addKeyBinding("Mod-B", toggleMark(schema.marks.strong));
+	}
+
+	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+		return {
+			get isStrong() {
+				return isActiveMark(unwrap(state), schema.marks.strong);
+			}
+		}
+	}
+
+	getMenuActions(schema: Schema) {
+		return {
+			toggleStrong: toggleMark(schema.marks.strong),
+		}
 	}
 }

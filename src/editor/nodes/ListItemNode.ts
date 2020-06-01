@@ -1,9 +1,9 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
-import { splitListItem } from "@editor/commands/splitListItem";
-import { liftListItem } from "@editor/commands/liftListItem";
-import { sinkListItem } from "@editor/commands/sinkListItem";
+import { splitListItem } from "@editor/utils/splitListItem";
+import { liftListItem } from "@editor/utils/liftListItem";
+import { sinkListItem } from "@editor/utils/sinkListItem";
 
 export class ListItemNode implements EditorNode, KeyBindings {
 	name: string = 'list_item';

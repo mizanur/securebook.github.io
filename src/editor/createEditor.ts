@@ -27,6 +27,10 @@ import { ParagraphNode } from "@editor/nodes/ParagraphNode";
 import { TextNode } from "@editor/nodes/TextNode";
 import { Editor } from "@interfaces/Editor";
 import { DOMParser, DOMSerializer } from 'prosemirror-model';
+import { EditorState, Transaction } from "prosemirror-state";
+import { connectObject } from "typeconnect";
+import { Wrapped } from "@interfaces/Wrapped";
+import { wrap, unwrap } from "@utils/wrap";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -101,10 +105,26 @@ export function createEditor(): Editor {
 	const editorPluginsManager = new EditorPluginsManager(editorPlugins);
 	const domParser = DOMParser.fromSchema(editorSchema.schema);
 	const domSerializer = DOMSerializer.fromSchema(editorSchema.schema);
+	const menu: Editor['menu'] = connectObject(wrap(null));
 	return {
+		menu,
 		editorSchema,
 		editorPluginsManager,
 		domParser,
 		domSerializer,
+		createMenu(state: Wrapped<EditorState>, dispatchTransaction: (t: Transaction) => any) {
+			menu.value = {
+				state: connectObject({
+					strong: strongMark.getMenuState(state, editorSchema.schema),
+				}),
+				actions: {
+					strong: {
+						toggleStrong: () => {
+							strongMark.getMenuActions(editorSchema.schema).toggleStrong(unwrap(state), dispatchTransaction);
+						},
+					}
+				}
+			};
+		}
 	};
 }

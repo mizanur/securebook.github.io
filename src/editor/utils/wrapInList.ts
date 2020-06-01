@@ -1,7 +1,7 @@
 import { findWrapping } from "prosemirror-transform";
 import { NodeRange, NodeType, Schema } from "prosemirror-model";
 import { EditorState, Transaction } from 'prosemirror-state';
-import { doWrapInList } from "@editor/commands/listUtils";
+import { doWrapInList } from "@editor/utils/listUtils";
 
 // :: (NodeType, ?Object) → (state: EditorState, dispatch: ?(tr: Transaction)) → bool
 // Returns a command function that wraps the selection in a list with

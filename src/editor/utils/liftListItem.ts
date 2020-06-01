@@ -1,6 +1,6 @@
 import { NodeType, Schema } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
-import { liftToOuterList, liftOutOfList } from "@editor/commands/listUtils";
+import { liftToOuterList, liftOutOfList } from "@editor/utils/listUtils";
 
 // :: (NodeType) → (state: EditorState, dispatch: ?(tr: Transaction)) → bool
 // Create a command to lift the list item around the selection up into
