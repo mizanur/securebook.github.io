@@ -141,6 +141,7 @@ export function createEditor(): Editor {
 					code: codeMark.getMenuState(state, editorSchema.schema),
 					blockquote: blockquoteNode.getMenuState(state, editorSchema.schema),
 					codeBlock: codeBlockNode.getMenuState(state, editorSchema.schema),
+					heading: headingNode.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
 					strong: cmd(strongMark.getMenuActions),
@@ -151,6 +152,7 @@ export function createEditor(): Editor {
 					code: cmd(codeMark.getMenuActions),
 					blockquote: cmd(blockquoteNode.getMenuActions),
 					codeBlock: cmd(codeBlockNode.getMenuActions),
+					heading: cmd(headingNode.getMenuActions),
 				},
 			};
 		}

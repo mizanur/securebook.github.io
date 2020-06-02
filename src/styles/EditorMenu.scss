@@ -1,4 +1,5 @@
 @import "../styles-mixins/variables.scss";
+@import "../styles-mixins/editor-headings.scss";
 
 .EditorMenu {
 	position: absolute;
@@ -37,5 +38,9 @@
 			left: 50%;
 			transform: translateX(-50%) translateY(-50%) translateX($main-icon-size / 4) translateY($main-icon-size / 4);
 		}
+	}
+
+	&__HeadingEditor {
+		@include editor-headings;
 	}
 }

@@ -1,5 +1,9 @@
 @import "../styles-mixins/variables.scss";
 
+$drop-down-bg: #ededed;
+$drop-down-item-clickable-hover: #e4e4e4;
+$drop-down-item-selected: #dbdbdb;
+$drop-down-item-selected-hover: #d2d2d2;
 $drop-down-item-width: 250px;
 
 .DropDown {
@@ -7,7 +11,7 @@ $drop-down-item-width: 250px;
 	max-width: $drop-down-item-width;
 	border: 1px solid $main-border-color;
 	box-shadow: $gentle-shadow;
-	background: $main-selected-bg-color;
+	background: $drop-down-bg;
 
 	&__Item {
 		padding: $default-padding / 2;
@@ -24,6 +28,18 @@ $drop-down-item-width: 250px;
 
 		&--with-click {
 			cursor: pointer;
+
+			&:hover {
+				background: $drop-down-item-clickable-hover;
+			}
+		}
+
+		&--selected {
+			background: $drop-down-item-selected;
+
+			&:hover {
+				background: $drop-down-item-selected-hover;
+			}
 		}
 	}
 

@@ -28,4 +28,8 @@ export interface MenuState {
 	codeBlock: {
 		isCurrent: boolean,
 	},
+	heading: {
+		isCurrent: boolean,
+		level: number,
+	},
 }

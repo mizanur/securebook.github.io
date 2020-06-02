@@ -3,17 +3,25 @@ import { IconType } from "@interfaces/Icon";
 import Icon from "@components/Icon";
 import "@styles/DropDown.scss";
 
-export function DropDownItem({ iconType, label, children, ...rest }: { iconType?: IconType, label?: string, children?: ComponentChildren } & h.JSX.HTMLAttributes<HTMLDivElement>) {
+export function DropDownItem({ iconType, label, children, selected = false, ...rest }: { selected?: boolean, iconType?: IconType, label?: string, children?: ComponentChildren } & h.JSX.HTMLAttributes<HTMLDivElement>) {
 	return <div
 		{...rest}
 		title={label}
-		className={`DropDown__Item ${rest.class || rest.className || ''} ${rest.onClick ? `DropDown__Item--with-click` : ``}`}
+		className={
+			`DropDown__Item ${
+				rest.class || rest.className || ''
+			} ${
+				selected ? `DropDown__Item--selected` : ``
+			} ${
+				rest.onClick ? `DropDown__Item--with-click` : ``
+			}`
+		}
 	>
 		{!!iconType && <span className="DropDown__Icon"><Icon type={iconType} /></span>}
 		<span className="DropDown__Label">{!children ? label : children}</span>
 	</div>;
 }
 
-export function DropDown({ children }: { children: ComponentChildren }) {
-	return <div className="DropDown">{children}</div>;
+export function DropDown(props: h.JSX.HTMLAttributes<HTMLDivElement>) {
+	return <div {...props} className={`DropDown ${props.class || props.className || ''}`} />;
 }

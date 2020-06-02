@@ -4,6 +4,12 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { setBlockType } from "prosemirror-commands";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { textblockTypeInputRule } from "prosemirror-inputrules";
+import { Wrapped } from "@interfaces/Wrapped";
+import { EditorState } from "prosemirror-state";
+import { isActiveNode } from "@editor/utils/isActiveNode";
+import { unwrap } from "@utils/wrap";
+import { getNodeAttrs } from "@editor/utils/getNodeAttrs";
+import { toggleBlockType } from "@editor/utils/toggleBlockType";
 
 export class HeadingNode implements EditorNode, KeyBindings, InputRules {
 	name: string = 'heading';
@@ -38,5 +44,23 @@ export class HeadingNode implements EditorNode, KeyBindings, InputRules {
 			schema.nodes.heading,
 			match => ({ level: match[1].length })
 		));
+	}
+
+	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+		return {
+			get isCurrent(): boolean {
+				return isActiveNode(unwrap(state), schema.nodes.heading);
+			},
+			get level(): number {
+				return this.isCurrent && getNodeAttrs(unwrap(state), schema.nodes.heading).level || 0;
+			}
+		}
+	}
+
+	getMenuActions(schema: Schema) {
+		return {
+			setLevel: (level: number) => toggleBlockType(schema.nodes.heading, schema.nodes.heading, { level }),
+			remove: () => toggleBlockType(schema.nodes.heading, schema.nodes.paragraph),
+		}
 	}
 }

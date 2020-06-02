@@ -24,4 +24,8 @@ export interface MenuActions {
 	codeBlock: {
 		toggle: () => void,
 	},
+	heading: {
+		setLevel: (level: number) => void,
+		remove: () => void,
+	},
 }
