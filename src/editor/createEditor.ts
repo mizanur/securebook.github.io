@@ -34,6 +34,7 @@ import { wrap } from "@utils/wrap";
 import { UnderlineMark } from "@editor/marks/UnderlineMark";
 import { StrikethroughMark } from "@editor/marks/StrikethroughMark";
 import { ActionDeclarations, AddMenuActions, Actions } from "@editor/interfaces/Actions";
+import { JustifyFix } from "@editor/plugins/JustifyFix";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -87,7 +88,6 @@ export function createEditor(): Editor {
 	];
 	const inputRulesManager = new InputRulesManager(inputRules);
 	const keyBindings: KeyBindings[] = [
-		paragraphNode,
 		blockquoteNode,
 		headingNode,
 		codeBlockNode,
@@ -103,11 +103,13 @@ export function createEditor(): Editor {
 		inputRulesManager,
 	];
 	const keyBindingsManager = new KeyBindingsManager(keyBindings);
+	const justifyFix = new JustifyFix();
 	const editorPlugins: EditorPlugins[] = [
 		history,
 		cursor,
 		inputRulesManager,
 		keyBindingsManager,
+		justifyFix,
 	];
 	const editorSchema = new EditorSchema(editorNodes, editorMarks);
 	const editorPluginsManager = new EditorPluginsManager(editorPlugins);
@@ -142,6 +144,7 @@ export function createEditor(): Editor {
 					blockquote: blockquoteNode.getMenuState(state, editorSchema.schema),
 					codeBlock: codeBlockNode.getMenuState(state, editorSchema.schema),
 					heading: headingNode.getMenuState(state, editorSchema.schema),
+					paragraph: paragraphNode.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
 					strong: cmd(strongMark.getMenuActions),
@@ -154,6 +157,7 @@ export function createEditor(): Editor {
 					codeBlock: cmd(codeBlockNode.getMenuActions),
 					heading: cmd(headingNode.getMenuActions),
 					horizontalRule: cmd(horizontalRuleNode.getMenuActions),
+					paragraph: cmd(paragraphNode.getMenuActions),
 				},
 			};
 		}

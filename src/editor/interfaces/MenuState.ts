@@ -1,3 +1,5 @@
+import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
+
 export interface MenuState {
 	strong: {
 		isCurrent: boolean,
@@ -31,5 +33,9 @@ export interface MenuState {
 	heading: {
 		isCurrent: boolean,
 		level: number,
+	},
+	paragraph: {
+		isCurrent: boolean,
+		attrs: ParagraphAttrs,
 	},
 }

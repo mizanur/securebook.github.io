@@ -22,6 +22,12 @@
 				background: $main-hovered-selected-bg-color;
 			}
 		}
+
+		&[disabled] {
+			pointer-events: none;
+			background: transparent;
+			color: $main-disabled-color;
+		}
 	}
 
 	&__LinkEditorUnselected {

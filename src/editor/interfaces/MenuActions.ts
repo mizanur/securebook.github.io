@@ -1,3 +1,5 @@
+import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
+
 export interface MenuActions {
 	strong: {
 		toggle: () => void,
@@ -30,5 +32,8 @@ export interface MenuActions {
 	},
 	horizontalRule: {
 		add: () => void,
-	}
+	},
+	paragraph: {
+		setAttrs: (attrs: ParagraphAttrs) => void,
+	},
 }

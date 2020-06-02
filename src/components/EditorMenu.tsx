@@ -200,6 +200,58 @@ function EditorMenu() {
 		>
 			<Icon type="horizontal_rule" />
 		</button>
+		<button
+			className={`EditorMenu__Button ${
+				menu.state.paragraph.isCurrent && menu.state.paragraph.attrs.textAlign === 'left' ? `EditorMenu__Button--active`: ``
+			}`}
+			onClick={() => menu.actions.paragraph.setAttrs({
+				...menu.state.paragraph.attrs,
+				textAlign: 'left',
+			})}
+			title="Align: Left"
+			disabled={!menu.state.paragraph.isCurrent}
+		>
+			<Icon type="format_align_left" />
+		</button>
+		<button
+			className={`EditorMenu__Button ${
+				menu.state.paragraph.isCurrent && menu.state.paragraph.attrs.textAlign === 'center' ? `EditorMenu__Button--active`: ``
+			}`}
+			onClick={() => menu.actions.paragraph.setAttrs({
+				...menu.state.paragraph.attrs,
+				textAlign: 'center',
+			})}
+			title="Align: Center"
+			disabled={!menu.state.paragraph.isCurrent}
+		>
+			<Icon type="format_align_center" />
+		</button>
+		<button
+			className={`EditorMenu__Button ${
+				menu.state.paragraph.isCurrent && menu.state.paragraph.attrs.textAlign === 'justify' ? `EditorMenu__Button--active`: ``
+			}`}
+			onClick={() => menu.actions.paragraph.setAttrs({
+				...menu.state.paragraph.attrs,
+				textAlign: 'justify',
+			})}
+			title="Align: Justify"
+			disabled={!menu.state.paragraph.isCurrent}
+		>
+			<Icon type="format_align_justify" />
+		</button>
+		<button
+			className={`EditorMenu__Button ${
+				menu.state.paragraph.isCurrent && menu.state.paragraph.attrs.textAlign === 'right' ? `EditorMenu__Button--active`: ``
+			}`}
+			onClick={() => menu.actions.paragraph.setAttrs({
+				...menu.state.paragraph.attrs,
+				textAlign: 'right',
+			})}
+			title="Align: Right"
+			disabled={!menu.state.paragraph.isCurrent}
+		>
+			<Icon type="format_align_right" />
+		</button>
 		<button><Icon type="format_list_bulleted" /></button>
 		<button><Icon type="format_list_numbered" /></button>
 	</div>
