@@ -1,156 +1,305 @@
-export type IconType = '3d_rotation' | 'ac_unit' | 'access_alarm' | 'access_alarms' | 'access_time' | 'accessibility' |
-	'accessible' | 'account_balance' | 'account_balance_wallet' | 'account_box' | 'account_circle' | 'adb' |
-	'add' | 'add_a_photo' | 'add_alarm' | 'add_alert' | 'add_box' | 'add_circle' |
-	'add_circle_outline' | 'add_location' | 'add_shopping_cart' | 'add_to_photos' | 'add_to_queue' | 'adjust' |
-	'airline_seat_flat' | 'airline_seat_flat_angled' | 'airline_seat_individual_suite' | 'airline_seat_legroom_extra' | 'airline_seat_legroom_normal' | 'airline_seat_legroom_reduced' |
-	'airline_seat_recline_extra' | 'airline_seat_recline_normal' | 'airplanemode_active' | 'airplanemode_inactive' | 'airplay' | 'airport_shuttle' |
-	'alarm' | 'alarm_add' | 'alarm_off' | 'alarm_on' | 'album' | 'all_inclusive' |
-	'all_out' | 'android' | 'announcement' | 'apps' | 'archive' | 'arrow_back' |
-	'arrow_downward' | 'arrow_drop_down' | 'arrow_drop_down_circle' | 'arrow_drop_up' | 'arrow_forward' | 'arrow_upward' |
-	'art_track' | 'aspect_ratio' | 'assessment' | 'assignment' | 'assignment_ind' | 'assignment_late' |
-	'assignment_return' | 'assignment_returned' | 'assignment_turned_in' | 'assistant' | 'assistant_photo' | 'attach_file' |
-	'attach_money' | 'attachment' | 'audiotrack' | 'autorenew' | 'av_timer' | 'backspace' |
-	'backup' | 'battery_alert' | 'battery_charging_full' | 'battery_full' | 'battery_std' | 'battery_unknown' |
-	'beach_access' | 'beenhere' | 'block' | 'bluetooth' | 'bluetooth_audio' | 'bluetooth_connected' |
-	'bluetooth_disabled' | 'bluetooth_searching' | 'blur_circular' | 'blur_linear' | 'blur_off' | 'blur_on' |
-	'book' | 'bookmark' | 'bookmark_border' | 'border_all' | 'border_bottom' | 'border_clear' |
-	'border_color' | 'border_horizontal' | 'border_inner' | 'border_left' | 'border_outer' | 'border_right' |
-	'border_style' | 'border_top' | 'border_vertical' | 'branding_watermark' | 'brightness_1' | 'brightness_2' |
-	'brightness_3' | 'brightness_4' | 'brightness_5' | 'brightness_6' | 'brightness_7' | 'brightness_auto' |
-	'brightness_high' | 'brightness_low' | 'brightness_medium' | 'broken_image' | 'brush' | 'bubble_chart' |
-	'bug_report' | 'build' | 'burst_mode' | 'business' | 'business_center' | 'cached' |
-	'cake' | 'call' | 'call_end' | 'call_made' | 'call_merge' | 'call_missed' |
-	'call_missed_outgoing' | 'call_received' | 'call_split' | 'call_to_action' | 'camera' | 'camera_alt' |
-	'camera_enhance' | 'camera_front' | 'camera_rear' | 'camera_roll' | 'cancel' | 'card_giftcard' |
-	'card_membership' | 'card_travel' | 'casino' | 'cast' | 'cast_connected' | 'center_focus_strong' |
-	'center_focus_weak' | 'change_history' | 'chat' | 'chat_bubble' | 'chat_bubble_outline' | 'check' |
-	'check_box' | 'check_box_outline_blank' | 'check_circle' | 'chevron_left' | 'chevron_right' | 'child_care' |
-	'child_friendly' | 'chrome_reader_mode' | 'class' | 'clear' | 'clear_all' | 'close' |
-	'closed_caption' | 'cloud' | 'cloud_circle' | 'cloud_done' | 'cloud_download' | 'cloud_off' |
-	'cloud_queue' | 'cloud_upload' | 'code' | 'collections' | 'collections_bookmark' | 'color_lens' |
-	'colorize' | 'comment' | 'compare' | 'compare_arrows' | 'computer' | 'confirmation_number' |
-	'contact_mail' | 'contact_phone' | 'contacts' | 'content_copy' | 'content_cut' | 'content_paste' |
-	'control_point' | 'control_point_duplicate' | 'copyright' | 'create' | 'create_new_folder' | 'credit_card' |
-	'crop' | 'crop_16_9' | 'crop_3_2' | 'crop_5_4' | 'crop_7_5' | 'crop_din' |
-	'crop_free' | 'crop_landscape' | 'crop_original' | 'crop_portrait' | 'crop_rotate' | 'crop_square' |
-	'dashboard' | 'data_usage' | 'date_range' | 'dehaze' | 'delete' | 'delete_forever' |
-	'delete_sweep' | 'description' | 'desktop_mac' | 'desktop_windows' | 'details' | 'developer_board' |
-	'developer_mode' | 'device_hub' | 'devices' | 'devices_other' | 'dialer_sip' | 'dialpad' |
-	'directions' | 'directions_bike' | 'directions_boat' | 'directions_bus' | 'directions_car' | 'directions_railway' |
-	'directions_run' | 'directions_subway' | 'directions_transit' | 'directions_walk' | 'disc_full' | 'dns' |
-	'do_not_disturb' | 'do_not_disturb_alt' | 'do_not_disturb_off' | 'do_not_disturb_on' | 'dock' | 'domain' |
-	'done' | 'done_all' | 'donut_large' | 'donut_small' | 'drafts' | 'drag_handle' |
-	'drive_eta' | 'dvr' | 'edit' | 'edit_location' | 'eject' | 'email' |
-	'enhanced_encryption' | 'equalizer' | 'error' | 'error_outline' | 'euro_symbol' | 'ev_station' |
-	'event' | 'event_available' | 'event_busy' | 'event_note' | 'event_seat' | 'exit_to_app' |
-	'expand_less' | 'expand_more' | 'explicit' | 'explore' | 'exposure' | 'exposure_neg_1' |
-	'exposure_neg_2' | 'exposure_plus_1' | 'exposure_plus_2' | 'exposure_zero' | 'extension' | 'face' |
-	'fast_forward' | 'fast_rewind' | 'favorite' | 'favorite_border' | 'featured_play_list' | 'featured_video' |
-	'feedback' | 'fiber_dvr' | 'fiber_manual_record' | 'fiber_new' | 'fiber_pin' | 'fiber_smart_record' |
-	'file_download' | 'file_upload' | 'filter' | 'filter_1' | 'filter_2' | 'filter_3' |
-	'filter_4' | 'filter_5' | 'filter_6' | 'filter_7' | 'filter_8' | 'filter_9' |
-	'filter_9_plus' | 'filter_b_and_w' | 'filter_center_focus' | 'filter_drama' | 'filter_frames' | 'filter_hdr' |
-	'filter_list' | 'filter_none' | 'filter_tilt_shift' | 'filter_vintage' | 'find_in_page' | 'find_replace' |
-	'fingerprint' | 'first_page' | 'fitness_center' | 'flag' | 'flare' | 'flash_auto' |
-	'flash_off' | 'flash_on' | 'flight' | 'flight_land' | 'flight_takeoff' | 'flip' |
-	'flip_to_back' | 'flip_to_front' | 'folder' | 'folder_open' | 'folder_shared' | 'folder_special' |
-	'font_download' | 'format_align_center' | 'format_align_justify' | 'format_align_left' | 'format_align_right' | 'format_bold' |
-	'format_clear' | 'format_color_fill' | 'format_color_reset' | 'format_color_text' | 'format_indent_decrease' | 'format_indent_increase' |
-	'format_italic' | 'format_line_spacing' | 'format_list_bulleted' | 'format_list_numbered' | 'format_paint' | 'format_quote' |
-	'format_shapes' | 'format_size' | 'format_strikethrough' | 'format_textdirection_l_to_r' | 'format_textdirection_r_to_l' | 'format_underlined' |
-	'forum' | 'forward' | 'forward_10' | 'forward_30' | 'forward_5' | 'free_breakfast' |
-	'fullscreen' | 'fullscreen_exit' | 'functions' | 'g_translate' | 'gamepad' | 'games' |
-	'gavel' | 'gesture' | 'get_app' | 'gif' | 'golf_course' | 'gps_fixed' |
-	'gps_not_fixed' | 'gps_off' | 'grade' | 'gradient' | 'grain' | 'graphic_eq' |
-	'grid_off' | 'grid_on' | 'group' | 'group_add' | 'group_work' | 'hd' |
-	'hdr_off' | 'hdr_on' | 'hdr_strong' | 'hdr_weak' | 'headset' | 'headset_mic' |
-	'healing' | 'hearing' | 'help' | 'help_outline' | 'high_quality' | 'highlight' |
-	'highlight_off' | 'history' | 'home' | 'hot_tub' | 'hotel' | 'hourglass_empty' |
-	'hourglass_full' | 'http' | 'https' | 'image' | 'image_aspect_ratio' | 'import_contacts' |
-	'import_export' | 'important_devices' | 'inbox' | 'indeterminate_check_box' | 'info' | 'info_outline' |
-	'input' | 'insert_chart' | 'insert_comment' | 'insert_drive_file' | 'insert_emoticon' | 'insert_invitation' |
-	'insert_link' | 'insert_photo' | 'invert_colors' | 'invert_colors_off' | 'iso' | 'keyboard' |
-	'keyboard_arrow_down' | 'keyboard_arrow_left' | 'keyboard_arrow_right' | 'keyboard_arrow_up' | 'keyboard_backspace' | 'keyboard_capslock' |
-	'keyboard_hide' | 'keyboard_return' | 'keyboard_tab' | 'keyboard_voice' | 'kitchen' | 'label' |
-	'label_outline' | 'landscape' | 'language' | 'laptop' | 'laptop_chromebook' | 'laptop_mac' |
-	'laptop_windows' | 'last_page' | 'launch' | 'layers' | 'layers_clear' | 'leak_add' |
-	'leak_remove' | 'lens' | 'library_add' | 'library_books' | 'library_music' | 'lightbulb_outline' |
-	'line_style' | 'line_weight' | 'linear_scale' | 'link' | 'linked_camera' | 'list' |
-	'live_help' | 'live_tv' | 'local_activity' | 'local_airport' | 'local_atm' | 'local_bar' |
-	'local_cafe' | 'local_car_wash' | 'local_convenience_store' | 'local_dining' | 'local_drink' | 'local_florist' |
-	'local_gas_station' | 'local_grocery_store' | 'local_hospital' | 'local_hotel' | 'local_laundry_service' | 'local_library' |
-	'local_mall' | 'local_movies' | 'local_offer' | 'local_parking' | 'local_pharmacy' | 'local_phone' |
-	'local_pizza' | 'local_play' | 'local_post_office' | 'local_printshop' | 'local_see' | 'local_shipping' |
-	'local_taxi' | 'location_city' | 'location_disabled' | 'location_off' | 'location_on' | 'location_searching' |
-	'lock' | 'lock_open' | 'lock_outline' | 'looks' | 'looks_3' | 'looks_4' |
-	'looks_5' | 'looks_6' | 'looks_one' | 'looks_two' | 'loop' | 'loupe' |
-	'low_priority' | 'loyalty' | 'mail' | 'mail_outline' | 'map' | 'markunread' |
-	'markunread_mailbox' | 'memory' | 'menu' | 'merge_type' | 'message' | 'mic' |
-	'mic_none' | 'mic_off' | 'mms' | 'mode_comment' | 'mode_edit' | 'monetization_on' |
-	'money_off' | 'monochrome_photos' | 'mood' | 'mood_bad' | 'more' | 'more_horiz' |
-	'more_vert' | 'motorcycle' | 'mouse' | 'move_to_inbox' | 'movie' | 'movie_creation' |
-	'movie_filter' | 'multiline_chart' | 'music_note' | 'music_video' | 'my_location' | 'nature' |
-	'nature_people' | 'navigate_before' | 'navigate_next' | 'navigation' | 'near_me' | 'network_cell' |
-	'network_check' | 'network_locked' | 'network_wifi' | 'new_releases' | 'next_week' | 'nfc' |
-	'no_encryption' | 'no_sim' | 'not_interested' | 'note' | 'note_add' | 'notifications' |
-	'notifications_active' | 'notifications_none' | 'notifications_off' | 'notifications_paused' | 'offline_pin' | 'ondemand_video' |
-	'opacity' | 'open_in_browser' | 'open_in_new' | 'open_with' | 'pages' | 'pageview' |
-	'palette' | 'pan_tool' | 'panorama' | 'panorama_fish_eye' | 'panorama_horizontal' | 'panorama_vertical' |
-	'panorama_wide_angle' | 'party_mode' | 'pause' | 'pause_circle_filled' | 'pause_circle_outline' | 'payment' |
-	'people' | 'people_outline' | 'perm_camera_mic' | 'perm_contact_calendar' | 'perm_data_setting' | 'perm_device_information' |
-	'perm_identity' | 'perm_media' | 'perm_phone_msg' | 'perm_scan_wifi' | 'person' | 'person_add' |
-	'person_outline' | 'person_pin' | 'person_pin_circle' | 'personal_video' | 'pets' | 'phone' |
-	'phone_android' | 'phone_bluetooth_speaker' | 'phone_forwarded' | 'phone_in_talk' | 'phone_iphone' | 'phone_locked' |
-	'phone_missed' | 'phone_paused' | 'phonelink' | 'phonelink_erase' | 'phonelink_lock' | 'phonelink_off' |
-	'phonelink_ring' | 'phonelink_setup' | 'photo' | 'photo_album' | 'photo_camera' | 'photo_filter' |
-	'photo_library' | 'photo_size_select_actual' | 'photo_size_select_large' | 'photo_size_select_small' | 'picture_as_pdf' | 'picture_in_picture' |
-	'picture_in_picture_alt' | 'pie_chart' | 'pie_chart_outlined' | 'pin_drop' | 'place' | 'play_arrow' |
-	'play_circle_filled' | 'play_circle_outline' | 'play_for_work' | 'playlist_add' | 'playlist_add_check' | 'playlist_play' |
-	'plus_one' | 'poll' | 'polymer' | 'pool' | 'portable_wifi_off' | 'portrait' |
-	'power' | 'power_input' | 'power_settings_new' | 'pregnant_woman' | 'present_to_all' | 'print' |
-	'priority_high' | 'public' | 'publish' | 'query_builder' | 'question_answer' | 'queue' |
-	'queue_music' | 'queue_play_next' | 'radio' | 'radio_button_checked' | 'radio_button_unchecked' | 'rate_review' |
-	'receipt' | 'recent_actors' | 'record_voice_over' | 'redeem' | 'redo' | 'refresh' |
-	'remove' | 'remove_circle' | 'remove_circle_outline' | 'remove_from_queue' | 'remove_red_eye' | 'remove_shopping_cart' |
-	'reorder' | 'repeat' | 'repeat_one' | 'replay' | 'replay_10' | 'replay_30' |
-	'replay_5' | 'reply' | 'reply_all' | 'report' | 'report_problem' | 'restaurant' |
-	'restaurant_menu' | 'restore' | 'restore_page' | 'ring_volume' | 'room' | 'room_service' |
-	'rotate_90_degrees_ccw' | 'rotate_left' | 'rotate_right' | 'rounded_corner' | 'router' | 'rowing' |
-	'rss_feed' | 'rv_hookup' | 'satellite' | 'save' | 'scanner' | 'schedule' |
-	'school' | 'screen_lock_landscape' | 'screen_lock_portrait' | 'screen_lock_rotation' | 'screen_rotation' | 'screen_share' |
-	'sd_card' | 'sd_storage' | 'search' | 'security' | 'select_all' | 'send' |
-	'sentiment_dissatisfied' | 'sentiment_neutral' | 'sentiment_satisfied' | 'sentiment_very_dissatisfied' | 'sentiment_very_satisfied' | 'settings' |
-	'settings_applications' | 'settings_backup_restore' | 'settings_bluetooth' | 'settings_brightness' | 'settings_cell' | 'settings_ethernet' |
-	'settings_input_antenna' | 'settings_input_component' | 'settings_input_composite' | 'settings_input_hdmi' | 'settings_input_svideo' | 'settings_overscan' |
-	'settings_phone' | 'settings_power' | 'settings_remote' | 'settings_system_daydream' | 'settings_voice' | 'share' |
-	'shop' | 'shop_two' | 'shopping_basket' | 'shopping_cart' | 'short_text' | 'show_chart' |
-	'shuffle' | 'signal_cellular_4_bar' | 'signal_cellular_connected_no_internet_4_bar' | 'signal_cellular_no_sim' | 'signal_cellular_null' | 'signal_cellular_off' |
-	'signal_wifi_4_bar' | 'signal_wifi_4_bar_lock' | 'signal_wifi_off' | 'sim_card' | 'sim_card_alert' | 'skip_next' |
-	'skip_previous' | 'slideshow' | 'slow_motion_video' | 'smartphone' | 'smoke_free' | 'smoking_rooms' |
-	'sms' | 'sms_failed' | 'snooze' | 'sort' | 'sort_by_alpha' | 'spa' |
-	'space_bar' | 'speaker' | 'speaker_group' | 'speaker_notes' | 'speaker_notes_off' | 'speaker_phone' |
-	'spellcheck' | 'star' | 'star_border' | 'star_half' | 'stars' | 'stay_current_landscape' |
-	'stay_current_portrait' | 'stay_primary_landscape' | 'stay_primary_portrait' | 'stop' | 'stop_screen_share' | 'storage' |
-	'store' | 'store_mall_directory' | 'straighten' | 'streetview' | 'strikethrough_s' | 'style' |
-	'subdirectory_arrow_left' | 'subdirectory_arrow_right' | 'subject' | 'subscriptions' | 'subtitles' | 'subway' |
-	'supervisor_account' | 'surround_sound' | 'swap_calls' | 'swap_horiz' | 'swap_vert' | 'swap_vertical_circle' |
-	'switch_camera' | 'switch_video' | 'sync' | 'sync_disabled' | 'sync_problem' | 'system_update' |
-	'system_update_alt' | 'tab' | 'tab_unselected' | 'tablet' | 'tablet_android' | 'tablet_mac' |
-	'tag_faces' | 'tap_and_play' | 'terrain' | 'text_fields' | 'text_format' | 'textsms' |
-	'texture' | 'theaters' | 'thumb_down' | 'thumb_up' | 'thumbs_up_down' | 'time_to_leave' |
-	'timelapse' | 'timeline' | 'timer' | 'timer_10' | 'timer_3' | 'timer_off' |
-	'title' | 'toc' | 'today' | 'toll' | 'tonality' | 'touch_app' |
-	'toys' | 'track_changes' | 'traffic' | 'train' | 'tram' | 'transfer_within_a_station' |
-	'transform' | 'translate' | 'trending_down' | 'trending_flat' | 'trending_up' | 'tune' |
-	'turned_in' | 'turned_in_not' | 'tv' | 'unarchive' | 'undo' | 'unfold_less' |
-	'unfold_more' | 'update' | 'usb' | 'verified_user' | 'vertical_align_bottom' | 'vertical_align_center' |
-	'vertical_align_top' | 'vibration' | 'video_call' | 'video_label' | 'video_library' | 'videocam' |
-	'videocam_off' | 'videogame_asset' | 'view_agenda' | 'view_array' | 'view_carousel' | 'view_column' |
-	'view_comfy' | 'view_compact' | 'view_day' | 'view_headline' | 'view_list' | 'view_module' |
-	'view_quilt' | 'view_stream' | 'view_week' | 'vignette' | 'visibility' | 'visibility_off' |
-	'voice_chat' | 'voicemail' | 'volume_down' | 'volume_mute' | 'volume_off' | 'volume_up' |
-	'vpn_key' | 'vpn_lock' | 'wallpaper' | 'warning' | 'watch' | 'watch_later' |
-	'wb_auto' | 'wb_cloudy' | 'wb_incandescent' | 'wb_iridescent' | 'wb_sunny' | 'wc' |
-	'web' | 'web_asset' | 'weekend' | 'whatshot' | 'widgets' | 'wifi' |
-	'wifi_lock' | 'wifi_tethering' | 'work' | 'wrap_text' | 'youtube_searched_for' | 'zoom_in' |
-	'zoom_out' | 'zoom_out_map';
+export type IconType = '360' | '1k_plus' | '19mp' | '18mp' | '17mp' | 
+	'16mp' | '15mp' | '14mp' | '13mp' | '12mp' | 
+	'11mp' | '10mp' | '10k' | '1k' | '2k_plus' | 
+	'24mp' | '23mp' | '22mp' | '21mp' | '20mp' | 
+	'2mp' | '2k' | '3d_rotation' | '3k_plus' | '3mp' | 
+	'3k' | '4k_plus' | '4mp' | '4k' | '5mp' | 
+	'5k_plus' | '5k' | '5g' | '6k_plus' | '6mp' | 
+	'6k' | '7k_plus' | '7mp' | '7k' | '8k_plus' | 
+	'8mp' | '8k' | '9k_plus' | '9mp' | '9k' | 
+	'av_timer' | 'autorenew' | 'auto_stories' | 'auto_fix_off' | 'auto_fix_normal' | 
+	'auto_fix_high' | 'auto_delete' | 'auto_awesome_motion' | 'auto_awesome_mosaic' | 'auto_awesome' | 
+	'audiotrack' | 'attractions' | 'attachment' | 'attach_money' | 'attach_file' | 
+	'attach_email' | 'atm' | 'assistant_photo' | 'assistant_navigation' | 'assistant_direction' | 
+	'assistant' | 'assignment_turned_in' | 'assignment_returned' | 'assignment_return' | 'assignment_late' | 
+	'assignment_ind' | 'assignment' | 'assessment' | 'aspect_ratio' | 'article' | 
+	'art_track' | 'arrow_upward' | 'arrow_right_alt' | 'arrow_right' | 'arrow_left' | 
+	'arrow_forward_ios' | 'arrow_forward' | 'arrow_drop_up' | 'arrow_drop_down_circle' | 'arrow_drop_down' | 
+	'arrow_downward' | 'arrow_circle_up' | 'arrow_circle_down' | 'arrow_back_ios' | 'arrow_back' | 
+	'archive' | 'architecture' | 'apps' | 'approval' | 'app_settings_alt' | 
+	'app_registration' | 'app_blocking' | 'api' | 'apartment' | 'announcement' | 
+	'animation' | 'android' | 'anchor' | 'analytics' | 'amp_stories' | 
+	'alternate_email' | 'alt_route' | 'all_out' | 'all_inclusive' | 'all_inbox' | 
+	'album' | 'alarm_on' | 'alarm_off' | 'alarm_add' | 'alarm' | 
+	'airport_shuttle' | 'airplay' | 'airplanemode_on' | 'airplanemode_off' | 'airplanemode_inactive' | 
+	'airplanemode_active' | 'airline_seat_recline_normal' | 'airline_seat_recline_extra' | 'airline_seat_legroom_reduced' | 'airline_seat_legroom_normal' | 
+	'airline_seat_legroom_extra' | 'airline_seat_individual_suite' | 'airline_seat_flat_angled' | 'airline_seat_flat' | 'agriculture' | 
+	'admin_panel_settings' | 'adjust' | 'addchart' | 'add_to_queue' | 'add_to_photos' | 
+	'add_to_home_screen' | 'add_to_drive' | 'add_shopping_cart' | 'add_road' | 'add_photo_alternate' | 
+	'add_moderator' | 'add_location_alt' | 'add_location' | 'add_link' | 'add_ic_call' | 
+	'add_comment' | 'add_circle_outline' | 'add_circle' | 'add_chart' | 'add_call' | 
+	'add_business' | 'add_box' | 'add_alert' | 'add_alarm' | 'add_a_photo' | 
+	'add' | 'adb' | 'ad_units' | 'account_tree' | 'account_circle' | 
+	'account_box' | 'account_balance_wallet' | 'account_balance' | 'accessible_forward' | 'accessible' | 
+	'accessibility_new' | 'accessibility' | 'access_time' | 'access_alarms' | 'access_alarm' | 
+	'ac_unit' | 'business_center' | 'business' | 'bus_alert' | 'burst_mode' | 
+	'build_circle' | 'build' | 'bug_report' | 'bubble_chart' | 'brush' | 
+	'brunch_dining' | 'browser_not_supported' | 'broken_image' | 'brightness_medium' | 'brightness_low' | 
+	'brightness_high' | 'brightness_auto' | 'brightness_7' | 'brightness_6' | 'brightness_5' | 
+	'brightness_4' | 'brightness_3' | 'brightness_2' | 'brightness_1' | 'breakfast_dining' | 
+	'branding_watermark' | 'border_vertical' | 'border_top' | 'border_style' | 'border_right' | 
+	'border_outer' | 'border_left' | 'border_inner' | 'border_horizontal' | 'border_color' | 
+	'border_clear' | 'border_bottom' | 'border_all' | 'bookmarks' | 'bookmark_outline' | 
+	'bookmark_border' | 'bookmark' | 'book' | 'bolt' | 'blur_on' | 
+	'blur_off' | 'blur_linear' | 'blur_circular' | 'bluetooth_searching' | 'bluetooth_disabled' | 
+	'bluetooth_connected' | 'bluetooth_audio' | 'bluetooth' | 'block_flipped' | 'block' | 
+	'biotech' | 'bike_scooter' | 'bento' | 'beenhere' | 'bedtime' | 
+	'beach_access' | 'battery_unknown' | 'battery_std' | 'battery_full' | 'battery_charging_full' | 
+	'battery_alert' | 'bathtub' | 'batch_prediction' | 'bar_chart' | 'ballot' | 
+	'bakery_dining' | 'badge' | 'backup_table' | 'backup' | 'backspace' | 
+	'backpack' | 'baby_changing_station' | 'crop_square' | 'crop_rotate' | 'crop_portrait' | 
+	'crop_original' | 'crop_landscape' | 'crop_free' | 'crop_din' | 'crop_7_5' | 
+	'crop_5_4' | 'crop_3_2' | 'crop_16_9' | 'crop' | 'credit_card' | 
+	'create_new_folder' | 'create' | 'countertops' | 'corporate_fare' | 'copyright' | 
+	'control_point_duplicate' | 'control_point' | 'control_camera' | 'content_paste' | 'content_cut' | 
+	'content_copy' | 'contacts' | 'contactless' | 'contact_support' | 'contact_phone' | 
+	'contact_mail' | 'construction' | 'connected_tv' | 'confirmation_number' | 'confirmation_num' | 
+	'computer' | 'compress' | 'compass_calibration' | 'compare_arrows' | 'compare' | 
+	'commute' | 'comment_bank' | 'comment' | 'colorize' | 'color_lens' | 
+	'collections_bookmark' | 'collections' | 'code' | 'cloud_upload' | 'cloud_queue' | 
+	'cloud_off' | 'cloud_download' | 'cloud_done' | 'cloud_circle' | 'cloud' | 
+	'closed_caption_off' | 'closed_caption_disabled' | 'closed_caption' | 'close_fullscreen' | 'close' | 
+	'clear_all' | 'clear' | 'cleaning_services' | 'class' | 'circle_notifications' | 
+	'circle' | 'chrome_reader_mode' | 'child_friendly' | 'child_care' | 'chevron_right' | 
+	'chevron_left' | 'checkroom' | 'check_circle_outline' | 'check_circle' | 'check_box_outline_blank' | 
+	'check_box' | 'check' | 'chat_bubble_outline' | 'chat_bubble' | 'chat' | 
+	'charging_station' | 'change_history' | 'center_focus_weak' | 'center_focus_strong' | 'cell_wifi' | 
+	'celebration' | 'category' | 'cast_for_education' | 'cast_connected' | 'cast' | 
+	'casino' | 'cases' | 'carpenter' | 'card_travel' | 'card_membership' | 
+	'card_giftcard' | 'car_repair' | 'car_rental' | 'cancel_schedule_send' | 'cancel_presentation' | 
+	'cancel' | 'campaign' | 'camera_roll' | 'camera_rear' | 'camera_front' | 
+	'camera_enhance' | 'camera_alt' | 'camera' | 'call_to_action' | 'call_split' | 
+	'call_received' | 'call_missed_outgoing' | 'call_missed' | 'call_merge' | 'call_made' | 
+	'call_end' | 'call' | 'calendar_view_day' | 'calendar_today' | 'calculate' | 
+	'cake' | 'cached' | 'dynamic_form' | 'dynamic_feed' | 'dvr' | 
+	'duo' | 'dry_cleaning' | 'dry' | 'drive_folder_upload' | 'drive_file_rename_outline' | 
+	'drive_file_move_outline' | 'drive_file_move' | 'drive_eta' | 'drag_indicator' | 'drag_handle' | 
+	'drafts' | 'double_arrow' | 'donut_small' | 'donut_large' | 'done_outline' | 
+	'done_all' | 'done' | 'domain_verification' | 'domain_disabled' | 'domain' | 
+	'dock' | 'do_not_touch' | 'do_not_step' | 'do_not_disturb_on' | 'do_not_disturb_off' | 
+	'do_not_disturb_alt' | 'do_not_disturb' | 'dns' | 'dnd_forwardslash' | 'disc_full' | 
+	'dirty_lens' | 'directions_walk' | 'directions_transit' | 'directions_train' | 'directions_subway' | 
+	'directions_run' | 'directions_railway' | 'directions_off' | 'directions_ferry' | 'directions_car' | 
+	'directions_bus' | 'directions_boat' | 'directions_bike' | 'directions' | 'dinner_dining' | 
+	'dialpad' | 'dialer_sip' | 'devices_other' | 'devices' | 'device_unknown' | 
+	'device_thermostat' | 'device_hub' | 'developer_mode' | 'developer_board' | 'details' | 
+	'desktop_windows' | 'desktop_mac' | 'desktop_access_disabled' | 'design_services' | 'description' | 
+	'departure_board' | 'delivery_dining' | 'delete_sweep' | 'delete_outline' | 'delete_forever' | 
+	'delete' | 'dehaze' | 'deck' | 'date_range' | 'data_usage' | 
+	'dashboard_customize' | 'dashboard' | 'dangerous' | 'extension' | 'exposure_zero' | 
+	'exposure_plus_2' | 'exposure_plus_1' | 'exposure_neg_2' | 'exposure_neg_1' | 'exposure_minus_2' | 
+	'exposure_minus_1' | 'exposure' | 'explore_off' | 'explore' | 'explicit' | 
+	'expand_more' | 'expand_less' | 'expand' | 'exit_to_app' | 'event_seat' | 
+	'event_note' | 'event_busy' | 'event_available' | 'event' | 'ev_station' | 
+	'euro_symbol' | 'euro' | 'escalator_warning' | 'escalator' | 'error_outline' | 
+	'error' | 'equalizer' | 'enhanced_encryption' | 'enhance_photo_translate' | 'engineering' | 
+	'emoji_transportation' | 'emoji_symbols' | 'emoji_people' | 'emoji_objects' | 'emoji_nature' | 
+	'emoji_food_beverage' | 'emoji_flags' | 'emoji_events' | 'emoji_emotions' | 'email' | 
+	'elevator' | 'electrical_services' | 'electric_scooter' | 'electric_rickshaw' | 'electric_moped' | 
+	'electric_car' | 'electric_bike' | 'eject' | 'edit_road' | 'edit_off' | 
+	'edit_location' | 'edit_attributes' | 'edit' | 'eco' | 'east' | 
+	'functions' | 'fullscreen_exit' | 'fullscreen' | 'free_breakfast' | 'foundation' | 
+	'forward_to_inbox' | 'forward_5' | 'forward_30' | 'forward_10' | 'forward' | 
+	'forum' | 'format_underlined' | 'format_underline' | 'format_textdirection_r_to_l' | 'format_textdirection_l_to_r' | 
+	'format_strikethrough' | 'format_size' | 'format_shapes' | 'format_quote' | 'format_paint' | 
+	'format_list_numbered_rtl' | 'format_list_numbered' | 'format_list_bulleted' | 'format_line_spacing' | 'format_italic' | 
+	'format_indent_increase' | 'format_indent_decrease' | 'format_color_text' | 'format_color_reset' | 'format_color_fill' | 
+	'format_clear' | 'format_bold' | 'format_align_right' | 'format_align_left' | 'format_align_justify' | 
+	'format_align_center' | 'food_bank' | 'font_download' | 'folder_special' | 'folder_shared' | 
+	'folder_open' | 'folder' | 'flip_to_front' | 'flip_to_back' | 'flip_camera_ios' | 
+	'flip_camera_android' | 'flip' | 'flight_takeoff' | 'flight_land' | 'flight' | 
+	'flash_on' | 'flash_off' | 'flash_auto' | 'flare' | 'flaky' | 
+	'flag' | 'fitness_center' | 'fit_screen' | 'first_page' | 'fireplace' | 
+	'fire_hydrant' | 'fire_extinguisher' | 'fingerprint' | 'find_replace' | 'find_in_page' | 
+	'filter_vintage' | 'filter_tilt_shift' | 'filter_none' | 'filter_list_alt' | 'filter_list' | 
+	'filter_hdr' | 'filter_frames' | 'filter_drama' | 'filter_center_focus' | 'filter_b_and_w' | 
+	'filter_alt' | 'filter_9_plus' | 'filter_9' | 'filter_8' | 'filter_7' | 
+	'filter_6' | 'filter_5' | 'filter_4' | 'filter_3' | 'filter_2' | 
+	'filter_1' | 'filter' | 'file_upload' | 'file_present' | 'file_download_done' | 
+	'file_download' | 'file_copy' | 'fiber_smart_record' | 'fiber_pin' | 'fiber_new' | 
+	'fiber_manual_record' | 'fiber_dvr' | 'festival' | 'fence' | 'feedback' | 
+	'featured_video' | 'featured_play_list' | 'favorite_outline' | 'favorite_border' | 'favorite' | 
+	'fastfood' | 'fast_rewind' | 'fast_forward' | 'family_restroom' | 'fact_check' | 
+	'face_retouching_natural' | 'face' | 'group_work' | 'group_add' | 'group' | 
+	'grid_view' | 'grid_on' | 'grid_off' | 'grass' | 'graphic_eq' | 
+	'grain' | 'grading' | 'gradient' | 'grade' | 'gps_off' | 
+	'gps_not_fixed' | 'gps_fixed' | 'golf_course' | 'goat' | 'gif' | 
+	'get_app' | 'gesture' | 'gavel' | 'games' | 'gamepad' | 
+	'g_translate' | 'hvac' | 'https' | 'http' | 'how_to_vote' | 
+	'how_to_reg' | 'house_siding' | 'house' | 'hourglass_top' | 'hourglass_full' | 
+	'hourglass_empty' | 'hourglass_disabled' | 'hourglass_bottom' | 'hotel' | 'hot_tub' | 
+	'horizontal_split' | 'horizontal_rule' | 'home_work' | 'home_repair_service' | 'home_filled' | 
+	'home' | 'history_toggle_off' | 'history_edu' | 'history' | 'highlight_remove' | 
+	'highlight_off' | 'highlight_alt' | 'highlight' | 'high_quality' | 'help_outline' | 
+	'help_center' | 'help' | 'height' | 'hearing_disabled' | 'hearing' | 
+	'healing' | 'headset_off' | 'headset_mic' | 'headset' | 'hdr_weak' | 
+	'hdr_strong' | 'hdr_on' | 'hdr_off' | 'hdr_enhanced_select' | 'hd' | 
+	'hardware' | 'handyman' | 'hail' | 'iso' | 'ios_share' | 
+	'invert_colors_on' | 'invert_colors_off' | 'invert_colors' | 'inventory' | 'integration_instructions' | 
+	'insights' | 'insert_photo' | 'insert_link' | 'insert_invitation' | 'insert_emoticon' | 
+	'insert_drive_file' | 'insert_comment' | 'insert_chart_outlined' | 'insert_chart' | 'input' | 
+	'info_outline' | 'info' | 'indeterminate_check_box' | 'inbox' | 'important_devices' | 
+	'import_export' | 'import_contacts' | 'imagesearch_roller' | 'image_search' | 'image_not_supported' | 
+	'image_aspect_ratio' | 'image' | 'icecream' | 'keyboard_arrow_right' | 'keyboard_arrow_left' | 
+	'keyboard_arrow_down' | 'keyboard_backspace' | 'keyboard_arrow_up' | 'keyboard_capslock' | 'keyboard_control' | 
+	'keyboard_return' | 'keyboard_voice' | 'keyboard_hide' | 'keyboard_tab' | 'king_bed' | 
+	'keyboard' | 'kitchen' | 'lunch_dining' | 'loyalty' | 'low_priority' | 
+	'loupe' | 'loop' | 'looks_two' | 'looks_one' | 'looks_6' | 
+	'looks_5' | 'looks_4' | 'looks_3' | 'looks' | 'logout' | 
+	'login' | 'lock_outline' | 'lock_open' | 'lock_clock' | 'lock' | 
+	'location_searching' | 'location_pin' | 'location_on' | 'location_off' | 'location_history' | 
+	'location_disabled' | 'location_city' | 'local_taxi' | 'local_shipping' | 'local_see' | 
+	'local_restaurant' | 'local_printshop' | 'local_print_shop' | 'local_post_office' | 'local_police' | 
+	'local_play' | 'local_pizza' | 'local_phone' | 'local_pharmacy' | 'local_parking' | 
+	'local_offer' | 'local_movies' | 'local_mall' | 'local_library' | 'local_laundry_service' | 
+	'local_hotel' | 'local_hospital' | 'local_grocery_store' | 'local_gas_station' | 'local_florist' | 
+	'local_fire_department' | 'local_drink' | 'local_dining' | 'local_convenience_store' | 'local_car_wash' | 
+	'local_cafe' | 'local_bar' | 'local_attraction' | 'local_atm' | 'local_airport' | 
+	'local_activity' | 'live_tv' | 'live_help' | 'list_alt' | 'list' | 
+	'liquor' | 'linked_camera' | 'link_off' | 'link' | 'linear_scale' | 
+	'line_weight' | 'line_style' | 'lightbulb_outline' | 'lightbulb' | 'library_music' | 
+	'library_books' | 'library_add_check' | 'library_add' | 'lens' | 'legend_toggle' | 
+	'leak_remove' | 'leak_add' | 'layers_clear' | 'layers' | 'launch' | 
+	'last_page' | 'laptop_windows' | 'laptop_mac' | 'laptop_chromebook' | 'laptop' | 
+	'language' | 'landscape' | 'label_outline' | 'label_off' | 'label_important_outline' | 
+	'label_important' | 'label' | 'my_location' | 'my_library_music' | 'my_library_books' | 
+	'my_library_add' | 'music_video' | 'music_off' | 'music_note' | 'museum' | 
+	'multitrack_audio' | 'multiple_stop' | 'multiline_chart' | 'mp' | 'movie_filter' | 
+	'movie_creation' | 'movie' | 'move_to_inbox' | 'mouse' | 'motorcycle' | 
+	'motion_photos_paused' | 'motion_photos_on' | 'motion_photos_off' | 'more_vert' | 'more_time' | 
+	'more_horiz' | 'more' | 'moped' | 'mood_bad' | 'mood' | 
+	'monochrome_photos' | 'monitor' | 'money_off' | 'money' | 'monetization_on' | 
+	'model_training' | 'mode_edit' | 'mode_comment' | 'mobile_screen_share' | 'mobile_off' | 
+	'mobile_friendly' | 'mms' | 'missed_video_call' | 'miscellaneous_services' | 'minimize' | 
+	'military_tech' | 'microwave' | 'mic_off' | 'mic_none' | 'mic_external_on' | 
+	'mic_external_off' | 'mic' | 'messenger_outline' | 'messenger' | 'message' | 
+	'merge_type' | 'menu_open' | 'menu_book' | 'menu' | 'memory' | 
+	'meeting_room' | 'medical_services' | 'mediation' | 'maximize' | 'markunread_mailbox' | 
+	'markunread' | 'mark_email_unread' | 'mark_email_read' | 'mark_chat_unread' | 'mark_chat_read' | 
+	'mark_as_unread' | 'margin' | 'maps_ugc' | 'map' | 'mail_outline' | 
+	'mail' | 'now_widgets' | 'now_wallpaper' | 'notifications_paused' | 'notifications_on' | 
+	'notifications_off' | 'notifications_none' | 'notifications_active' | 'notifications' | 'notification_important' | 
+	'notes' | 'note_add' | 'note' | 'not_started' | 'not_listed_location' | 
+	'not_interested' | 'not_accessible' | 'north_west' | 'north_east' | 'north' | 
+	'no_transfer' | 'no_stroller' | 'no_sim' | 'no_photography' | 'no_meeting_room' | 
+	'no_meals' | 'no_food' | 'no_flash' | 'no_encryption' | 'no_drinks' | 
+	'no_cell' | 'nights_stay' | 'nightlight_round' | 'nightlife' | 'night_shelter' | 
+	'nfc' | 'next_week' | 'next_plan' | 'new_releases' | 'network_wifi' | 
+	'network_locked' | 'network_check' | 'network_cell' | 'near_me_disabled' | 'near_me' | 
+	'navigation' | 'navigate_next' | 'navigate_before' | 'nature_people' | 'nature' | 
+	'nat' | 'outlined_flag' | 'outlet' | 'outgoing_mail' | 'outdoor_grill' | 
+	'outbox' | 'open_with' | 'open_in_new' | 'open_in_full' | 'open_in_browser' | 
+	'opacity' | 'online_prediction' | 'ondemand_video' | 'offline_share' | 'offline_pin' | 
+	'offline_bolt' | 'push_pin' | 'publish' | 'public_off' | 'public' | 
+	'psychology' | 'privacy_tip' | 'priority_high' | 'print_disabled' | 'print' | 
+	'preview' | 'present_to_all' | 'pregnant_woman' | 'power_settings_new' | 'power_off' | 
+	'power_input' | 'power' | 'post_add' | 'portrait' | 'portable_wifi_off' | 
+	'pool' | 'polymer' | 'poll' | 'policy' | 'point_of_sale' | 
+	'plus_one' | 'plumbing' | 'playlist_play' | 'playlist_add_check' | 'playlist_add' | 
+	'play_for_work' | 'play_disabled' | 'play_circle_outline' | 'play_circle_filled' | 'play_circle_fill' | 
+	'play_arrow' | 'plagiarism' | 'place' | 'pivot_table_chart' | 'pin_drop' | 
+	'pie_chart_outlined' | 'pie_chart' | 'picture_in_picture_alt' | 'picture_in_picture' | 'picture_as_pdf' | 
+	'photo_size_select_small' | 'photo_size_select_large' | 'photo_size_select_actual' | 'photo_library' | 'photo_filter' | 
+	'photo_camera_front' | 'photo_camera_back' | 'photo_camera' | 'photo_album' | 'photo' | 
+	'phonelink_setup' | 'phonelink_ring' | 'phonelink_off' | 'phonelink_lock' | 'phonelink_erase' | 
+	'phonelink' | 'phone_paused' | 'phone_missed' | 'phone_locked' | 'phone_iphone' | 
+	'phone_in_talk' | 'phone_forwarded' | 'phone_enabled' | 'phone_disabled' | 'phone_callback' | 
+	'phone_bluetooth_speaker' | 'phone_android' | 'phone' | 'pets' | 'pest_control_rodent' | 
+	'pest_control' | 'personal_video' | 'person_search' | 'person_remove_alt_1' | 'person_remove' | 
+	'person_pin_circle' | 'person_pin' | 'person_outline' | 'person_add_disabled' | 'person_add_alt_1' | 
+	'person_add_alt' | 'person_add' | 'person' | 'perm_scan_wifi' | 'perm_phone_msg' | 
+	'perm_media' | 'perm_identity' | 'perm_device_information' | 'perm_device_info' | 'perm_data_setting' | 
+	'perm_contact_calendar' | 'perm_contact_cal' | 'perm_camera_mic' | 'people_outline' | 'people_alt' | 
+	'people' | 'pending_actions' | 'pending' | 'pedal_bike' | 'payments' | 
+	'payment' | 'pause_presentation' | 'pause_circle_outline' | 'pause_circle_filled' | 'pause' | 
+	'party_mode' | 'park' | 'panorama_wide_angle_select' | 'panorama_wide_angle' | 'panorama_vertical_select' | 
+	'panorama_vertical' | 'panorama_photosphere_select' | 'panorama_photosphere' | 'panorama_horizontal_select' | 'panorama_horizontal' | 
+	'panorama_fisheye' | 'panorama_fish_eye' | 'panorama' | 'pan_tool' | 'palette' | 
+	'pageview' | 'pages' | 'padding' | 'quickreply' | 'quick_contacts_mail' | 
+	'quick_contacts_dialer' | 'queue_play_next' | 'queue_music' | 'queue' | 'question_answer' | 
+	'query_builder' | 'qr_code_scanner' | 'qr_code' | 'rv_hookup' | 'run_circle' | 
+	'rule_folder' | 'rule' | 'rtt' | 'rss_feed' | 'rowing' | 
+	'router' | 'rounded_corner' | 'rotate_right' | 'rotate_left' | 'rotate_90_degrees_ccw' | 
+	'room_service' | 'room_preferences' | 'room' | 'roofing' | 'ring_volume' | 
+	'rice_bowl' | 'restore_page' | 'restore_from_trash' | 'restore' | 'restaurant_menu' | 
+	'restaurant' | 'reset_tv' | 'request_quote' | 'report_problem' | 'report_off' | 
+	'report' | 'reply_all' | 'reply' | 'replay_circle_filled' | 'replay_5' | 
+	'replay_30' | 'replay_10' | 'replay' | 'repeat_one_on' | 'repeat_one' | 
+	'repeat_on' | 'repeat' | 'reorder' | 'remove_shopping_cart' | 'remove_red_eye' | 
+	'remove_moderator' | 'remove_from_queue' | 'remove_done' | 'remove_circle_outline' | 'remove_circle' | 
+	'remove' | 'refresh' | 'redo' | 'redeem' | 'record_voice_over' | 
+	'recommend' | 'recent_actors' | 'receipt_long' | 'receipt' | 'read_more' | 
+	'rate_review' | 'ramen_dining' | 'railway_alert' | 'radio_button_unchecked' | 'radio_button_on' | 
+	'radio_button_off' | 'radio_button_checked' | 'radio' | 'system_update_tv' | 'system_update_alt' | 
+	'system_update' | 'sync_problem' | 'sync_disabled' | 'sync_alt' | 'sync' | 
+	'switch_video' | 'switch_right' | 'switch_left' | 'switch_camera' | 'switch_account' | 
+	'swipe' | 'swap_vertical_circle' | 'swap_vert_circle' | 'swap_vert' | 'swap_horizontal_circle' | 
+	'swap_horiz' | 'swap_calls' | 'surround_sound' | 'support_agent' | 'support' | 
+	'supervisor_account' | 'supervised_user_circle' | 'superscript' | 'subway' | 'subtitles_off' | 
+	'subtitles' | 'subscriptions' | 'subscript' | 'subject' | 'subdirectory_arrow_right' | 
+	'subdirectory_arrow_left' | 'style' | 'stroller' | 'strikethrough_s' | 'streetview' | 
+	'stream' | 'straighten' | 'storefront' | 'store_mall_directory' | 'store' | 
+	'storage' | 'stop_screen_share' | 'stop_circle' | 'stop' | 'sticky_note_2' | 
+	'stay_primary_portrait' | 'stay_primary_landscape' | 'stay_current_portrait' | 'stay_current_landscape' | 'stars' | 
+	'star_rate' | 'star_outline' | 'star_half' | 'star_border' | 'star' | 
+	'stairs' | 'stacked_bar_chart' | 'square_foot' | 'sports_volleyball' | 'sports_tennis' | 
+	'sports_soccer' | 'sports_rugby' | 'sports_motorsports' | 'sports_mma' | 'sports_kabaddi' | 
+	'sports_hockey' | 'sports_handball' | 'sports_golf' | 'sports_football' | 'sports_esports' | 
+	'sports_cricket' | 'sports_basketball' | 'sports_baseball' | 'sports_bar' | 'sports' | 
+	'spellcheck' | 'speed' | 'speaker_phone' | 'speaker_notes_off' | 'speaker_notes' | 
+	'speaker_group' | 'speaker' | 'space_bar' | 'spa' | 'south_west' | 
+	'south_east' | 'south' | 'source' | 'sort_by_alpha' | 'sort' | 
+	'soap' | 'snooze' | 'snippet_folder' | 'sms_failed' | 'sms' | 
+	'smoking_rooms' | 'smoke_free' | 'smartphone' | 'smart_button' | 'slow_motion_video' | 
+	'slideshow' | 'skip_previous' | 'skip_next' | 'single_bed' | 'sim_card_alert' | 
+	'sim_card' | 'signal_wifi_off' | 'signal_wifi_4_bar_lock' | 'signal_wifi_4_bar' | 'signal_wifi_0_bar' | 
+	'signal_cellular_off' | 'signal_cellular_null' | 'signal_cellular_no_sim' | 'signal_cellular_connected_no_internet_4_bar' | 'signal_cellular_alt' | 
+	'signal_cellular_4_bar' | 'signal_cellular_0_bar' | 'shutter_speed' | 'shuffle_on' | 'shuffle' | 
+	'show_chart' | 'short_text' | 'shopping_cart' | 'shopping_basket' | 'shopping_bag' | 
+	'shop_two' | 'shop' | 'shield' | 'share' | 'settings_voice' | 
+	'settings_system_daydream' | 'settings_remote' | 'settings_power' | 'settings_phone' | 'settings_overscan' | 
+	'settings_input_svideo' | 'settings_input_hdmi' | 'settings_input_composite' | 'settings_input_component' | 'settings_input_antenna' | 
+	'settings_ethernet' | 'settings_display' | 'settings_cell' | 'settings_brightness' | 'settings_bluetooth' | 
+	'settings_backup_restore' | 'settings_applications' | 'settings' | 'set_meal' | 'sentiment_very_satisfied' | 
+	'sentiment_very_dissatisfied' | 'sentiment_satisfied_alt' | 'sentiment_satisfied' | 'sentiment_neutral' | 'sentiment_dissatisfied' | 
+	'sensor_window' | 'sensor_door' | 'send_and_archive' | 'send' | 'self_improvement' | 
+	'select_all' | 'segment' | 'security' | 'search_off' | 'search' | 
+	'sd_storage' | 'sd_card' | 'sd' | 'screen_share' | 'screen_search_desktop' | 
+	'screen_rotation' | 'screen_lock_rotation' | 'screen_lock_portrait' | 'screen_lock_landscape' | 'score' | 
+	'science' | 'school' | 'schedule_send' | 'schedule' | 'scatter_plot' | 
+	'scanner' | 'saved_search' | 'save_alt' | 'save' | 'satellite' | 
+	'two_wheeler' | 'tv_off' | 'tv' | 'turned_in_not' | 'turned_in' | 
+	'tune' | 'tty' | 'trip_origin' | 'trending_up' | 'trending_neutral' | 
+	'trending_flat' | 'trending_down' | 'translate' | 'transit_enterexit' | 'transform' | 
+	'transfer_within_a_station' | 'tram' | 'train' | 'traffic' | 'track_changes' | 
+	'toys' | 'tour' | 'touch_app' | 'topic' | 'tonality' | 
+	'toll' | 'toggle_on' | 'toggle_off' | 'today' | 'toc' | 
+	'title' | 'timer_off' | 'timer_3' | 'timer_10' | 'timer' | 
+	'timeline' | 'timelapse' | 'time_to_leave' | 'thumbs_up_down' | 'thumb_up_off_alt' | 
+	'thumb_up_alt' | 'thumb_up' | 'thumb_down_off_alt' | 'thumb_down_alt' | 'thumb_down' | 
+	'theaters' | 'theater_comedy' | 'texture' | 'textsms' | 'text_snippet' | 
+	'text_rotation_none' | 'text_rotation_down' | 'text_rotation_angleup' | 'text_rotation_angledown' | 'text_rotate_vertical' | 
+	'text_rotate_up' | 'text_format' | 'text_fields' | 'terrain' | 'taxi_alert' | 
+	'tapas' | 'tap_and_play' | 'takeout_dining' | 'tag_faces' | 'tag' | 
+	'tablet_mac' | 'tablet_android' | 'tablet' | 'table_view' | 'table_rows' | 
+	'table_chart' | 'tab_unselected' | 'tab' | 'usb' | 'upload_file' | 
+	'upgrade' | 'update' | 'unsubscribe' | 'unfold_more' | 'unfold_less' | 
+	'undo' | 'unarchive' | 'umbrella' | 'vpn_lock' | 'vpn_key' | 
+	'volunteer_activism' | 'volume_up' | 'volume_off' | 'volume_mute' | 'volume_down' | 
+	'voicemail' | 'voice_over_off' | 'voice_chat' | 'visibility_off' | 'visibility' | 
+	'vignette' | 'view_week' | 'view_stream' | 'view_sidebar' | 'view_quilt' | 
+	'view_module' | 'view_list' | 'view_in_ar' | 'view_headline' | 'view_day' | 
+	'view_compact' | 'view_comfy' | 'view_comfortable' | 'view_column' | 'view_carousel' | 
+	'view_array' | 'view_agenda' | 'videogame_asset' | 'videocam_off' | 'videocam' | 
+	'video_settings' | 'video_library' | 'video_label' | 'video_collection' | 'video_call' | 
+	'vibration' | 'vertical_split' | 'vertical_align_top' | 'vertical_align_center' | 'vertical_align_bottom' | 
+	'verified_user' | 'verified' | 'wysiwyg' | 'wrong_location' | 'wrap_text' | 
+	'workspaces_outline' | 'workspaces_filled' | 'work_outline' | 'work_off' | 'work' | 
+	'wine_bar' | 'wifi_tethering' | 'wifi_protected_setup' | 'wifi_off' | 'wifi_lock' | 
+	'wifi_calling' | 'wifi' | 'widgets' | 'where_to_vote' | 'wheelchair_pickup' | 
+	'whatshot' | 'west' | 'weekend' | 'web_asset' | 'web' | 
+	'wc' | 'wb_twighlight' | 'wb_sunny' | 'wb_shade' | 'wb_iridescent' | 
+	'wb_incandescent' | 'wb_cloudy' | 'wb_auto' | 'waves' | 'waterfall_chart' | 
+	'water_damage' | 'watch_later' | 'watch' | 'wash' | 'warning' | 
+	'wallpaper' | 'wallet_travel' | 'wallet_membership' | 'wallet_giftcard' | 'youtube_searched_for' | 
+	'zoom_out_map' | 'zoom_out' | 'zoom_in';

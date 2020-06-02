@@ -153,6 +153,7 @@ export function createEditor(): Editor {
 					blockquote: cmd(blockquoteNode.getMenuActions),
 					codeBlock: cmd(codeBlockNode.getMenuActions),
 					heading: cmd(headingNode.getMenuActions),
+					horizontalRule: cmd(horizontalRuleNode.getMenuActions),
 				},
 			};
 		}

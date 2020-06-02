@@ -28,4 +28,7 @@ export interface MenuActions {
 		setLevel: (level: number) => void,
 		remove: () => void,
 	},
+	horizontalRule: {
+		add: () => void,
+	}
 }

@@ -193,6 +193,13 @@ function EditorMenu() {
 		>
 			<Icon type="format_quote" />
 		</button>
+		<button
+			className="EditorMenu__Button"
+			onClick={menu.actions.horizontalRule.add}
+			title="Horizontal rule"
+		>
+			<Icon type="horizontal_rule" />
+		</button>
 		<button><Icon type="format_list_bulleted" /></button>
 		<button><Icon type="format_list_numbered" /></button>
 	</div>
