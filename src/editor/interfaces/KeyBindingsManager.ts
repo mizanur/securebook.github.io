@@ -1,4 +1,5 @@
 import { EditorCommand } from "@editor/interfaces/EditorCommand";
+import { KeyBindings } from "@editor/interfaces/KeyBindings";
 import { Schema } from "prosemirror-model";
 
 export type KeyMap = {
@@ -6,5 +7,5 @@ export type KeyMap = {
 }
 
 export interface KeyBindingsManager {
-	getKeyMap(schema: Schema): KeyMap;
+	getKeyMap(keyBindings: KeyBindings, schema: Schema): KeyMap;
 }

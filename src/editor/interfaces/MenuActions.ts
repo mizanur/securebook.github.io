@@ -36,4 +36,13 @@ export interface MenuActions {
 	paragraph: {
 		setAttrs: (attrs: ParagraphAttrs) => void,
 	},
+	bulletList: {
+		toggle: () => void,
+	},
+	orderedList: {
+		toggle: () => void,
+	},
+	todoList: {
+		toggle: () => void,
+	},
 }

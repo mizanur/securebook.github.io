@@ -7,8 +7,12 @@
 	padding: $default-padding;
 	height: $editor-menu-height;
 	border-bottom: 2px solid $main-border-color;
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: auto;
 
 	&__Button {
+		display: inline-block;
 		border-radius: 3px;
 
 		&:hover {

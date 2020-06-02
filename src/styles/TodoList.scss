@@ -1,0 +1,51 @@
+@import "../styles-mixins/variables.scss";
+
+.TodoList {
+	&.TodoList {
+		padding-left: 0px;
+	}
+
+	&__Item.TodoList__Item {
+		padding-left: 0px;
+	}
+
+	&__Item {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	&__CheckButton {
+		margin-top: 1.5px;
+		flex: 0 0 auto;
+		position: relative;
+		width: $main-icon-size;
+		height: $main-icon-size;
+		min-width: $main-icon-size;
+		min-height: $main-icon-size;
+	}
+
+	&__Icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		transition: opacity 100ms linear;
+
+		&--visible {
+			opacity: 1;
+		}
+
+		&--invisible {
+			opacity: 0;
+		}
+	}
+
+	&__Content {
+		flex: 1 1 auto;
+		padding-left: $editor-list-item-padding;
+
+		&--done {
+			text-decoration: line-through;
+		}
+	}
+}

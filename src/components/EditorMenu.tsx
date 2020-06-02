@@ -252,8 +252,27 @@ function EditorMenu() {
 		>
 			<Icon type="format_align_right" />
 		</button>
-		<button><Icon type="format_list_bulleted" /></button>
-		<button><Icon type="format_list_numbered" /></button>
+		<button
+			className={`EditorMenu__Button ${menu.state.bulletList.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			onClick={menu.actions.bulletList.toggle}
+			title="Bulleted List"
+		>
+			<Icon type="format_list_bulleted" />
+		</button>
+		<button
+			className={`EditorMenu__Button ${menu.state.orderedList.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			onClick={menu.actions.orderedList.toggle}
+			title="Numbered List"
+		>
+			<Icon type="format_list_numbered" />
+		</button>
+		<button
+			className={`EditorMenu__Button ${menu.state.todoList.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			onClick={menu.actions.todoList.toggle}
+			title="Todo List"
+		>
+			<Icon type="list_alt" />
+		</button>
 	</div>
 }
 

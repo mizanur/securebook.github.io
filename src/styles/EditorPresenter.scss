@@ -84,4 +84,8 @@
 	a {
 		cursor: pointer;
 	}
+
+	li {
+		padding-left: $editor-list-item-padding;
+	}
 }

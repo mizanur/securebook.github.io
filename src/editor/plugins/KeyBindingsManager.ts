@@ -13,20 +13,19 @@ export class KeyBindingsManager implements IKeyBindingsManager, EditorPlugins {
 	}
 
 	addEditorPlugins(addEditorPlugin: AddEditorPlugin, schema: Schema) {
-		addEditorPlugin(keymap(this.getKeyMap(schema)));
+		for (let i = 0; i < this.keyBindings.length; i++) {
+			addEditorPlugin(keymap(this.getKeyMap(this.keyBindings[i], schema)));
+		}
 		addEditorPlugin(keymap(baseKeymap));
 	}
 
-	getKeyMap(schema: Schema) {
+	getKeyMap(keyBindings: KeyBindings, schema: Schema) {
 		const isMac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false;
 		const keys: KeyMap = {};
 		const addKeyBinding: AddKeyBinding = (key, cmd) => {
 			keys[key] = cmd;
 		};
-		for (let i = 0; i < this.keyBindings.length; i++) {
-			const keyBindings = this.keyBindings[i];
-			keyBindings.addKeyBindings(addKeyBinding, schema, isMac);
-		}
+		keyBindings.addKeyBindings(addKeyBinding, schema, isMac);
 		return keys;
 	}
 }

@@ -38,4 +38,13 @@ export interface MenuState {
 		isCurrent: boolean,
 		attrs: ParagraphAttrs,
 	},
+	bulletList: {
+		isCurrent: boolean,
+	},
+	orderedList: {
+		isCurrent: boolean,
+	},
+	todoList: {
+		isCurrent: boolean,
+	},
 }

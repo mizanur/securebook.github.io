@@ -1,5 +1,5 @@
 import { Transaction, EditorState } from "prosemirror-state";
-import { EditorSchema } from "@editor/EditorSchema";
+import { Schema } from "prosemirror-model";
 
 export type Dispatch = (t: Transaction) => any;
 
@@ -13,4 +13,4 @@ export type Actions<T extends ActionDeclarations> = {
 	[k in keyof T]: (...a: Parameters<T[k]>) => any
 };
 
-export type AddMenuActions<T extends ActionDeclarations> = (schema: EditorSchema['schema']) => T;
+export type AddMenuActions<T extends ActionDeclarations> = (schema: Schema) => T;

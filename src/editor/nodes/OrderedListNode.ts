@@ -4,6 +4,11 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { wrapInList } from "@editor/utils/wrapInList";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { wrappingInputRule } from "prosemirror-inputrules";
+import { Wrapped } from "@interfaces/Wrapped";
+import { EditorState } from "prosemirror-state";
+import { isActiveNode } from "@editor/utils/isActiveNode";
+import { unwrap } from "@utils/wrap";
+import { toggleList } from "@editor/utils/toggleList";
 
 export class OrderedListNode implements EditorNode, KeyBindings, InputRules {
 	name: string = 'ordered_list';
@@ -38,5 +43,19 @@ export class OrderedListNode implements EditorNode, KeyBindings, InputRules {
 			match => ({order: +match[1]}),
 			(match, node) => node.childCount + node.attrs.order == +match[1]
 		));
+	}
+
+	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+		return {
+			get isCurrent() {
+				return isActiveNode(unwrap(state), schema.nodes.ordered_list);
+			}
+		}
+	}
+
+	getMenuActions(schema: Schema) {
+		return {
+			toggle: () => toggleList(schema.nodes.ordered_list, schema.nodes.list_item),
+		}
 	}
 }

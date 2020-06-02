@@ -35,6 +35,9 @@ import { UnderlineMark } from "@editor/marks/UnderlineMark";
 import { StrikethroughMark } from "@editor/marks/StrikethroughMark";
 import { ActionDeclarations, AddMenuActions, Actions } from "@editor/interfaces/Actions";
 import { JustifyFix } from "@editor/plugins/JustifyFix";
+import { TodoListItemNode } from "@editor/nodes/TodoListItemNode";
+import { TodoListNode } from "@editor/nodes/TodoListNode";
+import { EditorEventsManager } from "@editor/EditorEventsManager";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -48,7 +51,9 @@ export function createEditor(): Editor {
 	const hardBreakNode = new HardBreakNode();
 	const orderedListNode = new OrderedListNode();
 	const bulletListNode = new BulletListNode();
+	const todoListNode = new TodoListNode();
 	const listItemNode = new ListItemNode();
+	const todoListItemNode = new TodoListItemNode();
 	const linkMark = new LinkMark();
 	const emMark = new EmMark();
 	const strongMark = new StrongMark();
@@ -67,8 +72,10 @@ export function createEditor(): Editor {
 		codeBlockNode,
 		imageNode,
 		hardBreakNode,
+		todoListNode,
 		orderedListNode,
 		bulletListNode,
+		todoListItemNode,
 		listItemNode,
 	];
 	const editorMarks: EditorMark[] = [
@@ -85,6 +92,7 @@ export function createEditor(): Editor {
 		codeBlockNode,
 		orderedListNode,
 		bulletListNode,
+		todoListNode,
 	];
 	const inputRulesManager = new InputRulesManager(inputRules);
 	const keyBindings: KeyBindings[] = [
@@ -95,6 +103,7 @@ export function createEditor(): Editor {
 		orderedListNode,
 		bulletListNode,
 		listItemNode,
+		todoListItemNode,
 		strongMark,
 		emMark,
 		underlineMark,
@@ -115,11 +124,15 @@ export function createEditor(): Editor {
 	const editorPluginsManager = new EditorPluginsManager(editorPlugins);
 	const domParser = DOMParser.fromSchema(editorSchema.schema);
 	const domSerializer = DOMSerializer.fromSchema(editorSchema.schema);
+	const editorEventsManager = new EditorEventsManager([
+		todoListItemNode,
+	]);
 	const menu: Editor['menu'] = connectObject(wrap(null));
 	return {
 		menu,
 		editorSchema,
 		editorPluginsManager,
+		editorEventsManager,
 		domParser,
 		domSerializer,
 		createMenu(state: Wrapped<EditorState>, dispatchTransaction: (t: Transaction) => any) {
@@ -145,6 +158,9 @@ export function createEditor(): Editor {
 					codeBlock: codeBlockNode.getMenuState(state, editorSchema.schema),
 					heading: headingNode.getMenuState(state, editorSchema.schema),
 					paragraph: paragraphNode.getMenuState(state, editorSchema.schema),
+					bulletList: bulletListNode.getMenuState(state, editorSchema.schema),
+					orderedList: orderedListNode.getMenuState(state, editorSchema.schema),
+					todoList: todoListNode.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
 					strong: cmd(strongMark.getMenuActions),
@@ -158,6 +174,9 @@ export function createEditor(): Editor {
 					heading: cmd(headingNode.getMenuActions),
 					horizontalRule: cmd(horizontalRuleNode.getMenuActions),
 					paragraph: cmd(paragraphNode.getMenuActions),
+					bulletList: cmd(bulletListNode.getMenuActions),
+					orderedList: cmd(orderedListNode.getMenuActions),
+					todoList: cmd(todoListNode.getMenuActions),
 				},
 			};
 		}
