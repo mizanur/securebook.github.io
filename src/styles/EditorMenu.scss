@@ -26,4 +26,16 @@
 	&__LinkEditorUnselected {
 		font-weight: 500;
 	}
+
+	&__CodeBlock {
+		position: relative;
+
+		&-Code {
+			position: absolute;
+			font-size: $main-icon-size / 2;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%) translateX($main-icon-size / 4) translateY($main-icon-size / 4);
+		}
+	}
 }

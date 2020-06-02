@@ -22,4 +22,10 @@ export interface MenuState {
 			title: string,
 		},
 	},
+	blockquote: {
+		isCurrent: boolean,
+	},
+	codeBlock: {
+		isCurrent: boolean,
+	},
 }

@@ -18,4 +18,10 @@ export interface MenuActions {
 		createUpdate: (attrs: { href: string, title: string }) => void,
 		remove: () => void,
 	},
+	blockquote: {
+		toggle: () => void,
+	},
+	codeBlock: {
+		toggle: () => void,
+	},
 }

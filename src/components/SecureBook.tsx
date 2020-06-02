@@ -145,7 +145,7 @@ function SecureBook() {
 							/>
 						</div>
 					</Fragment>
-					: <div>Not selected</div>
+					: <div></div>
 			}
 			<PasswordDialog />
 		</main>

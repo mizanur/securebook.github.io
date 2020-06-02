@@ -139,6 +139,8 @@ export function createEditor(): Editor {
 					strikethrough: strikethroughMark.getMenuState(state, editorSchema.schema),
 					link: linkMark.getMenuState(state, editorSchema.schema),
 					code: codeMark.getMenuState(state, editorSchema.schema),
+					blockquote: blockquoteNode.getMenuState(state, editorSchema.schema),
+					codeBlock: codeBlockNode.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
 					strong: cmd(strongMark.getMenuActions),
@@ -147,6 +149,8 @@ export function createEditor(): Editor {
 					strikethrough: cmd(strikethroughMark.getMenuActions),
 					link: cmd(linkMark.getMenuActions),
 					code: cmd(codeMark.getMenuActions),
+					blockquote: cmd(blockquoteNode.getMenuActions),
+					codeBlock: cmd(codeBlockNode.getMenuActions),
 				},
 			};
 		}

@@ -107,6 +107,19 @@ function EditorMenu() {
 		>
 			<Icon type="code" />
 		</button>
+		<button
+			className={`EditorMenu__Button EditorMenu__CodeBlock ${menu.state.codeBlock.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			onClick={menu.actions.codeBlock.toggle}
+		>
+			<Icon className="EditorMenu__CodeBlock-Code" type="code" />
+			<Icon className="EditorMenu__CodeBlock-Block" type="short_text" />
+		</button>
+		<button
+			className={`EditorMenu__Button ${menu.state.blockquote.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			onClick={menu.actions.blockquote.toggle}
+		>
+			<Icon type="format_quote" />
+		</button>
 		<button><Icon type="format_list_bulleted" /></button>
 		<button><Icon type="format_list_numbered" /></button>
 	</div>

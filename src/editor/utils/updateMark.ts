@@ -2,7 +2,7 @@ import { getMarkRange } from "@editor/utils/getMarkRange";
 import { MarkType } from "prosemirror-model";
 import { EditorState, Transaction } from "prosemirror-state";
 
-export function updateMark(type: MarkType, attrs: { [k in string]: string }) {
+export function updateMark(type: MarkType, attrs: { [k: string]: any }) {
 	return (state: EditorState, dispatch: (t: Transaction) => any) => {
 		const { tr, selection, doc } = state;
 		let { from, to } = selection;
