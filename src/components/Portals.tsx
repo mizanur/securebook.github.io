@@ -5,12 +5,13 @@ import { PortalValueContext } from "@view/PortalValueContext";
 import { useEffectOnce } from "@view/useEffectOnce";
 import { getValues } from "@utils/object";
 
-let portalId = 0;
-
 export function Portals() {
 	const portalValue = useContext(PortalValueContext);
 	const [,updateState] = useState({});
 	const [childrenStore] = useState<{ [k: string]: ComponentChildren }>({});
+	if (!portalValue.currentId) {
+		portalValue.currentId = 0;
+	}
 	portalValue.childrenStore = childrenStore;
 	portalValue.updateChildren = () => updateState({});
 	return <Fragment>
@@ -26,7 +27,7 @@ export function Portal({ children }: { children: ComponentChildren }) {
 	const portalValue = useContext(PortalValueContext);
 	const index = useRef(0);
 	useEffectOnce(() => {
-		index.current = portalId++;
+		index.current = portalValue.currentId++;
 	});
 	useEffect(() => {
 		portalValue.childrenStore[index.current] = children;
@@ -38,7 +39,6 @@ export function Portal({ children }: { children: ComponentChildren }) {
 	});
 	return null;
 }
-
 
 export function withPortal<P,S>(Component: FunctionalComponent<P> | ComponentConstructor<P, S>) {
 	return function NewComponent(props: P) {

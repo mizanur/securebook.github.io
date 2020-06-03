@@ -1,6 +1,7 @@
 import { createContext, ComponentChildren } from "preact";
 
 export type PortalValue = {
+	currentId: number,
 	childrenStore: { [k: string]: ComponentChildren },
 	updateChildren: () => void,
 };

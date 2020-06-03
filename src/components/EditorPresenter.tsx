@@ -11,7 +11,6 @@ import TextLoading from '@components/TextLoading';
 import { useState } from '@view/useState';
 import { wrap } from '@utils/wrap';
 import { Wrapped } from '@interfaces/Wrapped';
-import { PerformCommand } from '@editor/interfaces/EditorEvents';
 
 function EditorPresenter({ contentId, content, onContentChange, disabled = false, showLoading = false, }: { contentId: any, content: NoteContent, disabled?: boolean, showLoading?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }) {
 	const { editor } = useContext(StoreContext);
@@ -40,20 +39,19 @@ function EditorPresenter({ contentId, content, onContentChange, disabled = false
 				onContentChange(element.current.innerText || '', { html: div.innerHTML });
 			}
 		};
-		
-		const performCommand: PerformCommand = cmd => cmd(state.value, dispatchTransaction);
-		editor.editorEventsManager.addEditorEvents(element.current, editor.editorSchema.schema, performCommand, view);
 
 		editor.createMenu(state, dispatchTransaction);
 		
 		view.current = new EditorView(element.current, {
 			state: state.value,
 			dispatchTransaction,
+			// @ts-ignore: This is probably a mistake
+			// in prosemirror types; getPos should return a number
+			nodeViews: editor.nodeViews,
 		});
 		
 		return () => {
 			view.current.destroy();
-			editor.editorEventsManager.removeEditorEvents();
 			editor.menu.value = null;
 		};
 	});

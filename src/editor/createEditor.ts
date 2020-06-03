@@ -26,18 +26,19 @@ import { OrderedListNode } from "@editor/nodes/OrderedListNode";
 import { ParagraphNode } from "@editor/nodes/ParagraphNode";
 import { TextNode } from "@editor/nodes/TextNode";
 import { Editor } from "@interfaces/Editor";
-import { DOMParser, DOMSerializer } from 'prosemirror-model';
+import { DOMParser } from 'prosemirror-model';
+import { DOMSerializer } from '@editor/DOMSerializer';
 import { EditorState, Transaction } from "prosemirror-state";
 import { connectObject } from "typeconnect";
 import { Wrapped } from "@interfaces/Wrapped";
 import { wrap } from "@utils/wrap";
 import { UnderlineMark } from "@editor/marks/UnderlineMark";
 import { StrikethroughMark } from "@editor/marks/StrikethroughMark";
-import { ActionDeclarations, AddMenuActions, Actions } from "@editor/interfaces/Actions";
 import { JustifyFix } from "@editor/plugins/JustifyFix";
 import { TodoListItemNode } from "@editor/nodes/TodoListItemNode";
 import { TodoListNode } from "@editor/nodes/TodoListNode";
-import { EditorEventsManager } from "@editor/EditorEventsManager";
+import { getCreateActions } from "@editor/utils/getCreateActions";
+import { getNodeViewLookup } from "@editor/utils/getNodeViewLookup";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -124,28 +125,18 @@ export function createEditor(): Editor {
 	const editorPluginsManager = new EditorPluginsManager(editorPlugins);
 	const domParser = DOMParser.fromSchema(editorSchema.schema);
 	const domSerializer = DOMSerializer.fromSchema(editorSchema.schema);
-	const editorEventsManager = new EditorEventsManager([
-		todoListItemNode,
-	]);
 	const menu: Editor['menu'] = connectObject(wrap(null));
 	return {
 		menu,
 		editorSchema,
 		editorPluginsManager,
-		editorEventsManager,
 		domParser,
 		domSerializer,
+		nodeViews: getNodeViewLookup([
+			todoListItemNode,
+		]),
 		createMenu(state: Wrapped<EditorState>, dispatchTransaction: (t: Transaction) => any) {
-			const cmd = <T extends ActionDeclarations>(fun: AddMenuActions<T>) => {
-				const actions: Actions<T> = {} as Actions<T>;
-				const actionDeclarations = fun(editorSchema.schema);
-				for (const key in actionDeclarations) {
-					actions[key] = (...args: any) => {
-						actionDeclarations[key](...args)(state.value, dispatchTransaction);
-					};
-				}
-				return actions;
-			};
+			const createActions = getCreateActions(editorSchema, state, dispatchTransaction);
 			menu.value = {
 				state: connectObject({
 					strong: strongMark.getMenuState(state, editorSchema.schema),
@@ -163,20 +154,20 @@ export function createEditor(): Editor {
 					todoList: todoListNode.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
-					strong: cmd(strongMark.getMenuActions),
-					em: cmd(emMark.getMenuActions),
-					underline: cmd(underlineMark.getMenuActions),
-					strikethrough: cmd(strikethroughMark.getMenuActions),
-					link: cmd(linkMark.getMenuActions),
-					code: cmd(codeMark.getMenuActions),
-					blockquote: cmd(blockquoteNode.getMenuActions),
-					codeBlock: cmd(codeBlockNode.getMenuActions),
-					heading: cmd(headingNode.getMenuActions),
-					horizontalRule: cmd(horizontalRuleNode.getMenuActions),
-					paragraph: cmd(paragraphNode.getMenuActions),
-					bulletList: cmd(bulletListNode.getMenuActions),
-					orderedList: cmd(orderedListNode.getMenuActions),
-					todoList: cmd(todoListNode.getMenuActions),
+					strong: createActions(strongMark.getMenuActions),
+					em: createActions(emMark.getMenuActions),
+					underline: createActions(underlineMark.getMenuActions),
+					strikethrough: createActions(strikethroughMark.getMenuActions),
+					link: createActions(linkMark.getMenuActions),
+					code: createActions(codeMark.getMenuActions),
+					blockquote: createActions(blockquoteNode.getMenuActions),
+					codeBlock: createActions(codeBlockNode.getMenuActions),
+					heading: createActions(headingNode.getMenuActions),
+					horizontalRule: createActions(horizontalRuleNode.getMenuActions),
+					paragraph: createActions(paragraphNode.getMenuActions),
+					bulletList: createActions(bulletListNode.getMenuActions),
+					orderedList: createActions(orderedListNode.getMenuActions),
+					todoList: createActions(todoListNode.getMenuActions),
 				},
 			};
 		}

@@ -17,6 +17,7 @@ function App() {
 					: <SecureBook />
 			}
 			<Portals />
+			<div id="app-garbage" style={{ display: 'none' }} />
 		</Fragment>
 	);
 }

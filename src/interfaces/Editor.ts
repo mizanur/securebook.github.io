@@ -4,14 +4,14 @@ import { DOMParser, DOMSerializer } from "prosemirror-model";
 import { EditorMenu } from "@editor/interfaces/EditorMenu";
 import { EditorState, Transaction } from "prosemirror-state";
 import { Wrapped } from "@interfaces/Wrapped";
-import { EditorEventsManager } from "@editor/interfaces/EditorEventsManager";
+import { NodeViewLookup } from "@interfaces/NodeView";
 
 export interface Editor {
 	menu: Wrapped<null | EditorMenu>,
-	editorEventsManager: EditorEventsManager,
 	editorSchema: EditorSchema,
 	editorPluginsManager: EditorPluginsManager,
 	domParser: DOMParser,
 	domSerializer: DOMSerializer,
+	nodeViews: NodeViewLookup,
 	createMenu: (state: Wrapped<EditorState>, dispatchTransaction: (t: Transaction) => any) => void,
 }
