@@ -4,7 +4,7 @@ import { h, render } from 'preact';
 import { Node, NodeSpec } from 'prosemirror-model';
 import { useState } from 'preact/hooks';
 import { NodeViewComponent } from '@interfaces/NodeView';
-import { createCache, Cache } from '@utils/cache';
+import { createCache } from '@utils/cache';
 
 export function getDefaultAttrs<A>(Component: NodeViewComponent<A>) {
 	const attrs: { [k in keyof A]: { default: A[k] } } = {} as any;
@@ -30,43 +30,40 @@ export function getParseDOM<A>(Component: NodeViewComponent<A>): NodeSpec['parse
 	}];
 }
 
+export function createTemplate<A>(Component: NodeViewComponent<A>, attrs: A) {
+	const template = document.createElement('template');
+	const setAttrs: any = () => {};
+	const resultHTML = renderToString(
+		<Component attrs={attrs} setAttrs={setAttrs} />
+	);
+	template.innerHTML = resultHTML;
+	return template;
+}
+
 export function getToDOM<A>(Component: NodeViewComponent<A>, cacheSize: number = 10) {
-	let cache: Cache<HTMLTemplateElement>;
-	if (cacheSize > 0) {
-		cache = createCache(cacheSize);
+	if (cacheSize <= 0) {
+		return function (node: Node) {
+			const attrs: A = node.attrs as any;
+			const template = createTemplate(Component, attrs);
+			return template.content.firstChild as HTMLElement;
+		}
 	}
 
+	let cache = createCache<HTMLTemplateElement>(cacheSize);
 	return function (node: Node) {
 		const attrs: A = node.attrs as any;
-		let cachedTemplate: HTMLTemplateElement | undefined;
 		let template: HTMLTemplateElement;
-		let attrsJson: string | undefined;
-		
-		if (cacheSize > 0) {
-			attrsJson = JSON.stringify(attrs);
-			console.log('attrsJson', attrsJson);
-			cachedTemplate = cache.getItem(attrsJson);
-		}
+		let attrsJson: string | undefined = JSON.stringify(attrs);
+		let cachedTemplate = cache.getItem(attrsJson);
 
 		if (cachedTemplate) {
 			template = cachedTemplate;
-			console.log('cached!');
 		}
 		else {
-			template = document.createElement('template');
-			console.error('not cached');
-			const setAttrs: any = () => {};
-			const resultHTML = renderToString(
-				<Component attrs={attrs} setAttrs={setAttrs} />
-			);
-			template.innerHTML = resultHTML;
-	
-			if (cacheSize > 0 && attrsJson) {
-				console.log('store');
-				cache.storeItem(attrsJson, template);
-			}
+			template = createTemplate(Component, attrs);
+			cache.storeItem(attrsJson, template);
 		}
-
+		
 		return template.content.cloneNode(true).firstChild as HTMLElement;
 	}
 }
