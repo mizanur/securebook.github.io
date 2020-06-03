@@ -8416,6 +8416,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"preact-render-to-string@npm:^5.1.9":
+  version: 5.1.9
+  resolution: "preact-render-to-string@npm:5.1.9"
+  dependencies:
+    pretty-format: ^3.8.0
+  peerDependencies:
+    preact: ">=10"
+  checksum: 3/f47fed220b3592ba4659912a2c9545e082c7d6c050e9a43d3733ae9781707576ee68407ade669e10e17c46494c9dd0878805bf4c1171184c7ea64ba4db30191c
+  languageName: node
+  linkType: hard
+
 "preact@npm:^10.4.1":
   version: 10.4.1
   resolution: "preact@npm:10.4.1"
@@ -8444,6 +8455,13 @@ fsevents@~2.1.2:
     renderkid: ^2.0.1
     utila: ~0.4
   checksum: 3/dc2a92f59888eac1bd3861b439944ab50c46fcc957c3147126270f1e9e06c7bbacde1ab23ab2fc73c8f3a1961094db0878ec8a569f1d5606343a0ada7899cfc4
+  languageName: node
+  linkType: hard
+
+"pretty-format@npm:^3.8.0":
+  version: 3.8.0
+  resolution: "pretty-format@npm:3.8.0"
+  checksum: 3/75603b8fa8a7520fbb24bea18869d4c5cf6ae7308637eb95e083eab07e521946bc49a22fa1ac4e567305b406e756badc7febfc1c5acc811fef236db189c511bf
   languageName: node
   linkType: hard
 
@@ -9422,6 +9440,7 @@ fsevents@~2.1.2:
     js-sha256: ^0.9.0
     pnp-webpack-plugin: ^1.6.4
     preact: ^10.4.1
+    preact-render-to-string: ^5.1.9
     prosemirror-commands: ^1.1.4
     prosemirror-dropcursor: ^1.3.2
     prosemirror-gapcursor: ^1.1.5

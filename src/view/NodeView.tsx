@@ -1,8 +1,10 @@
+import renderToString from 'preact-render-to-string';
 import { NodeView, EditorView } from 'prosemirror-view';
 import { h, render } from 'preact';
 import { Node, NodeSpec } from 'prosemirror-model';
 import { useState } from 'preact/hooks';
 import { NodeViewComponent } from '@interfaces/NodeView';
+import { createCache, Cache } from '@utils/cache';
 
 export function getDefaultAttrs<A>(Component: NodeViewComponent<A>) {
 	const attrs: { [k in keyof A]: { default: A[k] } } = {} as any;
@@ -28,17 +30,44 @@ export function getParseDOM<A>(Component: NodeViewComponent<A>): NodeSpec['parse
 	}];
 }
 
-export function getToDOM<A>(Component: NodeViewComponent<A>) {
+export function getToDOM<A>(Component: NodeViewComponent<A>, cacheSize: number = 10) {
+	let cache: Cache<HTMLTemplateElement>;
+	if (cacheSize > 0) {
+		cache = createCache(cacheSize);
+	}
+
 	return function (node: Node) {
 		const attrs: A = node.attrs as any;
-		const parent = document.createElement('div');
-		const setAttrs: any = () => {};
-		render(
-			<Component attrs={attrs} setAttrs={setAttrs} />,
-			parent
-		);
-		const dom = parent.firstChild as HTMLElement;
-		return dom;
+		let cachedTemplate: HTMLTemplateElement | undefined;
+		let template: HTMLTemplateElement;
+		let attrsJson: string | undefined;
+		
+		if (cacheSize > 0) {
+			attrsJson = JSON.stringify(attrs);
+			console.log('attrsJson', attrsJson);
+			cachedTemplate = cache.getItem(attrsJson);
+		}
+
+		if (cachedTemplate) {
+			template = cachedTemplate;
+			console.log('cached!');
+		}
+		else {
+			template = document.createElement('template');
+			console.error('not cached');
+			const setAttrs: any = () => {};
+			const resultHTML = renderToString(
+				<Component attrs={attrs} setAttrs={setAttrs} />
+			);
+			template.innerHTML = resultHTML;
+	
+			if (cacheSize > 0 && attrsJson) {
+				console.log('store');
+				cache.storeItem(attrsJson, template);
+			}
+		}
+
+		return template.content.cloneNode(true).firstChild as HTMLElement;
 	}
 }
 
@@ -76,6 +105,7 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 			this.view = view;
 			this.getPos = getPos;
 
+			// Problem: effects are not called after this render
 			this.parent = document.createElement('div');
 			render(
 				<ParentComponent<A>
@@ -89,10 +119,6 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 				/>,
 				this.parent
 			);
-
-			if (!this.parent.firstChild) {
-				throw new Error('NodeView is not rendered correctly');
-			}
 
 			this.dom = this.parent.firstChild as HTMLElement;
 			this.contentDOM = this.dom.querySelector(`[data-content="${this.node.type.name}"]`);
@@ -119,6 +145,10 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 			}
 			this.node = node;
 			this.setRenderedAttrs(node.attrs as A);
+			return true;
+		}
+
+		ignoreMutation() {
 			return true;
 		}
 

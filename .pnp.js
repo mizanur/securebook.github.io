@@ -166,6 +166,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:10.4.1"
       ],
       [
+        "preact-render-to-string",
+        "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"
+      ],
+      [
         "prosemirror-commands",
         "npm:1.1.4"
       ],
@@ -299,6 +303,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["js-sha256", "npm:0.9.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
             ["preact", "npm:10.4.1"],
+            ["preact-render-to-string", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"],
             ["prosemirror-commands", "npm:1.1.4"],
             ["prosemirror-dropcursor", "npm:1.3.2"],
             ["prosemirror-gapcursor", "npm:1.1.5"],
@@ -9884,6 +9889,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["preact-render-to-string", [
+        ["virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9", {
+          "packageLocation": "./.yarn/$$virtual/preact-render-to-string-virtual-0e1c96fff1/0/cache/preact-render-to-string-npm-5.1.9-c0a03c8a69-3.zip/node_modules/preact-render-to-string/",
+          "packageDependencies": [
+            ["preact-render-to-string", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"],
+            ["preact", "npm:10.4.1"],
+            ["pretty-format", "npm:3.8.0"]
+          ],
+          "packagePeers": [
+            "preact"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["prepend-http", [
         ["npm:2.0.0", {
           "packageLocation": "./.yarn/cache/prepend-http-npm-2.0.0-e1fc4332f2-3.zip/node_modules/prepend-http/",
@@ -9909,6 +9928,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pretty-error", "npm:2.1.1"],
             ["renderkid", "npm:2.0.3"],
             ["utila", "npm:0.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["pretty-format", [
+        ["npm:3.8.0", {
+          "packageLocation": "./.yarn/cache/pretty-format-npm-3.8.0-293db331d9-3.zip/node_modules/pretty-format/",
+          "packageDependencies": [
+            ["pretty-format", "npm:3.8.0"]
           ],
           "linkType": "HARD",
         }]
@@ -10984,6 +11012,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["js-sha256", "npm:0.9.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
             ["preact", "npm:10.4.1"],
+            ["preact-render-to-string", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"],
             ["prosemirror-commands", "npm:1.1.4"],
             ["prosemirror-dropcursor", "npm:1.3.2"],
             ["prosemirror-gapcursor", "npm:1.1.5"],
