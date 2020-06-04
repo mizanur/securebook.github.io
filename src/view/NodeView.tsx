@@ -1,6 +1,6 @@
 import renderToString from 'preact-render-to-string';
 import { NodeView, EditorView } from 'prosemirror-view';
-import { h, render } from 'preact';
+import { h, render, Component } from 'preact';
 import { Node, NodeSpec } from 'prosemirror-model';
 import { useState } from 'preact/hooks';
 import { NodeViewComponent } from '@interfaces/NodeView';
@@ -42,16 +42,18 @@ export function createTemplate<A>(Component: NodeViewComponent<A>, attrs: A) {
 
 export function getToDOM<A>(Component: NodeViewComponent<A>, cacheSize: number = 10) {
 	if (cacheSize <= 0) {
-		return function (node: Node) {
-			const attrs: A = node.attrs as any;
+		return function(node: Node) {
+			const attrs = node.attrs as A;
 			const template = createTemplate(Component, attrs);
 			return template.content.firstChild as HTMLElement;
 		}
 	}
 
 	let cache = createCache<HTMLTemplateElement>(cacheSize);
-	return function (node: Node) {
-		const attrs: A = node.attrs as any;
+
+	return function(node: Node) {
+		const attrs = node.attrs as A;
+
 		let template: HTMLTemplateElement;
 		let attrsJson: string | undefined = JSON.stringify(attrs);
 		let cachedTemplate = cache.getItem(attrsJson);
@@ -128,7 +130,6 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 						...this.node.attrs,
 						...attrs
 					})
-					.scrollIntoView()
 			);
 		}
 

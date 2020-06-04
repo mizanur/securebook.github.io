@@ -24,3 +24,42 @@ export function getFormattedDateTime(timeInMS: number, isFull: boolean = false):
 function withAppendedZeros(num: number): string {
 	return num >= 10 ? `${num}` : `0${num}`;
 }
+
+export function debounced<T>(fun: ((a: T) => any), time: number) {
+	let isScheduled: boolean;
+	let currentArg: T;
+	let timeoutId: number;
+	const clear = () => {
+		isScheduled = false;
+		currentArg = null as any;
+		timeoutId = 0;
+	};
+	const perform = () => {
+		fun(currentArg);
+		clear();
+	};
+	return {
+		schedule(arg: T) {
+			if (isScheduled) {
+				window.clearTimeout(timeoutId);
+			}
+			else {
+				isScheduled = true;
+			}
+			currentArg = arg;
+			timeoutId = window.setTimeout(perform, time);
+		},
+		perform() {
+			if (isScheduled) {
+				window.clearTimeout(timeoutId);
+				perform();
+			}
+		},
+		cancel() {
+			if (isScheduled) {
+				window.clearTimeout(timeoutId);
+				clear();
+			}
+		},
+	}
+}

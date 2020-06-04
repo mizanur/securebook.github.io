@@ -3,7 +3,9 @@ import Icon from '@components/Icon';
 import { NodeViewProps } from '@interfaces/NodeView';
 import { useEffectOnce } from '@view/useEffectOnce';
 
-type TodoListItemProps = NodeViewProps<{ done: boolean }>;
+type TodoListItemAttrs = { done: boolean };
+
+type TodoListItemProps = NodeViewProps<TodoListItemAttrs>;
 
 const type = `todo_item`;
 
