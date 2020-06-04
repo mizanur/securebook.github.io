@@ -4,7 +4,7 @@ import { h, FunctionComponent, render } from 'preact';
 import { Node, NodeSpec } from 'prosemirror-model';
 import { NodeViewComponent, NodeViewProps } from '@interfaces/NodeView';
 import { createCache } from '@utils/cache';
-import { useState } from 'preact/hooks';
+import { useState, useMemo } from 'preact/hooks';
 
 export function createNodeViewComponent<A>(Component: FunctionComponent<NodeViewProps<A>>, spec: {type: string, defaultAttrs: A}): NodeViewComponent<A> {
 	return Object.assign(Component, {
@@ -90,9 +90,13 @@ function ParentComponent<A>(
 	const [isRendered, setRendered] = useState<boolean>(true);
 	const [attrs, setAttrs] = useState<A>(() => defaultAttrs);
 	provideSetAttrsAndSetRendered(setAttrs, setRendered);
-	return isRendered
-		? <Component attrs={attrs} setAttrs={setNodeViewAttrs} />
-		: null;
+	const content = useMemo(
+		() => isRendered
+			? <Component attrs={attrs} setAttrs={setNodeViewAttrs} />
+			: null,
+		[isRendered, Component, attrs, setNodeViewAttrs]
+	);
+	return content;
 }
 
 export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
