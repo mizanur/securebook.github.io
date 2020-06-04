@@ -2,6 +2,7 @@ import  { h } from 'preact';
 import Icon from '@components/Icon';
 import { NodeViewProps } from '@interfaces/NodeView';
 import { useEffectOnce } from '@view/useEffectOnce';
+import { createNodeViewComponent } from '@view/NodeView';
 
 type TodoListItemAttrs = { done: boolean };
 
@@ -42,7 +43,7 @@ function TodoListItem({ attrs, setAttrs }: TodoListItemProps) {
 	</li>;
 }
 
-export default Object.assign(TodoListItem, {
+export default createNodeViewComponent(TodoListItem, {
 	type,
 	defaultAttrs: { done: false },
 });

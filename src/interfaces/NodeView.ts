@@ -10,6 +10,7 @@ export type NodeViewProps<A> = {
 export type NodeViewComponent<A> = FunctionComponent<NodeViewProps<A>> & {
 	type: string,
 	defaultAttrs: A,
+	toDOM: (node: Node) => HTMLElement,
 };
 
 export interface NodeViewProvider {

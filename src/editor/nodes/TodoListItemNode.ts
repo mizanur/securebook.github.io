@@ -18,7 +18,7 @@ export class TodoListItemNode implements EditorNode, KeyBindings, NodeViewProvid
 		defining: true,
 		attrs: getDefaultAttrs(TodoListItem),
 		parseDOM: getParseDOM(TodoListItem),
-		toDOM: getToDOM(TodoListItem),
+		toDOM: TodoListItem.toDOM,
 	}
 
 	addKeyBindings(addKeyBinding: AddKeyBinding, schema: Schema) {

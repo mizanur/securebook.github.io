@@ -163,7 +163,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "preact",
-        "npm:10.4.1"
+        "npm:10.4.4"
       ],
       [
         "preact-render-to-string",
@@ -302,7 +302,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["html-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:4.3.0"],
             ["js-sha256", "npm:0.9.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
-            ["preact", "npm:10.4.1"],
+            ["preact", "npm:10.4.4"],
             ["preact-render-to-string", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"],
             ["prosemirror-commands", "npm:1.1.4"],
             ["prosemirror-dropcursor", "npm:1.3.2"],
@@ -9881,10 +9881,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["preact", [
-        ["npm:10.4.1", {
-          "packageLocation": "./.yarn/cache/preact-npm-10.4.1-e6252aa20d-3.zip/node_modules/preact/",
+        ["npm:10.4.4", {
+          "packageLocation": "./.yarn/cache/preact-npm-10.4.4-6e82cf3bf8-3.zip/node_modules/preact/",
           "packageDependencies": [
-            ["preact", "npm:10.4.1"]
+            ["preact", "npm:10.4.4"]
           ],
           "linkType": "HARD",
         }]
@@ -9894,7 +9894,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/$$virtual/preact-render-to-string-virtual-0e1c96fff1/0/cache/preact-render-to-string-npm-5.1.9-c0a03c8a69-3.zip/node_modules/preact-render-to-string/",
           "packageDependencies": [
             ["preact-render-to-string", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"],
-            ["preact", "npm:10.4.1"],
+            ["preact", "npm:10.4.4"],
             ["pretty-format", "npm:3.8.0"]
           ],
           "packagePeers": [
@@ -11011,7 +11011,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["html-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:4.3.0"],
             ["js-sha256", "npm:0.9.0"],
             ["pnp-webpack-plugin", "npm:1.6.4"],
-            ["preact", "npm:10.4.1"],
+            ["preact", "npm:10.4.4"],
             ["preact-render-to-string", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:5.1.9"],
             ["prosemirror-commands", "npm:1.1.4"],
             ["prosemirror-dropcursor", "npm:1.3.2"],

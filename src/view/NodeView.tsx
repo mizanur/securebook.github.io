@@ -1,10 +1,17 @@
 import renderToString from 'preact-render-to-string';
 import { NodeView, EditorView } from 'prosemirror-view';
-import { h, render, Component } from 'preact';
+import { h, FunctionComponent, render } from 'preact';
 import { Node, NodeSpec } from 'prosemirror-model';
-import { useState } from 'preact/hooks';
-import { NodeViewComponent } from '@interfaces/NodeView';
+import { NodeViewComponent, NodeViewProps } from '@interfaces/NodeView';
 import { createCache } from '@utils/cache';
+import { useState } from 'preact/hooks';
+
+export function createNodeViewComponent<A>(Component: FunctionComponent<NodeViewProps<A>>, spec: {type: string, defaultAttrs: A}): NodeViewComponent<A> {
+	return Object.assign(Component, {
+		...spec,
+		toDOM: getToDOM(Component),
+	});
+}
 
 export function getDefaultAttrs<A>(Component: NodeViewComponent<A>) {
 	const attrs: { [k in keyof A]: { default: A[k] } } = {} as any;
@@ -30,7 +37,7 @@ export function getParseDOM<A>(Component: NodeViewComponent<A>): NodeSpec['parse
 	}];
 }
 
-export function createTemplate<A>(Component: NodeViewComponent<A>, attrs: A) {
+export function createTemplate<A>(Component: FunctionComponent<NodeViewProps<A>>, attrs: A) {
 	const template = document.createElement('template');
 	const setAttrs: any = () => {};
 	const resultHTML = renderToString(
@@ -40,7 +47,7 @@ export function createTemplate<A>(Component: NodeViewComponent<A>, attrs: A) {
 	return template;
 }
 
-export function getToDOM<A>(Component: NodeViewComponent<A>, cacheSize: number = 10) {
+export function getToDOM<A>(Component: FunctionComponent<NodeViewProps<A>>, cacheSize: number = 10) {
 	if (cacheSize <= 0) {
 		return function(node: Node) {
 			const attrs = node.attrs as A;
@@ -83,15 +90,16 @@ function ParentComponent<A>(
 	const [isRendered, setRendered] = useState<boolean>(true);
 	const [attrs, setAttrs] = useState<A>(() => defaultAttrs);
 	provideSetAttrsAndSetRendered(setAttrs, setRendered);
-	return isRendered ? <Component attrs={attrs} setAttrs={setNodeViewAttrs} /> : null;
+	return isRendered
+		? <Component attrs={attrs} setAttrs={setNodeViewAttrs} />
+		: null;
 }
 
 export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 	return class implements NodeView {
-		dom: null | HTMLElement;
+		dom: HTMLElement;
 		contentDOM: null | HTMLElement;
 
-		private parent: HTMLDivElement;
 		private node: Node;
 		private setRenderedAttrs: (newAttrs: A) => void;
 		private setRendered: (newRendered: boolean) => void;
@@ -104,8 +112,7 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 			this.view = view;
 			this.getPos = getPos;
 
-			// Problem: effects are not called after this render
-			this.parent = document.createElement('div');
+			const frag = document.createDocumentFragment();
 			render(
 				<ParentComponent<A>
 					Component={Component}
@@ -116,11 +123,15 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 						this.setRendered = setRendered;
 					}}
 				/>,
-				this.parent
+				frag,
 			);
 
-			this.dom = this.parent.firstChild as HTMLElement;
+			this.dom = frag.firstChild as HTMLElement;
 			this.contentDOM = this.dom.querySelector(`[data-content="${this.node.type.name}"]`);
+
+			// This fixes a bug where effects are not triggered initially
+			this.setRendered(false);
+			this.setRendered(true);
 		}
 
 		private setAttrs = (attrs: A) => {
