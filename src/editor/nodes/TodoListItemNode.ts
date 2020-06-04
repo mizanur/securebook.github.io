@@ -16,8 +16,8 @@ export class TodoListItemNode implements EditorNode, KeyBindings, NodeViewProvid
 	nodeSpec: NodeSpec = {
 		content: "paragraph block*",
 		defining: true,
-		attrs: getDefaultAttrs(TodoListItem),
-		parseDOM: getParseDOM(TodoListItem),
+		attrs: TodoListItem.attrs,
+		parseDOM: TodoListItem.parseDOM,
 		toDOM: TodoListItem.toDOM,
 	}
 

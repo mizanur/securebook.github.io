@@ -2,18 +2,20 @@ import renderToString from 'preact-render-to-string';
 import { NodeView, EditorView } from 'prosemirror-view';
 import { h, FunctionComponent, render } from 'preact';
 import { Node, NodeSpec } from 'prosemirror-model';
-import { NodeViewComponent, NodeViewProps } from '@interfaces/NodeView';
+import { NodeViewComponent, NodeViewProps, NodeViewSpec } from '@interfaces/NodeView';
 import { createCache } from '@utils/cache';
 import { useState, useMemo } from 'preact/hooks';
 
-export function createNodeViewComponent<A>(Component: FunctionComponent<NodeViewProps<A>>, spec: {type: string, defaultAttrs: A}): NodeViewComponent<A> {
-	return Object.assign(Component, {
-		...spec,
-		toDOM: getToDOM(Component),
+export function createNodeViewComponent<A>(Component: FunctionComponent<NodeViewProps<A>>, spec: NodeViewSpec<A>): NodeViewComponent<A> {
+	const ComponentWithSpec = Object.assign(Component, spec);
+	return Object.assign(ComponentWithSpec, {
+		attrs: getDefaultAttrs(ComponentWithSpec),
+		parseDOM: getParseDOM(ComponentWithSpec),
+		toDOM: getToDOM(ComponentWithSpec),
 	});
 }
 
-export function getDefaultAttrs<A>(Component: NodeViewComponent<A>) {
+export function getDefaultAttrs<A>(Component: NodeViewSpec<A>): NodeSpec['attrs'] {
 	const attrs: { [k in keyof A]: { default: A[k] } } = {} as any;
 	for (let attrName in Component.defaultAttrs) {
 		attrs[attrName] = { default: Component.defaultAttrs[attrName] };
@@ -21,7 +23,7 @@ export function getDefaultAttrs<A>(Component: NodeViewComponent<A>) {
 	return attrs;
 }
 
-export function getParseDOM<A>(Component: NodeViewComponent<A>): NodeSpec['parseDOM'] {
+export function getParseDOM<A>(Component: NodeViewSpec<A>): NodeSpec['parseDOM'] {
 	return [{
 		tag: `[data-type="${Component.type}"]`,
 		contentElement: `[data-content="${Component.type}"]`,

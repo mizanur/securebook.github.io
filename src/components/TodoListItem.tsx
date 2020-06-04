@@ -1,7 +1,6 @@
 import  { h } from 'preact';
 import Icon from '@components/Icon';
 import { NodeViewProps } from '@interfaces/NodeView';
-import { useEffectOnce } from '@view/useEffectOnce';
 import { createNodeViewComponent } from '@view/NodeView';
 
 type TodoListItemAttrs = { done: boolean };
@@ -11,12 +10,6 @@ type TodoListItemProps = NodeViewProps<TodoListItemAttrs>;
 const type = `todo_item`;
 
 function TodoListItem({ attrs, setAttrs }: TodoListItemProps) {
-	useEffectOnce(() => {
-		console.log('mount');
-		return () => {
-			console.log('unmount');
-		};
-	});
 	return <li
 		className="TodoList__Item"
 		data-type={type}

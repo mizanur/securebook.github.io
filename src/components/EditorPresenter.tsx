@@ -45,8 +45,8 @@ function EditorPresenter({ contentId, content, onContentChange, disabled = false
 		view.current = new EditorView(element.current, {
 			state: state.value,
 			dispatchTransaction,
-			// @ts-ignore: This is probably a mistake
-			// in prosemirror types; getPos should return a number
+			// @ts-ignore: This is probably a mistake in prosemirror types
+			//             According to docs, getPos should return a number
 			nodeViews: editor.nodeViews,
 		});
 		
