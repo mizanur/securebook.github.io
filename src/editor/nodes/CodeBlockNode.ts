@@ -47,7 +47,10 @@ export class CodeBlockNode implements EditorNode, KeyBindings, InputRules, NodeV
 		return {
 			get isCurrent() {
 				return isActiveNode(unwrap(state), schema.nodes.code_block);
-			}
+			},
+			get canToggle() {
+				return !!toggleBlockType(schema.nodes.code_block, schema.nodes.paragraph)(unwrap(state));
+			},
 		}
 	}
 

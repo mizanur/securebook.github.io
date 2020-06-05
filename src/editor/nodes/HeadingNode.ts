@@ -51,6 +51,9 @@ export class HeadingNode implements EditorNode, KeyBindings, InputRules {
 			get isCurrent(): boolean {
 				return isActiveNode(unwrap(state), schema.nodes.heading);
 			},
+			get canToggle() {
+				return !!toggleBlockType(schema.nodes.heading, schema.nodes.paragraph)(unwrap(state));
+			},
 			get level(): number {
 				return this.isCurrent && getNodeAttrs(unwrap(state), schema.nodes.heading).level || 0;
 			}

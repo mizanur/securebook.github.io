@@ -43,7 +43,10 @@ export class StrongMark implements EditorMark, KeyBindings {
 		return {
 			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.strong);
-			}
+			},
+			get canToggle() {
+				return !!toggleMark(schema.marks.strong)(unwrap(state));
+			},
 		}
 	}
 

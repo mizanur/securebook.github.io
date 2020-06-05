@@ -8,6 +8,7 @@ import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { updateMark } from "@editor/utils/updateMark";
 import { removeMark } from "@editor/utils/removeMark";
+import { toggleMark } from "prosemirror-commands";
 
 export class LinkMark implements EditorMark {
 	name: string = "link";
@@ -48,6 +49,9 @@ export class LinkMark implements EditorMark {
 		return {
 			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.link);
+			},
+			get canToggle() {
+				return !!toggleMark(schema.marks.strong)(unwrap(state));
 			},
 			get isSelected() {
 				return this.isCurrent || !unwrap(state).selection.empty;

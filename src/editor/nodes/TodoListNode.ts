@@ -32,7 +32,10 @@ export class TodoListNode implements EditorNode, InputRules {
 		return {
 			get isCurrent() {
 				return isActiveNode(unwrap(state), schema.nodes.todo_list);
-			}
+			},
+			get canToggle() {
+				return !!toggleList(schema.nodes.todo_list, schema.nodes.todo_item)(unwrap(state));
+			},
 		}
 	}
 

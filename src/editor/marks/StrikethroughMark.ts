@@ -27,7 +27,10 @@ export class StrikethroughMark implements EditorMark {
 		return {
 			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.strikethrough);
-			}
+			},
+			get canToggle() {
+				return !!toggleMark(schema.marks.strong)(unwrap(state));
+			},
 		}
 	}
 

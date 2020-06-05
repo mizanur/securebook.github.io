@@ -33,7 +33,10 @@ export class UnderlineMark implements EditorMark, KeyBindings {
 		return {
 			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.underline);
-			}
+			},
+			get canToggle() {
+				return !!toggleMark(schema.marks.strong)(unwrap(state));
+			},
 		}
 	}
 

@@ -25,7 +25,10 @@ function EditorMenu() {
 
 	return <div className='EditorMenu' onMouseDown={e => e.preventDefault()}>
 		<button
-			className={`EditorMenu__Button ${menu.state.heading.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.heading.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.heading.canToggle && menu.state.heading.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={() => setHeadingEditorOpen(true)}
 			title="Heading"
 			ref={headingRef}
@@ -33,7 +36,7 @@ function EditorMenu() {
 			<Icon type="title" />
 		</button>
 		{
-			isHeadingEditorOpen && <ContextMenu
+			menu.state.heading.canToggle && isHeadingEditorOpen && <ContextMenu
 				onClose={() => setHeadingEditorOpen(false)}
 				relativeRef={headingRef}
 			>
@@ -88,28 +91,40 @@ function EditorMenu() {
 			</ContextMenu>
 		}
 		<button
-			className={`EditorMenu__Button ${menu.state.strong.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.strong.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.strong.canToggle && menu.state.strong.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.strong.toggle}
 			title="Bold"
 		>
 			<Icon type="format_bold" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.em.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.em.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.em.canToggle && menu.state.em.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.em.toggle}
 			title="Italics"
 		>
 			<Icon type="format_italic" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.underline.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.underline.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.underline.canToggle && menu.state.underline.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.underline.toggle}
 			title="Underlined"
 		>
 			<Icon type="format_underlined" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.strikethrough.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.strikethrough.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.strikethrough.canToggle && menu.state.strikethrough.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.strikethrough.toggle}
 			title="Strikethrough"
 		>
@@ -117,7 +132,10 @@ function EditorMenu() {
 		</button>
 		<button
 			ref={linkRef}
-			className={`EditorMenu__Button ${menu.state.link.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.link.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.link.canToggle && menu.state.link.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={() => setLinkEditorOpen(!isLinkEditorOpen)}
 			title="Link"
 		>
@@ -172,14 +190,20 @@ function EditorMenu() {
 			</ContextMenu>
 		}
 		<button
-			className={`EditorMenu__Button ${menu.state.code.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.code.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.code.canToggle && menu.state.code.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.code.toggle}
 			title="Inline code"
 		>
 			<Icon type="code" />
 		</button>
 		<button
-			className={`EditorMenu__Button EditorMenu__CodeBlock ${menu.state.codeBlock.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.codeBlock.canToggle}
+			className={`EditorMenu__Button EditorMenu__CodeBlock ${
+				menu.state.codeBlock.canToggle && menu.state.codeBlock.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.codeBlock.toggle}
 			title="Code block"
 		>
@@ -187,7 +211,10 @@ function EditorMenu() {
 			<Icon className="EditorMenu__CodeBlock-Block" type="short_text" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.blockquote.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.blockquote.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.blockquote.canToggle && menu.state.blockquote.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.blockquote.toggle}
 			title="Quote block"
 		>
@@ -253,21 +280,30 @@ function EditorMenu() {
 			<Icon type="format_align_right" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.bulletList.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.bulletList.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.bulletList.canToggle && menu.state.bulletList.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.bulletList.toggle}
 			title="Bulleted List"
 		>
 			<Icon type="format_list_bulleted" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.orderedList.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.orderedList.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.orderedList.canToggle && menu.state.orderedList.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.orderedList.toggle}
 			title="Numbered List"
 		>
 			<Icon type="format_list_numbered" />
 		</button>
 		<button
-			className={`EditorMenu__Button ${menu.state.todoList.isCurrent ? `EditorMenu__Button--active`: ``}`}
+			disabled={!menu.state.todoList.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.todoList.canToggle && menu.state.todoList.isCurrent ? `EditorMenu__Button--active`: ``
+			}`}
 			onClick={menu.actions.todoList.toggle}
 			title="Todo List"
 		>

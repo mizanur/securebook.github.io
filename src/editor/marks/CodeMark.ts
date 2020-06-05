@@ -25,7 +25,10 @@ export class CodeMark implements EditorMark, KeyBindings {
 		return {
 			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.code);
-			}
+			},
+			get canToggle() {
+				return !!toggleMark(schema.marks.strong)(unwrap(state));
+			},
 		}
 	}
 

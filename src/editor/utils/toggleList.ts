@@ -12,7 +12,7 @@ function isList(node: Node, schema: Schema) {
 }
 
 export function toggleList(listType: NodeType, itemType: NodeType) {
-	return (state: EditorState, dispatch: Dispatch) => {
+	return (state: EditorState, dispatch?: Dispatch) => {
 		const { schema, selection } = state;
 		const { $from, $to } = selection;
 		const range = $from.blockRange($to);

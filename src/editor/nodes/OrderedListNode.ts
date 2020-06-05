@@ -49,7 +49,10 @@ export class OrderedListNode implements EditorNode, KeyBindings, InputRules {
 		return {
 			get isCurrent() {
 				return isActiveNode(unwrap(state), schema.nodes.ordered_list);
-			}
+			},
+			get canToggle() {
+				return !!toggleList(schema.nodes.ordered_list, schema.nodes.list_item)(unwrap(state));
+			},
 		}
 	}
 

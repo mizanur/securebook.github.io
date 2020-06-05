@@ -30,7 +30,10 @@ export class EmMark implements EditorMark, KeyBindings {
 		return {
 			get isCurrent() {
 				return isActiveMark(unwrap(state), schema.marks.em);
-			}
+			},
+			get canToggle() {
+				return !!toggleMark(schema.marks.strong)(unwrap(state));
+			},
 		}
 	}
 

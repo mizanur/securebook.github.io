@@ -34,7 +34,10 @@ export class BulletListNode implements EditorNode, KeyBindings, InputRules {
 		return {
 			get isCurrent() {
 				return isActiveNode(unwrap(state), schema.nodes.bullet_list);
-			}
+			},
+			get canToggle() {
+				return !!toggleList(schema.nodes.bullet_list, schema.nodes.list_item)(unwrap(state));
+			},
 		}
 	}
 

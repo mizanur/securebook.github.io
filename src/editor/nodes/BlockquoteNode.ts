@@ -37,7 +37,10 @@ export class BlockquoteNode implements EditorNode, KeyBindings, InputRules {
 		return {
 			get isCurrent() {
 				return isActiveNode(unwrap(state), schema.nodes.blockquote);
-			}
+			},
+			get canToggle() {
+				return !!toggleWrap(schema.nodes.blockquote)(unwrap(state));
+			},
 		}
 	}
 
