@@ -1,6 +1,10 @@
 import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
 
 export interface MenuState {
+	history: {
+		canUndo: boolean,
+		canRedo: boolean,
+	},
 	strong: {
 		isCurrent: boolean,
 		canToggle: boolean,

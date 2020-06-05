@@ -25,6 +25,22 @@ function EditorMenu() {
 
 	return <div className='EditorMenu' onMouseDown={e => e.preventDefault()}>
 		<button
+			disabled={!menu.state.history.canUndo}
+			className="EditorMenu__Button"
+			onClick={menu.actions.history.undo}
+			title="Undo action"
+		>
+			<Icon type='undo' />
+		</button>
+		<button
+			disabled={!menu.state.history.canRedo}
+			className="EditorMenu__Button"
+			onClick={menu.actions.history.redo}
+			title="Redo action"
+		>
+			<Icon type='redo' />
+		</button>
+		<button
 			disabled={!menu.state.heading.canToggle}
 			className={`EditorMenu__Button ${
 				menu.state.heading.canToggle && menu.state.heading.isCurrent ? `EditorMenu__Button--active`: ``

@@ -141,6 +141,7 @@ export function createEditor(): Editor {
 			const createActions = getCreateActions(editorSchema, state, dispatchTransaction);
 			menu.value = {
 				state: connectObject({
+					history: history.getMenuState(state),
 					strong: strongMark.getMenuState(state, editorSchema.schema),
 					em: emMark.getMenuState(state, editorSchema.schema),
 					underline: underlineMark.getMenuState(state, editorSchema.schema),
@@ -156,6 +157,7 @@ export function createEditor(): Editor {
 					todoList: todoListNode.getMenuState(state, editorSchema.schema),
 				}),
 				actions: {
+					history: createActions(history.getMenuActions),
 					strong: createActions(strongMark.getMenuActions),
 					em: createActions(emMark.getMenuActions),
 					underline: createActions(underlineMark.getMenuActions),

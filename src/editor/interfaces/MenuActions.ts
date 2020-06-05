@@ -1,6 +1,10 @@
 import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
 
 export interface MenuActions {
+	history: {
+		undo: () => void,
+		redo: () => void,
+	},
 	strong: {
 		toggle: () => void,
 	},
