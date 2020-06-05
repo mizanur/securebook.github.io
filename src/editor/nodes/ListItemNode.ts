@@ -1,11 +1,7 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
-import { NodeSpec, Schema } from "prosemirror-model";
-import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
-import { splitListItem } from "@editor/utils/splitListItem";
-import { liftListItem } from "@editor/utils/liftListItem";
-import { sinkListItem } from "@editor/utils/sinkListItem";
+import { NodeSpec } from "prosemirror-model";
 
-export class ListItemNode implements EditorNode, KeyBindings {
+export class ListItemNode implements EditorNode {
 	name: string = 'list_item';
 
 	nodeSpec: NodeSpec = {
@@ -15,11 +11,5 @@ export class ListItemNode implements EditorNode, KeyBindings {
 			return ["li", 0];
 		},
 		defining: true
-	}
-
-	addKeyBindings(addKeyBinding: AddKeyBinding, schema: Schema) {
-		addKeyBinding("Enter", splitListItem(schema.nodes.list_item));
-		addKeyBinding("Mod-[", liftListItem(schema.nodes.list_item));
-		addKeyBinding("Mod-]", sinkListItem(schema.nodes.list_item));
 	}
 }

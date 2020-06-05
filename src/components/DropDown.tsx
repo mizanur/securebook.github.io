@@ -3,7 +3,7 @@ import { IconType } from "@interfaces/Icon";
 import Icon from "@components/Icon";
 import "@styles/DropDown.scss";
 
-export function DropDownItem({ iconType, label, children, selected = false, ...rest }: { selected?: boolean, iconType?: IconType, label?: string, children?: ComponentChildren } & h.JSX.HTMLAttributes<HTMLDivElement>) {
+export function DropDownItem({ iconType, label, children, selected = false, labelProps = {}, ...rest }: { selected?: boolean, iconType?: IconType, label?: string, labelProps?: h.JSX.HTMLAttributes<HTMLSpanElement>, children?: ComponentChildren } & h.JSX.HTMLAttributes<HTMLDivElement>) {
 	return <div
 		{...rest}
 		title={label}
@@ -18,7 +18,14 @@ export function DropDownItem({ iconType, label, children, selected = false, ...r
 		}
 	>
 		{!!iconType && <span className="DropDown__Icon"><Icon type={iconType} /></span>}
-		<span className="DropDown__Label">{!children ? label : children}</span>
+		<span
+			{...labelProps}
+			className={`DropDown__Label ${
+				labelProps.class || labelProps.className || ''
+			}`}
+		>
+			{!children ? label : children}
+		</span>
 	</div>;
 }
 

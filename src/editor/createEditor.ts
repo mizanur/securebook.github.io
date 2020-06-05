@@ -40,6 +40,9 @@ import { TodoListNode } from "@editor/nodes/TodoListNode";
 import { getCreateActions } from "@editor/utils/getCreateActions";
 import { getNodeViewLookup } from "@editor/utils/getNodeViewLookup";
 import { Dispatch } from "@editor/interfaces/Actions";
+import { ListItems } from "@editor/nodes/ListItems";
+import { FontSizeMark } from "@editor/marks/FontSizeMark";
+import { FontFamilyMark } from "@editor/marks/FontFamilyMark";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -62,6 +65,8 @@ export function createEditor(): Editor {
 	const underlineMark = new UnderlineMark();
 	const strikethroughMark = new StrikethroughMark();
 	const codeMark = new CodeMark();
+	const fontSizeMark = new FontSizeMark();
+	const fontFamilyMark = new FontFamilyMark();
 	const history = new History();
 	const cursor = new Cursor();
 	const editorNodes: EditorNode[] = [
@@ -87,7 +92,14 @@ export function createEditor(): Editor {
 		strikethroughMark,
 		linkMark,
 		codeMark,
+		fontSizeMark,
+		fontFamilyMark,
 	];
+	const editorSchema = new EditorSchema(editorNodes, editorMarks);
+	const listItems = new ListItems(editorSchema.schema, [
+		listItemNode,
+		todoListItemNode,
+	]);
 	const inputRules: InputRules[] = [
 		blockquoteNode,
 		headingNode,
@@ -104,8 +116,7 @@ export function createEditor(): Editor {
 		hardBreakNode,
 		orderedListNode,
 		bulletListNode,
-		listItemNode,
-		todoListItemNode,
+		listItems,
 		strongMark,
 		emMark,
 		underlineMark,
@@ -122,7 +133,6 @@ export function createEditor(): Editor {
 		keyBindingsManager,
 		justifyFix,
 	];
-	const editorSchema = new EditorSchema(editorNodes, editorMarks);
 	const editorPluginsManager = new EditorPluginsManager(editorPlugins);
 	const domParser = DOMParser.fromSchema(editorSchema.schema);
 	const domSerializer = DOMSerializer.fromSchema(editorSchema.schema);
@@ -147,6 +157,8 @@ export function createEditor(): Editor {
 					underline: underlineMark.getMenuState(state, editorSchema.schema),
 					strikethrough: strikethroughMark.getMenuState(state, editorSchema.schema),
 					link: linkMark.getMenuState(state, editorSchema.schema),
+					fontSize: fontSizeMark.getMenuState(state, editorSchema.schema),
+					fontFamily: fontFamilyMark.getMenuState(state, editorSchema.schema),
 					code: codeMark.getMenuState(state, editorSchema.schema),
 					blockquote: blockquoteNode.getMenuState(state, editorSchema.schema),
 					codeBlock: codeBlockNode.getMenuState(state, editorSchema.schema),
@@ -155,6 +167,7 @@ export function createEditor(): Editor {
 					bulletList: bulletListNode.getMenuState(state, editorSchema.schema),
 					orderedList: orderedListNode.getMenuState(state, editorSchema.schema),
 					todoList: todoListNode.getMenuState(state, editorSchema.schema),
+					listItems: listItems.getMenuState(state),
 				}),
 				actions: {
 					history: createActions(history.getMenuActions),
@@ -163,6 +176,8 @@ export function createEditor(): Editor {
 					underline: createActions(underlineMark.getMenuActions),
 					strikethrough: createActions(strikethroughMark.getMenuActions),
 					link: createActions(linkMark.getMenuActions),
+					fontSize: createActions(fontSizeMark.getMenuActions),
+					fontFamily: createActions(fontFamilyMark.getMenuActions),
 					code: createActions(codeMark.getMenuActions),
 					blockquote: createActions(blockquoteNode.getMenuActions),
 					codeBlock: createActions(codeBlockNode.getMenuActions),
@@ -172,6 +187,7 @@ export function createEditor(): Editor {
 					bulletList: createActions(bulletListNode.getMenuActions),
 					orderedList: createActions(orderedListNode.getMenuActions),
 					todoList: createActions(todoListNode.getMenuActions),
+					listItems: createActions(listItems.getMenuActions),
 				},
 			};
 		}

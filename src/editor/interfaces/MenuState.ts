@@ -1,4 +1,6 @@
 import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
+import { FontSizeMarkAttrs } from "@editor/marks/FontSizeMark";
+import { FontFamilyMarkAttrs } from "@editor/marks/FontFamilyMark";
 
 export interface MenuState {
 	history: {
@@ -34,6 +36,16 @@ export interface MenuState {
 			title: string,
 		},
 	},
+	fontSize: {
+		isCurrent: boolean,
+		attrs: FontSizeMarkAttrs,
+		canToggle: boolean,
+	},
+	fontFamily: {
+		isCurrent: boolean,
+		attrs: FontFamilyMarkAttrs,
+		canToggle: boolean,
+	},
 	blockquote: {
 		isCurrent: boolean,
 		canToggle: boolean,
@@ -62,5 +74,9 @@ export interface MenuState {
 	todoList: {
 		isCurrent: boolean,
 		canToggle: boolean,
+	},
+	listItems: {
+		canIncreaseIndent: boolean,
+		canDecreaseIndent: boolean,
 	},
 }

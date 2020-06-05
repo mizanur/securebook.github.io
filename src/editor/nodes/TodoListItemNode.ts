@@ -1,14 +1,10 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
-import { NodeSpec, Schema } from "prosemirror-model";
-import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
-import { splitListItem } from "@editor/utils/splitListItem";
-import { liftListItem } from "@editor/utils/liftListItem";
-import { sinkListItem } from "@editor/utils/sinkListItem";
+import { NodeSpec } from "prosemirror-model";
 import { createNodeViewForComponent } from "@view/NodeView";
 import TodoListItem from "@components/TodoListItem";
 import { NodeViewProvider } from "@interfaces/NodeView";
 
-export class TodoListItemNode implements EditorNode, KeyBindings, NodeViewProvider {
+export class TodoListItemNode implements EditorNode, NodeViewProvider {
 	nodeView = createNodeViewForComponent(TodoListItem);
 
 	name: string = TodoListItem.type;
@@ -19,11 +15,5 @@ export class TodoListItemNode implements EditorNode, KeyBindings, NodeViewProvid
 		attrs: TodoListItem.attrs,
 		parseDOM: TodoListItem.parseDOM,
 		toDOM: TodoListItem.toDOM,
-	}
-
-	addKeyBindings(addKeyBinding: AddKeyBinding, schema: Schema) {
-		addKeyBinding("Enter", splitListItem(schema.nodes[TodoListItem.type]));
-		addKeyBinding("Mod-[", liftListItem(schema.nodes[TodoListItem.type]));
-		addKeyBinding("Mod-]", sinkListItem(schema.nodes[TodoListItem.type]));
 	}
 }

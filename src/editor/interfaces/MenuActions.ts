@@ -24,6 +24,14 @@ export interface MenuActions {
 		createUpdate: (attrs: { href: string, title: string }) => void,
 		remove: () => void,
 	},
+	fontSize: {
+		setFontSize: (fontSize: number) => void,
+		reset: () => void,
+	},
+	fontFamily: {
+		setFontFamily: (fontFamily: string) => void,
+		reset: () => void,
+	},
 	blockquote: {
 		toggle: () => void,
 	},
@@ -48,5 +56,9 @@ export interface MenuActions {
 	},
 	todoList: {
 		toggle: () => void,
+	},
+	listItems: {
+		increaseIndent: () => void,
+		decreaseIndent: () => void,
 	},
 }

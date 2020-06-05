@@ -2,22 +2,30 @@ import { h, Fragment } from 'preact';
 import "@styles/EditorMenu.scss";
 import Icon from '@components/Icon';
 import { connect } from '@view/connect';
-import { useContext, useRef, useState } from 'preact/hooks';
+import { useContext, useRef, useState, useMemo } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import { unwrap } from '@utils/wrap';
 import ContextMenu from '@components/ContextMenu';
 import { DropDown, DropDownItem } from '@components/DropDown';
 import Input from '@components/Input';
 import { useFocusOnMount } from '@view/useFocusOnMount';
+import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup, fontTypeNames } from '@view/fonts';
 
 function EditorMenu() {
 	const { editor } = useContext(StoreContext);
 	const menu = unwrap(editor.menu);
+	const fontRef = useRef<HTMLButtonElement>(null);
 	const linkRef = useRef<HTMLButtonElement>(null);
 	const headingRef = useRef<HTMLButtonElement>(null);
+	const [isFontEditorOpen, setFontEditorOpen] = useState(false);
 	const [isLinkEditorOpen, setLinkEditorOpen] = useState(false);
 	const [isHeadingEditorOpen, setHeadingEditorOpen] = useState(false);
 	const useFocusProps = useFocusOnMount();
+	const [fontSearch, setFontSearch] = useState('');
+	const availableFonts = useMemo(() => ({
+		...getAvailableFonts(),
+		[defaultFontsLookup.default]: true,
+	}), []);
 	
 	if (!menu) {
 		return null;
@@ -147,6 +155,114 @@ function EditorMenu() {
 			<Icon type="format_strikethrough" />
 		</button>
 		<button
+			ref={fontRef}
+			disabled={!menu.state.fontSize.canToggle && !menu.state.fontFamily.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.fontSize.canToggle && menu.state.fontSize.isCurrent ||
+				menu.state.fontFamily.canToggle && menu.state.fontFamily.isCurrent
+					? `EditorMenu__Button--active`
+					: ``
+			}`}
+			onClick={() => setFontEditorOpen(!isFontEditorOpen)}
+			title="Font"
+		>
+			<Icon type="text_format" />
+		</button>
+		{
+			(menu.state.fontSize.canToggle || menu.state.fontFamily.canToggle) && isFontEditorOpen && <ContextMenu
+				onClose={() => setFontEditorOpen(false)}
+				relativeRef={fontRef}
+			>
+				<DropDown className="EditorMenu__FontEditor">
+					{
+						menu.state.fontSize.canToggle &&
+							<DropDownItem
+								className="EditorMenu__FontEditorItem"
+								labelProps={{ className: "EditorMenu__FontSize" }}
+							>
+								<Input
+									className="EditorMenu__FontSizeInput"
+									iconType="format_size"
+									type="number"
+									placeholder="Font size"
+									value={
+										menu.state.fontSize.isCurrent
+											? menu.state.fontSize.attrs.fontSize
+											: ''
+									}
+									onChange={e => menu.actions.fontSize.setFontSize(
+										Number(e.currentTarget.value)
+									)}
+									{...useFocusProps}
+								/>
+								<span className="EditorMenu__FontSizeUnit">px</span>
+								<button
+									className="EditorMenu__FontSizeDefault"
+									title="Reset font size to default"
+									onClick={menu.actions.fontSize.reset}
+								>
+									<Icon type="format_clear" />
+								</button>
+							</DropDownItem>
+					}
+					{
+						menu.state.fontFamily.canToggle &&
+							<Fragment>
+								<DropDownItem
+									className="EditorMenu__FontEditorItem"
+									labelProps={{ className: "EditorMenu__FontSearch" }}
+								>
+									<Input
+										className="EditorMenu__FontSearchInput"
+										iconType="search"
+										placeholder="Search font"
+										value={fontSearch}
+										onInput={e => setFontSearch(e.currentTarget.value)}
+									/>
+									<button
+										className="EditorMenu__FontFamilyDefault"
+										title="Reset font to default"
+										onClick={menu.actions.fontFamily.reset}
+									>
+										<Icon type="format_clear" />
+									</button>
+								</DropDownItem>
+								<div className="EditorMenu__FontFamilies">
+									{
+										defaultFonts.map(font =>
+											availableFonts[font] && (!fontSearch || font.toLowerCase().indexOf(fontSearch.toLowerCase()) >= 0) &&
+												<DropDownItem
+													className="EditorMenu__FontFamily"
+													label={font}
+													onClick={
+														font === defaultFontsLookup.default
+															? menu.actions.fontFamily.reset
+															: () => menu.actions.fontFamily.setFontFamily(font)
+													}
+													selected={
+														!menu.state.fontFamily.isCurrent && font === defaultFontsLookup.default ||
+														menu.state.fontFamily.isCurrent && font === menu.state.fontFamily.attrs.fontFamily
+													}
+													style={{
+														fontFamily: `"${font}",${fontTypeLookup[font]}`,
+													}}
+												>
+													<div className="EditorMenu__FontFamilyLabel">
+														{font}
+													</div>
+													<div className="EditorMenu__FontFamilyExample">
+														The quick brown fox jumps over the lazy dog
+													</div>
+												</DropDownItem>
+										)
+									}
+								</div>
+							</Fragment>
+					}
+				</DropDown>
+			</ContextMenu>
+		}
+		<button
 			ref={linkRef}
 			disabled={!menu.state.link.canToggle}
 			className={`EditorMenu__Button ${
@@ -158,7 +274,7 @@ function EditorMenu() {
 			<Icon type="link" />
 		</button>
 		{
-			isLinkEditorOpen && <ContextMenu
+			menu.state.link.canToggle && isLinkEditorOpen && <ContextMenu
 				onClose={() => setLinkEditorOpen(false)}
 				relativeRef={linkRef}
 			>
@@ -264,7 +380,7 @@ function EditorMenu() {
 				...menu.state.paragraph.attrs,
 				textAlign: 'center',
 			})}
-			title="Align: Center"
+			title="Align: center"
 			disabled={!menu.state.paragraph.isCurrent}
 		>
 			<Icon type="format_align_center" />
@@ -277,7 +393,7 @@ function EditorMenu() {
 				...menu.state.paragraph.attrs,
 				textAlign: 'justify',
 			})}
-			title="Align: Justify"
+			title="Align: justify"
 			disabled={!menu.state.paragraph.isCurrent}
 		>
 			<Icon type="format_align_justify" />
@@ -290,7 +406,7 @@ function EditorMenu() {
 				...menu.state.paragraph.attrs,
 				textAlign: 'right',
 			})}
-			title="Align: Right"
+			title="Align: right"
 			disabled={!menu.state.paragraph.isCurrent}
 		>
 			<Icon type="format_align_right" />
@@ -301,7 +417,7 @@ function EditorMenu() {
 				menu.state.bulletList.canToggle && menu.state.bulletList.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
 			onClick={menu.actions.bulletList.toggle}
-			title="Bulleted List"
+			title="Bulleted list"
 		>
 			<Icon type="format_list_bulleted" />
 		</button>
@@ -311,7 +427,7 @@ function EditorMenu() {
 				menu.state.orderedList.canToggle && menu.state.orderedList.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
 			onClick={menu.actions.orderedList.toggle}
-			title="Numbered List"
+			title="Numbered list"
 		>
 			<Icon type="format_list_numbered" />
 		</button>
@@ -321,9 +437,25 @@ function EditorMenu() {
 				menu.state.todoList.canToggle && menu.state.todoList.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
 			onClick={menu.actions.todoList.toggle}
-			title="Todo List"
+			title="Todo list"
 		>
 			<Icon type="list_alt" />
+		</button>
+		<button
+			disabled={!menu.state.listItems.canDecreaseIndent}
+			className="EditorMenu__Button"
+			onClick={menu.actions.listItems.decreaseIndent}
+			title="Decrease list indent"
+		>
+			<Icon type="format_indent_decrease" />
+		</button>
+		<button
+			disabled={!menu.state.listItems.canIncreaseIndent}
+			className="EditorMenu__Button"
+			onClick={menu.actions.listItems.increaseIndent}
+			title="Increase list indent"
+		>
+			<Icon type="format_indent_increase" />
 		</button>
 	</div>
 }
