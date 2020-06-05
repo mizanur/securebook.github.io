@@ -1,11 +1,12 @@
-import { createNodeViewForComponent } from "@view/NodeView";
 import { NodeViewProvider, NodeViewClass, NodeViewLookup } from "@interfaces/NodeView";
+import { EditorMark } from "@editor/interfaces/EditorMark";
+import { EditorNode } from "@editor/interfaces/EditorNode";
 
-export function getNodeViewLookup(nodeViewProviders: NodeViewProvider[]) {
+export function getNodeViewLookup(nodeViewProviders: Array<NodeViewProvider & (EditorMark | EditorNode)>) {
 	const nodeViewClassLookup: { [k: string]: NodeViewClass } = {};
 	for (let i = 0; i < nodeViewProviders.length; i++) {
 		const nodeViewProvider = nodeViewProviders[i];
-		nodeViewClassLookup[nodeViewProvider.nodeView.type] = createNodeViewForComponent(nodeViewProvider.nodeView);
+		nodeViewClassLookup[nodeViewProvider.name] = nodeViewProvider.nodeView;
 	}
 	const nodeViewLookup: NodeViewLookup = {};
 	for (let nodeViewType in nodeViewClassLookup) {

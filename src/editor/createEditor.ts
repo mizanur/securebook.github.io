@@ -28,7 +28,7 @@ import { TextNode } from "@editor/nodes/TextNode";
 import { Editor } from "@interfaces/Editor";
 import { DOMParser } from 'prosemirror-model';
 import { DOMSerializer } from '@editor/DOMSerializer';
-import { EditorState, Transaction } from "prosemirror-state";
+import { EditorState } from "prosemirror-state";
 import { connectObject } from "typeconnect";
 import { Wrapped } from "@interfaces/Wrapped";
 import { wrap } from "@utils/wrap";
@@ -39,6 +39,7 @@ import { TodoListItemNode } from "@editor/nodes/TodoListItemNode";
 import { TodoListNode } from "@editor/nodes/TodoListNode";
 import { getCreateActions } from "@editor/utils/getCreateActions";
 import { getNodeViewLookup } from "@editor/utils/getNodeViewLookup";
+import { Dispatch } from "@editor/interfaces/Actions";
 
 export function createEditor(): Editor {
 	const docNode = new DocNode();
@@ -133,9 +134,10 @@ export function createEditor(): Editor {
 		domParser,
 		domSerializer,
 		nodeViews: getNodeViewLookup([
+			codeBlockNode,
 			todoListItemNode,
 		]),
-		createMenu(state: Wrapped<EditorState>, dispatchTransaction: (t: Transaction) => any) {
+		createMenu(state: Wrapped<EditorState>, dispatchTransaction: Dispatch) {
 			const createActions = getCreateActions(editorSchema, state, dispatchTransaction);
 			menu.value = {
 				state: connectObject({

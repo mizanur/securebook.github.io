@@ -1,4 +1,5 @@
-import { Schema } from "prosemirror-model";
-import { EditorState, Transaction } from "prosemirror-state";
+import { EditorState } from "prosemirror-state";
+import { Dispatch } from "./Actions";
+import { EditorView } from "prosemirror-view";
 
-export type EditorCommand = (state: EditorState<Schema>, dispatch?: ((p: Transaction<Schema>) => void) | undefined) => boolean;
+export type EditorCommand = (state: EditorState, dispatch: Dispatch, view: EditorView) => boolean;

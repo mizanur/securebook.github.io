@@ -1,9 +1,10 @@
 import { MarkType } from "prosemirror-model";
-import { EditorState, Transaction } from "prosemirror-state";
+import { EditorState } from "prosemirror-state";
 import { getMarkRange } from "@editor/utils/getMarkRange";
+import { Dispatch } from "@editor/interfaces/Actions";
 
 export function removeMark(type: MarkType) {
-	return (state: EditorState, dispatch: (t: Transaction) => any) => {
+	return (state: EditorState, dispatch: Dispatch) => {
 		const { tr, selection } = state;
 		let { from, to } = selection;
 		const { $from, empty } = selection;

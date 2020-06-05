@@ -1,12 +1,13 @@
 import { NodeType, Node } from "prosemirror-model";
-import { EditorState, Transaction } from "prosemirror-state";
+import { EditorState } from "prosemirror-state";
+import { Dispatch } from "@editor/interfaces/Actions";
 
 type Attrs = { [k: string]: any };
 
 type SetAttrs = (currentAttrs: Attrs) => Attrs;
 
 export function updateNodeAttrs(pos: number, type: NodeType, setAttrs: SetAttrs) {
-	return (state: EditorState, dispatch: (t: Transaction) => any) => {
+	return (state: EditorState, dispatch: Dispatch) => {
 		const nodes: Array<{ node: Node, pos: number }> = [];
 		state.doc.nodesBetween(pos, pos, (node, pos) => {
 			if (node.type === type) {

@@ -9,8 +9,12 @@ import { EditorState } from "prosemirror-state";
 import { isActiveNode } from "@editor/utils/isActiveNode";
 import { unwrap } from "@utils/wrap";
 import { toggleBlockType } from "@editor/utils/toggleBlockType";
+import { CodeBlockView, arrowHandler } from "@view/CodeBlockView";
+import { NodeViewProvider } from "@interfaces/NodeView";
 
-export class CodeBlockNode implements EditorNode, KeyBindings, InputRules {
+export class CodeBlockNode implements EditorNode, KeyBindings, InputRules, NodeViewProvider {
+	nodeView = CodeBlockView;
+
 	name: string = 'code_block';
 
 	nodeSpec: NodeSpec = {
@@ -29,6 +33,10 @@ export class CodeBlockNode implements EditorNode, KeyBindings, InputRules {
 	
 	addKeyBindings(addKeyBinding: AddKeyBinding, schema: Schema) {
 		addKeyBinding("Shift-Ctrl-\\", setBlockType(schema.nodes.code_block));
+		addKeyBinding("ArrowLeft", arrowHandler("left"));
+		addKeyBinding("ArrowRight", arrowHandler("right"));
+		addKeyBinding("ArrowUp", arrowHandler("up"));
+		addKeyBinding("ArrowDown", arrowHandler("down"));
 	}
 
 	addInputRules(addInputRule: AddInputRule, schema: Schema) {

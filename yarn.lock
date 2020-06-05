@@ -1625,6 +1625,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/codemirror@npm:^0.0.95":
+  version: 0.0.95
+  resolution: "@types/codemirror@npm:0.0.95"
+  dependencies:
+    "@types/tern": "*"
+  checksum: 3/f0b5e1720bea1e10eeaf0bc483c6fb626e4f863a56f5263c6f2a3c20828a580e7ce037b7ee1760a54a2a9696091ec66b1dc210e1ed963ee060ad3fb5fb6b30ac
+  languageName: node
+  linkType: hard
+
 "@types/color-name@npm:^1.1.1":
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
@@ -1636,6 +1645,13 @@ __metadata:
   version: 1.39.3
   resolution: "@types/emscripten@npm:1.39.3"
   checksum: 3/dd6453e0de7e5ec31850e021749a2ea6c25af9477d41cc973b1d6ce6cd14da97301d13da7a75e6161064800b0fcfb6c8e4be4b1b730039f724d8decd4e3b8fff
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:*":
+  version: 0.0.44
+  resolution: "@types/estree@npm:0.0.44"
+  checksum: 3/b8b905f9dabd23ff3f566397a60e24cff5e56f076b89ef34acf4281e6819c75a534c827f473d777cf1bed06d054b3e717fad3816308febc3bc55018db9b9a1e9
   languageName: node
   linkType: hard
 
@@ -1849,6 +1865,15 @@ __metadata:
   version: 1.0.5
   resolution: "@types/tapable@npm:1.0.5"
   checksum: 3/f87cd98a09be272dde705155097d0e02dfdd7fe98395ade968632ff7ee1f39839f03daee59da921345c2177d118f085dcb4e4e4d2d4bea801d354cc0f33a1d2d
+  languageName: node
+  linkType: hard
+
+"@types/tern@npm:*":
+  version: 0.23.3
+  resolution: "@types/tern@npm:0.23.3"
+  dependencies:
+    "@types/estree": "*"
+  checksum: 3/60b406943883b329a31be6d1df9c9980688c6add3533d8ad8f8d18b5ec7829a3997e012b31e62a74be216b60b2e2678fd543bc8983da1c57fa71c831374a708f
   languageName: node
   linkType: hard
 
@@ -3504,6 +3529,13 @@ __metadata:
   version: 1.1.0
   resolution: "code-point-at@npm:1.1.0"
   checksum: 3/7d9837296e0f1c00239c88542f5a3e0bad11e45d3d0e8d9d097901fe54722dd5d2c006969077a287be8648a202c43f74e096f17552cbd897568308fba7b87ac0
+  languageName: node
+  linkType: hard
+
+"codemirror@npm:^5.54.0":
+  version: 5.54.0
+  resolution: "codemirror@npm:5.54.0"
+  checksum: 3/4440c9f8d494b2effb2c3922d8495beee3b673e1f82e1e6c76b52ac16cd8b77bbae7db0355b19efea1fa183e166d3c0e89e5ba04461032ce2f18f6db53b42735
   languageName: node
   linkType: hard
 
@@ -9415,6 +9447,7 @@ fsevents@~2.1.2:
     "@babel/preset-typescript": ^7.9.0
     "@babel/register": ^7.9.0
     "@babel/runtime": ^7.9.6
+    "@types/codemirror": ^0.0.95
     "@types/node": ^14.0.1
     "@types/prosemirror-commands": ^1.0.1
     "@types/prosemirror-dropcursor": ^1.0.0
@@ -9434,6 +9467,7 @@ fsevents@~2.1.2:
     babel-plugin-webpack-alias-7: ^0.1.1
     c8: ^7.1.2
     clean-webpack-plugin: ^3.0.0
+    codemirror: ^5.54.0
     css-loader: ^3.5.3
     file-loader: ^6.0.0
     html-webpack-plugin: ^4.3.0

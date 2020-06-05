@@ -4,12 +4,12 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { splitListItem } from "@editor/utils/splitListItem";
 import { liftListItem } from "@editor/utils/liftListItem";
 import { sinkListItem } from "@editor/utils/sinkListItem";
-import { getDefaultAttrs, getParseDOM, getToDOM } from "@view/NodeView";
+import { createNodeViewForComponent } from "@view/NodeView";
 import TodoListItem from "@components/TodoListItem";
 import { NodeViewProvider } from "@interfaces/NodeView";
 
 export class TodoListItemNode implements EditorNode, KeyBindings, NodeViewProvider {
-	nodeView = TodoListItem;
+	nodeView = createNodeViewForComponent(TodoListItem);
 
 	name: string = TodoListItem.type;
 

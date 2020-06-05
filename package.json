@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
     "@babel/register": "^7.9.0",
+    "@types/codemirror": "^0.0.95",
     "@types/node": "^14.0.1",
     "@types/prosemirror-commands": "^1.0.1",
     "@types/prosemirror-dropcursor": "^1.0.0",
@@ -52,6 +53,7 @@
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "aes-js": "^3.1.2",
+    "codemirror": "^5.54.0",
     "js-sha256": "^0.9.0",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.9",

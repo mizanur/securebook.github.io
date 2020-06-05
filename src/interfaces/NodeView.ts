@@ -21,7 +21,7 @@ export type NodeViewComponent<A> = FunctionComponent<NodeViewProps<A>> & {
 };
 
 export interface NodeViewProvider {
-	nodeView: NodeViewComponent<any>,
+	nodeView: NodeViewClass,
 };
 
 export interface NodeViewClass extends Function {

@@ -1,6 +1,7 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec, Schema } from "prosemirror-model";
-import { EditorState, Transaction } from "prosemirror-state";
+import { EditorState } from "prosemirror-state";
+import { Dispatch } from "@editor/interfaces/Actions";
 
 export class HorizontalRuleNode implements EditorNode {
 	name: string = 'horizontal_rule';
@@ -16,7 +17,7 @@ export class HorizontalRuleNode implements EditorNode {
 	getMenuActions(schema: Schema) {
 		return {
 			add: () =>
-				(state: EditorState, dispatch: (t: Transaction) => any) =>
+				(state: EditorState, dispatch: Dispatch) =>
 					dispatch(state.tr.replaceSelectionWith(schema.nodes.horizontal_rule.create()))
 		}
 	}
