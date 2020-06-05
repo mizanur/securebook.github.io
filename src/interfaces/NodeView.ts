@@ -4,6 +4,7 @@ import { Node, NodeSpec } from "prosemirror-model";
 
 export type NodeViewSpec<A> = {
 	type: string,
+	tag: string,
 	defaultAttrs: A,
 };
 
@@ -12,12 +13,10 @@ export type NodeViewProps<A> = {
 	setAttrs: (newAttrs: A) => void,
 };
 
-export type NodeViewComponent<A> = FunctionComponent<NodeViewProps<A>> & {
-	type: string,
-	defaultAttrs: A,
+export type NodeViewComponent<A> = FunctionComponent<NodeViewProps<A>> & NodeViewSpec<A> & {
 	attrs: NodeSpec['attrs'],
 	parseDOM: NodeSpec['parseDOM'],
-	toDOM: (node: Node) => HTMLElement,
+	toDOM: NodeSpec['toDOM'],
 };
 
 export interface NodeViewProvider {

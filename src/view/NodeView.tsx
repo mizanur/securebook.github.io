@@ -1,9 +1,7 @@
-import renderToString from 'preact-render-to-string';
 import { NodeView, EditorView } from 'prosemirror-view';
 import { h, FunctionComponent, render } from 'preact';
-import { Node, NodeSpec } from 'prosemirror-model';
+import { Node, NodeSpec, DOMOutputSpec } from 'prosemirror-model';
 import { NodeViewComponent, NodeViewProps, NodeViewSpec } from '@interfaces/NodeView';
-import { createCache } from '@utils/cache';
 import { useState, useMemo } from 'preact/hooks';
 
 export function createNodeViewComponent<A>(Component: FunctionComponent<NodeViewProps<A>>, spec: NodeViewSpec<A>): NodeViewComponent<A> {
@@ -39,43 +37,17 @@ export function getParseDOM<A>(Component: NodeViewSpec<A>): NodeSpec['parseDOM']
 	}];
 }
 
-export function createTemplate<A>(Component: FunctionComponent<NodeViewProps<A>>, attrs: A) {
-	const template = document.createElement('template');
-	const setAttrs: any = () => {};
-	const resultHTML = renderToString(
-		<Component attrs={attrs} setAttrs={setAttrs} />
-	);
-	template.innerHTML = resultHTML;
-	return template;
-}
-
-export function getToDOM<A>(Component: FunctionComponent<NodeViewProps<A>>, cacheSize: number = 10) {
-	if (cacheSize <= 0) {
-		return function(node: Node) {
-			const attrs = node.attrs as A;
-			const template = createTemplate(Component, attrs);
-			return template.content.firstChild as HTMLElement;
-		}
-	}
-
-	let cache = createCache<HTMLTemplateElement>(cacheSize);
-
-	return function(node: Node) {
+export function getToDOM<A>(Component: NodeViewSpec<A>) {
+	return function(node: Node): DOMOutputSpec {
 		const attrs = node.attrs as A;
-
-		let template: HTMLTemplateElement;
-		let attrsJson: string | undefined = JSON.stringify(attrs);
-		let cachedTemplate = cache.getItem(attrsJson);
-
-		if (cachedTemplate) {
-			template = cachedTemplate;
-		}
-		else {
-			template = createTemplate(Component, attrs);
-			cache.storeItem(attrsJson, template);
-		}
-		
-		return template.content.cloneNode(true).firstChild as HTMLElement;
+		return [
+			Component.tag,
+			{
+				'data-type': Component.type,
+				'data-attrs': JSON.stringify(attrs)
+			},
+			0,
+		]
 	}
 }
 

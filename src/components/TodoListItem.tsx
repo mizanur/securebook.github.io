@@ -38,5 +38,6 @@ function TodoListItem({ attrs, setAttrs }: TodoListItemProps) {
 
 export default createNodeViewComponent(TodoListItem, {
 	type,
+	tag: 'li',
 	defaultAttrs: { done: false },
 });
