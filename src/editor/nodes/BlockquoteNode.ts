@@ -4,16 +4,15 @@ import { wrappingInputRule } from "prosemirror-inputrules";
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
-import { unwrap } from "@utils/wrap";
 import { isActiveNode } from "@editor/utils/isActiveNode";
 import { toggleWrap } from "@editor/utils/toggleWrap";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class BlockquoteNode implements EditorNode, KeyBindings, InputRules {
-	name: string = 'blockquote';
+export class BlockquoteNode implements EditorNode, KeyBindings, InputRules, MenuStateItem<'blockquote'>, MenuActionItem<'blockquote'> {
+	readonly name = 'blockquote';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "block+",
 		group: "block",
 		defining: true,
@@ -33,13 +32,13 @@ export class BlockquoteNode implements EditorNode, KeyBindings, InputRules {
 		addInputRule(wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote));
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(unwrap(state), schema.nodes.blockquote);
+				return isActiveNode(state, schema.nodes.blockquote);
 			},
 			get canToggle() {
-				return !!toggleWrap(schema.nodes.blockquote)(unwrap(state));
+				return !!toggleWrap(schema.nodes.blockquote)(state);
 			},
 		}
 	}

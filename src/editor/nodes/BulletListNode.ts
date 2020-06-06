@@ -5,15 +5,14 @@ import { wrapInList } from "@editor/utils/wrapInList";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { wrappingInputRule } from "prosemirror-inputrules";
 import { isActiveNode } from "@editor/utils/isActiveNode";
-import { unwrap } from "@utils/wrap";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { toggleList } from "@editor/utils/toggleList";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class BulletListNode implements EditorNode, KeyBindings, InputRules {
-	name: string = 'bullet_list';
+export class BulletListNode implements EditorNode, KeyBindings, InputRules, MenuStateItem<'bullet_list'>, MenuActionItem<'bullet_list'> {
+	readonly name = 'bullet_list';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "list_item+",
 		group: "block",
 		parseDOM: [{ tag: "ul" }],
@@ -30,13 +29,13 @@ export class BulletListNode implements EditorNode, KeyBindings, InputRules {
 		addInputRule(wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list));
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(unwrap(state), schema.nodes.bullet_list);
+				return isActiveNode(state, schema.nodes.bullet_list);
 			},
 			get canToggle() {
-				return !!toggleList(schema.nodes.bullet_list, schema.nodes.list_item)(unwrap(state));
+				return !!toggleList(schema.nodes.bullet_list, schema.nodes.list_item)(state);
 			},
 		}
 	}

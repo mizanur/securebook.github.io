@@ -2,11 +2,12 @@ import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec, Schema } from "prosemirror-model";
 import { EditorState } from "prosemirror-state";
 import { Dispatch } from "@editor/interfaces/Actions";
+import { MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class HorizontalRuleNode implements EditorNode {
-	name: string = 'horizontal_rule';
+export class HorizontalRuleNode implements EditorNode, MenuActionItem<'horizontal_rule'> {
+	readonly name = 'horizontal_rule';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		group: "block",
 		parseDOM: [{tag: "hr"}],
 		toDOM() {

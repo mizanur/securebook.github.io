@@ -28,23 +28,25 @@ import { TextNode } from "@editor/nodes/TextNode";
 import { Editor } from "@interfaces/Editor";
 import { DOMParser } from 'prosemirror-model';
 import { DOMSerializer } from '@editor/DOMSerializer';
-import { EditorState } from "prosemirror-state";
-import { connectObject } from "typeconnect";
-import { Wrapped } from "@interfaces/Wrapped";
-import { wrap } from "@utils/wrap";
+import { connectFactory } from "typeconnect";
 import { UnderlineMark } from "@editor/marks/UnderlineMark";
 import { StrikethroughMark } from "@editor/marks/StrikethroughMark";
 import { JustifyFix } from "@editor/plugins/JustifyFix";
 import { TodoListItemNode } from "@editor/nodes/TodoListItemNode";
 import { TodoListNode } from "@editor/nodes/TodoListNode";
-import { getCreateActions } from "@editor/utils/getCreateActions";
 import { getNodeViewLookup } from "@editor/utils/getNodeViewLookup";
-import { Dispatch } from "@editor/interfaces/Actions";
 import { ListItems } from "@editor/nodes/ListItems";
 import { FontSizeMark } from "@editor/marks/FontSizeMark";
 import { FontFamilyMark } from "@editor/marks/FontFamilyMark";
+import { createEditorCurrentMenuState } from "./createEditorCurrentMenuState";
+import { createEditorCurrentState } from "./createEditorCurrentState";
 
 export function createEditor(): Editor {
+	const connected = {
+		createEditorCurrentState: connectFactory(createEditorCurrentState),
+		createEditorCurrentMenuState: connectFactory(createEditorCurrentMenuState),
+	};
+
 	const docNode = new DocNode();
 	const paragraphNode = new ParagraphNode();
 	const blockquoteNode = new BlockquoteNode();
@@ -136,60 +138,58 @@ export function createEditor(): Editor {
 	const editorPluginsManager = new EditorPluginsManager(editorPlugins);
 	const domParser = DOMParser.fromSchema(editorSchema.schema);
 	const domSerializer = DOMSerializer.fromSchema(editorSchema.schema);
-	const menu: Editor['menu'] = connectObject(wrap(null));
+	const menuStateItems = [
+		history,
+		strongMark,
+		emMark,
+		underlineMark,
+		strikethroughMark,
+		linkMark,
+		fontSizeMark,
+		fontFamilyMark,
+		codeMark,
+		blockquoteNode,
+		codeBlockNode,
+		headingNode,
+		paragraphNode,
+		bulletListNode,
+		orderedListNode,
+		todoListNode,
+		listItems,
+	];
+	const menuActionItems = [
+		history,
+		strongMark,
+		emMark,
+		underlineMark,
+		strikethroughMark,
+		linkMark,
+		fontSizeMark,
+		fontFamilyMark,
+		codeMark,
+		blockquoteNode,
+		codeBlockNode,
+		headingNode,
+		horizontalRuleNode,
+		paragraphNode,
+		bulletListNode,
+		orderedListNode,
+		todoListNode,
+		listItems,
+	];
+	const nodeViews = getNodeViewLookup([
+		codeBlockNode,
+		todoListItemNode,
+	]);
+	const current = connected.createEditorCurrentState();
+	const menu = connected.createEditorCurrentMenuState(current, menuStateItems, menuActionItems, editorSchema.schema);
 	return {
-		menu,
 		editorSchema,
 		editorPluginsManager,
 		domParser,
 		domSerializer,
-		nodeViews: getNodeViewLookup([
-			codeBlockNode,
-			todoListItemNode,
-		]),
-		createMenu(state: Wrapped<EditorState>, dispatchTransaction: Dispatch) {
-			const createActions = getCreateActions(editorSchema, state, dispatchTransaction);
-			menu.value = {
-				state: connectObject({
-					history: history.getMenuState(state),
-					strong: strongMark.getMenuState(state, editorSchema.schema),
-					em: emMark.getMenuState(state, editorSchema.schema),
-					underline: underlineMark.getMenuState(state, editorSchema.schema),
-					strikethrough: strikethroughMark.getMenuState(state, editorSchema.schema),
-					link: linkMark.getMenuState(state, editorSchema.schema),
-					fontSize: fontSizeMark.getMenuState(state, editorSchema.schema),
-					fontFamily: fontFamilyMark.getMenuState(state, editorSchema.schema),
-					code: codeMark.getMenuState(state, editorSchema.schema),
-					blockquote: blockquoteNode.getMenuState(state, editorSchema.schema),
-					codeBlock: codeBlockNode.getMenuState(state, editorSchema.schema),
-					heading: headingNode.getMenuState(state, editorSchema.schema),
-					paragraph: paragraphNode.getMenuState(state, editorSchema.schema),
-					bulletList: bulletListNode.getMenuState(state, editorSchema.schema),
-					orderedList: orderedListNode.getMenuState(state, editorSchema.schema),
-					todoList: todoListNode.getMenuState(state, editorSchema.schema),
-					listItems: listItems.getMenuState(state),
-				}),
-				actions: {
-					history: createActions(history.getMenuActions),
-					strong: createActions(strongMark.getMenuActions),
-					em: createActions(emMark.getMenuActions),
-					underline: createActions(underlineMark.getMenuActions),
-					strikethrough: createActions(strikethroughMark.getMenuActions),
-					link: createActions(linkMark.getMenuActions),
-					fontSize: createActions(fontSizeMark.getMenuActions),
-					fontFamily: createActions(fontFamilyMark.getMenuActions),
-					code: createActions(codeMark.getMenuActions),
-					blockquote: createActions(blockquoteNode.getMenuActions),
-					codeBlock: createActions(codeBlockNode.getMenuActions),
-					heading: createActions(headingNode.getMenuActions),
-					horizontalRule: createActions(horizontalRuleNode.getMenuActions),
-					paragraph: createActions(paragraphNode.getMenuActions),
-					bulletList: createActions(bulletListNode.getMenuActions),
-					orderedList: createActions(orderedListNode.getMenuActions),
-					todoList: createActions(todoListNode.getMenuActions),
-					listItems: createActions(listItems.getMenuActions),
-				},
-			};
-		}
+		nodeViews,
+		current,
+		menu,
 	};
 }

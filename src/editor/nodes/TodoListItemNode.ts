@@ -5,11 +5,11 @@ import TodoListItem from "@components/TodoListItem";
 import { NodeViewProvider } from "@interfaces/NodeView";
 
 export class TodoListItemNode implements EditorNode, NodeViewProvider {
-	nodeView = createNodeViewForComponent(TodoListItem);
+	readonly nodeView = createNodeViewForComponent(TodoListItem);
 
-	name: string = TodoListItem.type;
+	readonly name = TodoListItem.type;
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "paragraph block*",
 		defining: true,
 		attrs: TodoListItem.attrs,

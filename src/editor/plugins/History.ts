@@ -2,11 +2,12 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { Schema } from "prosemirror-model";
 import { undo, redo, history } from "prosemirror-history";
 import { AddEditorPlugin, EditorPlugins } from "@editor/interfaces/EditorPlugins";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
-import { unwrap } from "@utils/wrap";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class History implements KeyBindings, EditorPlugins {
+export class History implements KeyBindings, EditorPlugins, MenuStateItem<'history'>, MenuActionItem<'history'> {
+	readonly name = 'history';
+
 	addEditorPlugins(addEditorPlugin: AddEditorPlugin, schema: Schema) {
 		addEditorPlugin(history());
 	}
@@ -19,13 +20,13 @@ export class History implements KeyBindings, EditorPlugins {
 		}
 	}
 
-	getMenuState(state: Wrapped<EditorState>) {
+	getMenuState(state: EditorState) {
 		return {
 			get canUndo() {
-				return !!undo(unwrap(state));
+				return !!undo(state);
 			},
 			get canRedo() {
-				return !!redo(unwrap(state));
+				return !!redo(state);
 			},
 		}
 	}

@@ -2,15 +2,14 @@ import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { toggleMark } from "prosemirror-commands";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { isActiveMark } from "@editor/utils/isActiveMark";
-import { unwrap } from "@utils/wrap";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class UnderlineMark implements EditorMark, KeyBindings {
-	name: string = "underline";
+export class UnderlineMark implements EditorMark, KeyBindings, MenuStateItem<'underline'>, MenuActionItem<'underline'> {
+	readonly name = "underline";
 
-	markSpec: MarkSpec = {
+	readonly markSpec: MarkSpec = {
 		parseDOM: [
 			{
 				style: "text-decoration",
@@ -29,13 +28,13 @@ export class UnderlineMark implements EditorMark, KeyBindings {
 		addKeyBinding("Mod-U", toggleMark(schema.marks.underline));
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(unwrap(state), schema.marks.underline);
+				return isActiveMark(state, schema.marks.underline);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(unwrap(state));
+				return !!toggleMark(schema.marks.strong)(state);
 			},
 		}
 	}

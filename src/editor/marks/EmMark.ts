@@ -2,15 +2,14 @@ import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { toggleMark } from "prosemirror-commands";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { isActiveMark } from "@editor/utils/isActiveMark";
-import { unwrap } from "@utils/wrap";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class EmMark implements EditorMark, KeyBindings {
-	name: string = "em";
+export class EmMark implements EditorMark, KeyBindings, MenuStateItem<'em'>, MenuActionItem<'em'> {
+	readonly name = "em";
 
-	markSpec: MarkSpec = {
+	readonly markSpec: MarkSpec = {
 		parseDOM: [
 			{tag: "i"},
 			{tag: "em"},
@@ -26,13 +25,13 @@ export class EmMark implements EditorMark, KeyBindings {
 		addKeyBinding("Mod-I", toggleMark(schema.marks.em));
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(unwrap(state), schema.marks.em);
+				return isActiveMark(state, schema.marks.em);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(unwrap(state));
+				return !!toggleMark(schema.marks.strong)(state);
 			},
 		}
 	}

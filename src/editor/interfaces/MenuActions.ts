@@ -24,40 +24,40 @@ export interface MenuActions {
 		createUpdate: (attrs: { href: string, title: string }) => void,
 		remove: () => void,
 	},
-	fontSize: {
+	font_size: {
 		setFontSize: (fontSize: number) => void,
 		reset: () => void,
 	},
-	fontFamily: {
+	font_family: {
 		setFontFamily: (fontFamily: string) => void,
 		reset: () => void,
 	},
 	blockquote: {
 		toggle: () => void,
 	},
-	codeBlock: {
+	code_block: {
 		toggle: () => void,
 	},
 	heading: {
 		setLevel: (level: number) => void,
 		remove: () => void,
 	},
-	horizontalRule: {
+	horizontal_rule: {
 		add: () => void,
 	},
 	paragraph: {
 		setAttrs: (attrs: ParagraphAttrs) => void,
 	},
-	bulletList: {
+	bullet_list: {
 		toggle: () => void,
 	},
-	orderedList: {
+	ordered_list: {
 		toggle: () => void,
 	},
-	todoList: {
+	todo_list: {
 		toggle: () => void,
 	},
-	listItems: {
+	list_items: {
 		increaseIndent: () => void,
 		decreaseIndent: () => void,
 	},

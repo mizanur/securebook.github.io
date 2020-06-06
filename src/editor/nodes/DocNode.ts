@@ -2,9 +2,9 @@ import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec } from "prosemirror-model";
 
 export class DocNode implements EditorNode {
-	name: string = "doc";
+	readonly name = "doc";
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "block+"
 	}
 }

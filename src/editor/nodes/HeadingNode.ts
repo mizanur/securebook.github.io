@@ -4,17 +4,16 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { setBlockType } from "prosemirror-commands";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { textblockTypeInputRule } from "prosemirror-inputrules";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { isActiveNode } from "@editor/utils/isActiveNode";
-import { unwrap } from "@utils/wrap";
 import { getNodeAttrs } from "@editor/utils/getNodeAttrs";
 import { toggleBlockType } from "@editor/utils/toggleBlockType";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class HeadingNode implements EditorNode, KeyBindings, InputRules {
-	name: string = 'heading';
+export class HeadingNode implements EditorNode, KeyBindings, InputRules, MenuStateItem<'heading'>, MenuActionItem<'heading'> {
+	readonly name = 'heading';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		attrs: {level: {default: 1}},
 		content: "inline*",
 		group: "block",
@@ -46,16 +45,16 @@ export class HeadingNode implements EditorNode, KeyBindings, InputRules {
 		));
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent(): boolean {
-				return isActiveNode(unwrap(state), schema.nodes.heading);
+				return isActiveNode(state, schema.nodes.heading);
 			},
 			get canToggle() {
-				return !!toggleBlockType(schema.nodes.heading, schema.nodes.paragraph)(unwrap(state));
+				return !!toggleBlockType(schema.nodes.heading, schema.nodes.paragraph)(state);
 			},
 			get level(): number {
-				return this.isCurrent && getNodeAttrs(unwrap(state), schema.nodes.heading).level || 0;
+				return this.isCurrent && getNodeAttrs(state, schema.nodes.heading).level || 0;
 			}
 		}
 	}

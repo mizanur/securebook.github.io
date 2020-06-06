@@ -4,16 +4,15 @@ import Icon from '@components/Icon';
 import { connect } from '@view/connect';
 import { useContext, useRef, useState, useMemo } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
-import { unwrap } from '@utils/wrap';
 import ContextMenu from '@components/ContextMenu';
 import { DropDown, DropDownItem } from '@components/DropDown';
 import Input from '@components/Input';
 import { useFocusOnMount } from '@view/useFocusOnMount';
-import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup, fontTypeNames } from '@view/fonts';
+import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup } from '@view/fonts';
 
 function EditorMenu() {
 	const { editor } = useContext(StoreContext);
-	const menu = unwrap(editor.menu);
+	const menu = editor.menu;
 	const fontRef = useRef<HTMLButtonElement>(null);
 	const linkRef = useRef<HTMLButtonElement>(null);
 	const headingRef = useRef<HTMLButtonElement>(null);
@@ -27,7 +26,7 @@ function EditorMenu() {
 		[defaultFontsLookup.default]: true,
 	}), []);
 	
-	if (!menu) {
+	if (!menu.exists) {
 		return null;
 	}
 
@@ -156,10 +155,10 @@ function EditorMenu() {
 		</button>
 		<button
 			ref={fontRef}
-			disabled={!menu.state.fontSize.canToggle && !menu.state.fontFamily.canToggle}
+			disabled={!menu.state.font_size.canToggle && !menu.state.font_family.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.fontSize.canToggle && menu.state.fontSize.isCurrent ||
-				menu.state.fontFamily.canToggle && menu.state.fontFamily.isCurrent
+				menu.state.font_size.canToggle && menu.state.font_size.isCurrent ||
+				menu.state.font_family.canToggle && menu.state.font_family.isCurrent
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
@@ -169,13 +168,13 @@ function EditorMenu() {
 			<Icon type="text_format" />
 		</button>
 		{
-			(menu.state.fontSize.canToggle || menu.state.fontFamily.canToggle) && isFontEditorOpen && <ContextMenu
+			(menu.state.font_size.canToggle || menu.state.font_family.canToggle) && isFontEditorOpen && <ContextMenu
 				onClose={() => setFontEditorOpen(false)}
 				relativeRef={fontRef}
 			>
 				<DropDown className="EditorMenu__FontEditor">
 					{
-						menu.state.fontSize.canToggle &&
+						menu.state.font_size.canToggle &&
 							<DropDownItem
 								className="EditorMenu__FontEditorItem"
 								labelProps={{ className: "EditorMenu__FontSize" }}
@@ -186,11 +185,11 @@ function EditorMenu() {
 									type="number"
 									placeholder="Font size"
 									value={
-										menu.state.fontSize.isCurrent
-											? menu.state.fontSize.attrs.fontSize
+										menu.state.font_size.isCurrent
+											? menu.state.font_size.attrs.fontSize
 											: ''
 									}
-									onChange={e => menu.actions.fontSize.setFontSize(
+									onChange={e => menu.actions.font_size.setFontSize(
 										Number(e.currentTarget.value)
 									)}
 									{...useFocusProps}
@@ -199,14 +198,14 @@ function EditorMenu() {
 								<button
 									className="EditorMenu__FontSizeDefault"
 									title="Reset font size to default"
-									onClick={menu.actions.fontSize.reset}
+									onClick={menu.actions.font_size.reset}
 								>
 									<Icon type="format_clear" />
 								</button>
 							</DropDownItem>
 					}
 					{
-						menu.state.fontFamily.canToggle &&
+						menu.state.font_family.canToggle &&
 							<Fragment>
 								<DropDownItem
 									className="EditorMenu__FontEditorItem"
@@ -222,7 +221,7 @@ function EditorMenu() {
 									<button
 										className="EditorMenu__FontFamilyDefault"
 										title="Reset font to default"
-										onClick={menu.actions.fontFamily.reset}
+										onClick={menu.actions.font_family.reset}
 									>
 										<Icon type="format_clear" />
 									</button>
@@ -236,12 +235,12 @@ function EditorMenu() {
 													label={font}
 													onClick={
 														font === defaultFontsLookup.default
-															? menu.actions.fontFamily.reset
-															: () => menu.actions.fontFamily.setFontFamily(font)
+															? menu.actions.font_family.reset
+															: () => menu.actions.font_family.setFontFamily(font)
 													}
 													selected={
-														!menu.state.fontFamily.isCurrent && font === defaultFontsLookup.default ||
-														menu.state.fontFamily.isCurrent && font === menu.state.fontFamily.attrs.fontFamily
+														!menu.state.font_family.isCurrent && font === defaultFontsLookup.default ||
+														menu.state.font_family.isCurrent && font === menu.state.font_family.attrs.fontFamily
 													}
 													style={{
 														fontFamily: `"${font}",${fontTypeLookup[font]}`,
@@ -332,11 +331,11 @@ function EditorMenu() {
 			<Icon type="code" />
 		</button>
 		<button
-			disabled={!menu.state.codeBlock.canToggle}
+			disabled={!menu.state.code_block.canToggle}
 			className={`EditorMenu__Button EditorMenu__CodeBlock ${
-				menu.state.codeBlock.canToggle && menu.state.codeBlock.isCurrent ? `EditorMenu__Button--active`: ``
+				menu.state.code_block.canToggle && menu.state.code_block.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
-			onClick={menu.actions.codeBlock.toggle}
+			onClick={menu.actions.code_block.toggle}
 			title="Code block"
 		>
 			<Icon className="EditorMenu__CodeBlock-Code" type="code" />
@@ -354,7 +353,7 @@ function EditorMenu() {
 		</button>
 		<button
 			className="EditorMenu__Button"
-			onClick={menu.actions.horizontalRule.add}
+			onClick={menu.actions.horizontal_rule.add}
 			title="Horizontal rule"
 		>
 			<Icon type="horizontal_rule" />
@@ -412,47 +411,47 @@ function EditorMenu() {
 			<Icon type="format_align_right" />
 		</button>
 		<button
-			disabled={!menu.state.bulletList.canToggle}
+			disabled={!menu.state.bullet_list.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.bulletList.canToggle && menu.state.bulletList.isCurrent ? `EditorMenu__Button--active`: ``
+				menu.state.bullet_list.canToggle && menu.state.bullet_list.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
-			onClick={menu.actions.bulletList.toggle}
+			onClick={menu.actions.bullet_list.toggle}
 			title="Bulleted list"
 		>
 			<Icon type="format_list_bulleted" />
 		</button>
 		<button
-			disabled={!menu.state.orderedList.canToggle}
+			disabled={!menu.state.ordered_list.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.orderedList.canToggle && menu.state.orderedList.isCurrent ? `EditorMenu__Button--active`: ``
+				menu.state.ordered_list.canToggle && menu.state.ordered_list.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
-			onClick={menu.actions.orderedList.toggle}
+			onClick={menu.actions.ordered_list.toggle}
 			title="Numbered list"
 		>
 			<Icon type="format_list_numbered" />
 		</button>
 		<button
-			disabled={!menu.state.todoList.canToggle}
+			disabled={!menu.state.todo_list.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.todoList.canToggle && menu.state.todoList.isCurrent ? `EditorMenu__Button--active`: ``
+				menu.state.todo_list.canToggle && menu.state.todo_list.isCurrent ? `EditorMenu__Button--active`: ``
 			}`}
-			onClick={menu.actions.todoList.toggle}
+			onClick={menu.actions.todo_list.toggle}
 			title="Todo list"
 		>
 			<Icon type="list_alt" />
 		</button>
 		<button
-			disabled={!menu.state.listItems.canDecreaseIndent}
+			disabled={!menu.state.list_items.canDecreaseIndent}
 			className="EditorMenu__Button"
-			onClick={menu.actions.listItems.decreaseIndent}
+			onClick={menu.actions.list_items.decreaseIndent}
 			title="Decrease list indent"
 		>
 			<Icon type="format_indent_decrease" />
 		</button>
 		<button
-			disabled={!menu.state.listItems.canIncreaseIndent}
+			disabled={!menu.state.list_items.canIncreaseIndent}
 			className="EditorMenu__Button"
-			onClick={menu.actions.listItems.increaseIndent}
+			onClick={menu.actions.list_items.increaseIndent}
 			title="Increase list indent"
 		>
 			<Icon type="format_indent_increase" />

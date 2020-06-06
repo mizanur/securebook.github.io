@@ -36,12 +36,12 @@ export interface MenuState {
 			title: string,
 		},
 	},
-	fontSize: {
+	font_size: {
 		isCurrent: boolean,
 		attrs: FontSizeMarkAttrs,
 		canToggle: boolean,
 	},
-	fontFamily: {
+	font_family: {
 		isCurrent: boolean,
 		attrs: FontFamilyMarkAttrs,
 		canToggle: boolean,
@@ -50,7 +50,7 @@ export interface MenuState {
 		isCurrent: boolean,
 		canToggle: boolean,
 	},
-	codeBlock: {
+	code_block: {
 		isCurrent: boolean,
 		canToggle: boolean,
 	},
@@ -63,19 +63,19 @@ export interface MenuState {
 		isCurrent: boolean,
 		attrs: ParagraphAttrs,
 	},
-	bulletList: {
+	bullet_list: {
 		isCurrent: boolean,
 		canToggle: boolean,
 	},
-	orderedList: {
+	ordered_list: {
 		isCurrent: boolean,
 		canToggle: boolean,
 	},
-	todoList: {
+	todo_list: {
 		isCurrent: boolean,
 		canToggle: boolean,
 	},
-	listItems: {
+	list_items: {
 		canIncreaseIndent: boolean,
 		canDecreaseIndent: boolean,
 	},

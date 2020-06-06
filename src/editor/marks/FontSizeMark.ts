@@ -1,23 +1,22 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema, Mark } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { isActiveMark } from "@editor/utils/isActiveMark";
-import { unwrap } from "@utils/wrap";
 import { minEditorFontSize, maxEditorFontSize, defaultFontSize } from "@view/fonts";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { removeMark } from "@editor/utils/removeMark";
 import { updateMark } from "@editor/utils/updateMark";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
 export type FontSizeMarkAttrs = {
 	fontSize: number,
 };
 
-export class FontSizeMark implements EditorMark {
-	name: string = "font_size";
+export class FontSizeMark implements EditorMark, MenuStateItem<'font_size'>, MenuActionItem<'font_size'> {
+	readonly name = "font_size";
 
-	markSpec: MarkSpec = {
+	readonly markSpec: MarkSpec = {
 		attrs: {fontSize: {default: defaultFontSize}},
 		parseDOM: [{
 			tag: "span",
@@ -41,16 +40,16 @@ export class FontSizeMark implements EditorMark {
 		}
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(unwrap(state), schema.marks.font_size);
+				return isActiveMark(state, schema.marks.font_size);
 			},
 			get attrs() {
-				return getMarkAttrs(unwrap(state), schema.marks.font_size) as FontSizeMarkAttrs;
+				return getMarkAttrs(state, schema.marks.font_size) as FontSizeMarkAttrs;
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.font_size)(unwrap(state));
+				return !!toggleMark(schema.marks.font_size)(state);
 			},
 		}
 	}

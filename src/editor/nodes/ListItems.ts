@@ -4,12 +4,13 @@ import { Schema } from "prosemirror-model";
 import { splitListItem } from "@editor/utils/splitListItem";
 import { liftListItem } from "@editor/utils/liftListItem";
 import { sinkListItem } from "@editor/utils/sinkListItem";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
-import { unwrap } from "@utils/wrap";
 import { Dispatch } from "@editor/interfaces/Actions";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class ListItems implements KeyBindings {
+export class ListItems implements KeyBindings, MenuStateItem<'list_items'>, MenuActionItem<'list_items'> {
+	readonly name = 'list_items';
+
 	private readonly schema: Schema;
 	private readonly listItemNodes: EditorNode[];
 	
@@ -63,14 +64,14 @@ export class ListItems implements KeyBindings {
 		addKeyBinding("Mod-]", this.decreaseIndent());
 	}
 
-	getMenuState = (state: Wrapped<EditorState>) => {
+	getMenuState = (state: EditorState) => {
 		const self = this;
 		return {
 			get canIncreaseIndent() {
-				return self.increaseIndent()(unwrap(state));
+				return self.increaseIndent()(state);
 			},
 			get canDecreaseIndent() {
-				return self.decreaseIndent()(unwrap(state));
+				return self.decreaseIndent()(state);
 			},
 		}
 	}

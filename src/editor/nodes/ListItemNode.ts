@@ -2,9 +2,9 @@ import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec } from "prosemirror-model";
 
 export class ListItemNode implements EditorNode {
-	name: string = 'list_item';
+	readonly name = 'list_item';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "paragraph block*",
 		parseDOM: [{ tag: "li" }],
 		toDOM() {

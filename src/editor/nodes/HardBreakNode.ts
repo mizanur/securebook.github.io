@@ -4,9 +4,9 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { chainCommands, exitCode } from "prosemirror-commands";
 
 export class HardBreakNode implements EditorNode, KeyBindings {
-	name: string = "hard_break";
+	readonly name = "hard_break";
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		inline: true,
 		group: "inline",
 		selectable: false,

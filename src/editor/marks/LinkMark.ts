@@ -2,18 +2,17 @@ import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { isLinkExternal } from "@utils/link";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
-import { unwrap } from "@utils/wrap";
 import { isActiveMark } from "@editor/utils/isActiveMark";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { updateMark } from "@editor/utils/updateMark";
 import { removeMark } from "@editor/utils/removeMark";
 import { toggleMark } from "prosemirror-commands";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class LinkMark implements EditorMark {
-	name: string = "link";
+export class LinkMark implements EditorMark, MenuStateItem<'link'>, MenuActionItem<'link'> {
+	readonly name = "link";
 
-	markSpec: MarkSpec = {
+	readonly markSpec: MarkSpec = {
 		attrs: {
 			href: {},
 			title: {default: null}
@@ -45,22 +44,22 @@ export class LinkMark implements EditorMark {
 		}
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(unwrap(state), schema.marks.link);
+				return isActiveMark(state, schema.marks.link);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(unwrap(state));
+				return !!toggleMark(schema.marks.strong)(state);
 			},
 			get isSelected() {
-				return this.isCurrent || !unwrap(state).selection.empty;
+				return this.isCurrent || !state.selection.empty;
 			},
 			get attrs() {
 				if (!this.isCurrent) {
 					return { href: '', title: '' };
 				}
-				const attrs = getMarkAttrs(unwrap(state), schema.marks.link);
+				const attrs = getMarkAttrs(state, schema.marks.link);
 				return {
 					href: attrs.href || '',
 					title: attrs.title || '',

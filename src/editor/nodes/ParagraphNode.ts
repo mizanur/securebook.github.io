@@ -1,20 +1,19 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec, Schema } from "prosemirror-model";
-import { unwrap } from "@utils/wrap";
 import { isActiveNode } from "@editor/utils/isActiveNode";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { getNodeAttrs } from "@editor/utils/getNodeAttrs";
 import { setBlockType } from "prosemirror-commands";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
 export type ParagraphAttrs = {
 	textAlign: 'left' | 'right' | 'center' | 'justify',
 }
 
-export class ParagraphNode implements EditorNode {
-	name: string = 'paragraph';
+export class ParagraphNode implements EditorNode, MenuStateItem<'paragraph'>, MenuActionItem<'paragraph'> {
+	readonly name = 'paragraph';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "inline*",
 		group: "block",
 		attrs: {
@@ -44,16 +43,16 @@ export class ParagraphNode implements EditorNode {
 		}
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent(): boolean {
-				return isActiveNode(unwrap(state), schema.nodes.paragraph);
+				return isActiveNode(state, schema.nodes.paragraph);
 			},
 			get attrs(): ParagraphAttrs {
 				if (!this.isCurrent) {
 					return { textAlign: 'left' };
 				}
-				const attrs = getNodeAttrs(unwrap(state), schema.nodes.paragraph) as ParagraphAttrs;
+				const attrs = getNodeAttrs(state, schema.nodes.paragraph) as ParagraphAttrs;
 				return attrs || { textAlign: 'left' };
 			},
 		}

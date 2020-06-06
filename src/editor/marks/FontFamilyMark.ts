@@ -1,23 +1,22 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema, Mark } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { isActiveMark } from "@editor/utils/isActiveMark";
-import { unwrap } from "@utils/wrap";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { removeMark } from "@editor/utils/removeMark";
 import { updateMark } from "@editor/utils/updateMark";
 import { defaultFonts, fontTypeLookup, defaultFontsLookup } from "@view/fonts";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
 export type FontFamilyMarkAttrs = {
 	fontFamily: string,
 };
 
-export class FontFamilyMark implements EditorMark {
-	name: string = "font_family";
+export class FontFamilyMark implements EditorMark, MenuStateItem<'font_family'>, MenuActionItem<'font_family'> {
+	readonly name = "font_family";
 
-	markSpec: MarkSpec = {
+	readonly markSpec: MarkSpec = {
 		attrs: {fontFamily: {default: defaultFontsLookup.default}},
 		parseDOM: [{
 			tag: "span",
@@ -41,16 +40,16 @@ export class FontFamilyMark implements EditorMark {
 		}
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(unwrap(state), schema.marks.font_family);
+				return isActiveMark(state, schema.marks.font_family);
 			},
 			get attrs() {
-				return getMarkAttrs(unwrap(state), schema.marks.font_family) as FontFamilyMarkAttrs;
+				return getMarkAttrs(state, schema.marks.font_family) as FontFamilyMarkAttrs;
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.font_family)(unwrap(state));
+				return !!toggleMark(schema.marks.font_family)(state);
 			},
 		}
 	}

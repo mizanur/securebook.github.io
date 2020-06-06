@@ -2,9 +2,9 @@ import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec } from "prosemirror-model";
 
 export class ImageNode implements EditorNode {
-	name: string = "image";
+	readonly name = "image";
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		inline: true,
 		attrs: {
 			src: {},

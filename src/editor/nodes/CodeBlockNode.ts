@@ -4,20 +4,19 @@ import { textblockTypeInputRule } from "prosemirror-inputrules";
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
-import { Wrapped } from "@interfaces/Wrapped";
 import { EditorState } from "prosemirror-state";
 import { isActiveNode } from "@editor/utils/isActiveNode";
-import { unwrap } from "@utils/wrap";
 import { toggleBlockType } from "@editor/utils/toggleBlockType";
 import { CodeBlockView, arrowHandler } from "@view/CodeBlockView";
 import { NodeViewProvider } from "@interfaces/NodeView";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
-export class CodeBlockNode implements EditorNode, KeyBindings, InputRules, NodeViewProvider {
-	nodeView = CodeBlockView;
+export class CodeBlockNode implements EditorNode, KeyBindings, InputRules, NodeViewProvider, MenuStateItem<'code_block'>, MenuActionItem<'code_block'> {
+	readonly nodeView = CodeBlockView;
 
-	name: string = 'code_block';
+	readonly name = 'code_block';
 
-	nodeSpec: NodeSpec = {
+	readonly nodeSpec: NodeSpec = {
 		content: "text*",
 		marks: "",
 		group: "block",
@@ -43,13 +42,13 @@ export class CodeBlockNode implements EditorNode, KeyBindings, InputRules, NodeV
 		addInputRule(textblockTypeInputRule(/^```$/, schema.nodes.code_block));
 	}
 
-	getMenuState(state: Wrapped<EditorState>, schema: Schema) {
+	getMenuState(state: EditorState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(unwrap(state), schema.nodes.code_block);
+				return isActiveNode(state, schema.nodes.code_block);
 			},
 			get canToggle() {
-				return !!toggleBlockType(schema.nodes.code_block, schema.nodes.paragraph)(unwrap(state));
+				return !!toggleBlockType(schema.nodes.code_block, schema.nodes.paragraph)(state);
 			},
 		}
 	}
