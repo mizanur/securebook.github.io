@@ -36,10 +36,6 @@ $font-editor-width: 300px;
 		}
 	}
 
-	&__LinkEditorUnselected {
-		font-weight: 500;
-	}
-
 	&__CodeBlock {
 		position: relative;
 
@@ -70,10 +66,29 @@ $font-editor-width: 300px;
 	&__FontSizeInput {
 		flex: 1 1 auto;
 	}
+
+	&__FontSizeInputField {
+		-moz-appearance: textfield;
+		text-align: right;
+
+		&::placeholder {
+			text-align: left;
+		}
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
 	
 	&__FontSizeUnit,
 	&__FontSizeDefault {
 		flex: 0 0 auto;
+	}
+
+	&__FontSizeUnit {
+		padding-left: $default-padding / 4;
 	}
 
 	&__FontFamilies {

@@ -1,10 +1,10 @@
-import { EditorCurrentState } from "./interfaces/EditorCurrentState";
-import { EditorCurrentMenuState } from "./interfaces/EditorCurrentMenuState";
-import { MenuStateItem, MenuActionItem } from "./interfaces/MenuItem";
-import { MenuState } from "./interfaces/MenuState";
-import { MenuActions } from "./interfaces/MenuActions";
+import { EditorCurrentState } from "@editor/interfaces/EditorCurrentState";
+import { EditorCurrentMenuState } from "@editor/interfaces/EditorCurrentMenuState";
+import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
+import { MenuState } from "@editor/interfaces/MenuState";
+import { MenuActions } from "@editor/interfaces/MenuActions";
 import { Schema } from "prosemirror-model";
-import { GetMenuActions, Actions, ActionDeclarations, Dispatch } from "./interfaces/Actions";
+import { GetMenuActions, Actions, ActionDeclarations, Dispatch } from "@editor/interfaces/Actions";
 import { EditorState } from "prosemirror-state";
 
 export function createEditorCurrentMenuState<

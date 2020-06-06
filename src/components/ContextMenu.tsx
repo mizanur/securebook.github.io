@@ -32,16 +32,18 @@ function ContextMenu(
 	useEffectOnce(() => {
 		const closeOnClickElsewhere = (e: Event) => {
 			if (!nodeIsOrHasAncestor(e.target as Node, element.current)) {
+				e.preventDefault();
+				e.stopPropagation();
 				isClosed.current = true;
 				onClose();
 			}
 		};
-		document.body.addEventListener('mousedown', closeOnClickElsewhere);
-		document.body.addEventListener('contextmenu', closeOnClickElsewhere);
+		document.body.addEventListener('mousedown', closeOnClickElsewhere, true);
+		document.body.addEventListener('contextmenu', closeOnClickElsewhere, true);
 		window.addEventListener('scroll', closeOnClickElsewhere, true);
 		return () => {
-			document.body.removeEventListener('mousedown', closeOnClickElsewhere);
-			document.body.removeEventListener('contextmenu', closeOnClickElsewhere);
+			document.body.removeEventListener('mousedown', closeOnClickElsewhere, true);
+			document.body.removeEventListener('contextmenu', closeOnClickElsewhere, true);
 			window.removeEventListener('scroll', closeOnClickElsewhere, true);
 		};
 	});

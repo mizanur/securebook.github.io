@@ -2,7 +2,7 @@ import { MenuState } from "@editor/interfaces/MenuState";
 import { MenuActions } from "@editor/interfaces//MenuActions";
 import { EditorState } from "prosemirror-state";
 import { Schema } from "prosemirror-model";
-import { MenuActionDeclarations } from "./Actions";
+import { MenuActionDeclarations } from "@editor/interfaces/Actions";
 
 export interface MenuStateItem<T extends keyof MenuState> {
 	name: T,

@@ -38,8 +38,8 @@ import { getNodeViewLookup } from "@editor/utils/getNodeViewLookup";
 import { ListItems } from "@editor/nodes/ListItems";
 import { FontSizeMark } from "@editor/marks/FontSizeMark";
 import { FontFamilyMark } from "@editor/marks/FontFamilyMark";
-import { createEditorCurrentMenuState } from "./createEditorCurrentMenuState";
-import { createEditorCurrentState } from "./createEditorCurrentState";
+import { createEditorCurrentMenuState } from "@editor/createEditorCurrentMenuState";
+import { createEditorCurrentState } from "@editor/createEditorCurrentState";
 
 export function createEditor(): Editor {
 	const connected = {

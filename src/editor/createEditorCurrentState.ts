@@ -1,4 +1,4 @@
-import { EditorCurrentState } from "./interfaces/EditorCurrentState";
+import { EditorCurrentState } from "@editor/interfaces/EditorCurrentState";
 
 export function createEditorCurrentState(): EditorCurrentState {
 	return <EditorCurrentState> {

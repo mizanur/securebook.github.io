@@ -1,6 +1,6 @@
 import { Transaction, EditorState } from "prosemirror-state";
 import { Schema } from "prosemirror-model";
-import { MenuActions } from "./MenuActions";
+import { MenuActions } from "@editor/interfaces/MenuActions";
 
 export type Dispatch = (t: Transaction) => any;
 

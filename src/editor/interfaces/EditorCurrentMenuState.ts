@@ -1,5 +1,5 @@
-import { MenuState } from "./MenuState";
-import { MenuActions } from "./MenuActions";
+import { MenuState } from "@editor/interfaces/MenuState";
+import { MenuActions } from "@editor/interfaces/MenuActions";
 
 export type EditorCurrentMenuState = {
 	exists: false,

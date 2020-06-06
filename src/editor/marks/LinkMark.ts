@@ -4,10 +4,10 @@ import { isLinkExternal } from "@utils/link";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { EditorState } from "prosemirror-state";
-import { updateMark } from "@editor/utils/updateMark";
-import { removeMark } from "@editor/utils/removeMark";
 import { toggleMark } from "prosemirror-commands";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
+import { removeMarkAtCurrentPosition } from "@editor/utils/removeMarkAtCurrentPosition";
+import { updateMarkAtCurrentPosition } from "@editor/utils/updateMarkAtCurrentPosition";
 
 export class LinkMark implements EditorMark, MenuStateItem<'link'>, MenuActionItem<'link'> {
 	readonly name = "link";
@@ -70,8 +70,8 @@ export class LinkMark implements EditorMark, MenuStateItem<'link'>, MenuActionIt
 
 	getMenuActions(schema: Schema) {
 		return {
-			createUpdate: ({ href, title }: { href: string, title: string }) => updateMark(schema.marks.link, { href, title }),
-			remove: () => removeMark(schema.marks.link),
+			createUpdate: ({ href, title }: { href: string, title: string }) => updateMarkAtCurrentPosition(schema.marks.link, { href, title }),
+			remove: () => removeMarkAtCurrentPosition(schema.marks.link),
 		}
 	}
 }

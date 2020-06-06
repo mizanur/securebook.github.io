@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact';
 import "@styles/EditorMenu.scss";
 import Icon from '@components/Icon';
 import { connect } from '@view/connect';
-import { useContext, useRef, useState, useMemo } from 'preact/hooks';
+import { useContext, useRef, useState, useMemo, useEffect } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import ContextMenu from '@components/ContextMenu';
 import { DropDown, DropDownItem } from '@components/DropDown';
@@ -13,6 +13,7 @@ import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup } f
 function EditorMenu() {
 	const { editor } = useContext(StoreContext);
 	const menu = editor.menu;
+	const isFirstRun = useRef(true);
 	const fontRef = useRef<HTMLButtonElement>(null);
 	const linkRef = useRef<HTMLButtonElement>(null);
 	const headingRef = useRef<HTMLButtonElement>(null);
@@ -25,6 +26,23 @@ function EditorMenu() {
 		...getAvailableFonts(),
 		[defaultFontsLookup.default]: true,
 	}), []);
+
+	useEffect(
+		() => {
+			if (isFirstRun.current) {
+				isFirstRun.current = false;
+				return;
+			}
+			if (!isFontEditorOpen && !isLinkEditorOpen && !isHeadingEditorOpen) {
+				editor.current.view?.focus();
+			}
+		},
+		[
+			isFontEditorOpen,
+			isLinkEditorOpen,
+			isHeadingEditorOpen,
+		]
+	);
 	
 	if (!menu.exists) {
 		return null;
@@ -184,6 +202,7 @@ function EditorMenu() {
 									iconType="format_size"
 									type="number"
 									placeholder="Font size"
+									fieldClassName="EditorMenu__FontSizeInputField"
 									value={
 										menu.state.font_size.isCurrent
 											? menu.state.font_size.attrs.fontSize
@@ -194,7 +213,7 @@ function EditorMenu() {
 									)}
 									{...useFocusProps}
 								/>
-								<span className="EditorMenu__FontSizeUnit">px</span>
+								<span className="EditorMenu__FontSizeUnit">(px)</span>
 								<button
 									className="EditorMenu__FontSizeDefault"
 									title="Reset font size to default"
