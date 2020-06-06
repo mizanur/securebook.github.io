@@ -4,7 +4,7 @@ import { MenuActions } from "@editor/interfaces/MenuActions";
 
 export type Dispatch = (t: Transaction) => any;
 
-export type ActionDeclaration<A extends Array<any>> = (...a: A) => (s: EditorState, dispatch: Dispatch) => any;
+type ActionDeclaration<A extends Array<any>> = (...a: A) => (s: EditorState, dispatch: Dispatch) => any;
 
 export type ActionDeclarations = {
 	[k: string]: ActionDeclaration<any>
