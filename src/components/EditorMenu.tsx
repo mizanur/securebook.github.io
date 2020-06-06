@@ -180,10 +180,10 @@ function EditorMenu() {
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
-			onClick={() => setFontEditorOpen(!isFontEditorOpen)}
+			onClick={!isFontEditorOpen && (() => setFontEditorOpen(true)) || undefined}
 			title="Font"
 		>
-			<Icon type="text_format" />
+			<Icon type="format_size" />
 		</button>
 		{
 			(menu.state.font_size.canToggle || menu.state.font_family.canToggle) && isFontEditorOpen && <ContextMenu
@@ -231,19 +231,11 @@ function EditorMenu() {
 									labelProps={{ className: "EditorMenu__FontSearch" }}
 								>
 									<Input
-										className="EditorMenu__FontSearchInput"
 										iconType="search"
 										placeholder="Search font"
 										value={fontSearch}
 										onInput={e => setFontSearch(e.currentTarget.value)}
 									/>
-									<button
-										className="EditorMenu__FontFamilyDefault"
-										title="Reset font to default"
-										onClick={menu.actions.font_family.reset}
-									>
-										<Icon type="format_clear" />
-									</button>
 								</DropDownItem>
 								<div className="EditorMenu__FontFamilies">
 									{
