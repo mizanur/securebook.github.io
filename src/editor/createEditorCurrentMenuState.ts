@@ -53,10 +53,8 @@ export function createEditorCurrentMenuState<
 
 		get actions() {
 			if (!editorCurrentState.exists) {
-				console.log('actions removed');
 				return null;
 			}
-			console.log('actions created');
 			const menuActions = {} as MenuActions;
 			for (let i = 0; i < menuActionsItems.length; i++) {
 				const menuActionItem: MenuActionItem<any> = menuActionsItems[i];
