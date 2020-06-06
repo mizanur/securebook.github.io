@@ -181,7 +181,12 @@ export function createEditor(): Editor {
 		todoListItemNode,
 	]);
 	const current = connected.createEditorCurrentState();
-	const menu = connected.createEditorCurrentMenuState(current, menuStateItems, menuActionItems, editorSchema.schema);
+	const menu = connected.createEditorCurrentMenuState(
+		current,
+		menuStateItems,
+		menuActionItems,
+		editorSchema.schema
+	);
 	return {
 		editorSchema,
 		editorPluginsManager,
