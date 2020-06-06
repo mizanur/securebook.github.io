@@ -46,6 +46,11 @@ export interface MenuState {
 		attrs: FontFamilyMarkAttrs,
 		canToggle: boolean,
 	},
+	// font_color: {
+	// 	isCurrent: boolean,
+	// 	attrs: FontColorMarkAttrs,
+	// 	canToggle: boolean,
+	// },
 	blockquote: {
 		isCurrent: boolean,
 		canToggle: boolean,

@@ -11,7 +11,8 @@ function Icon({ type, iconStyle, ...rest }: { type?: IconType, iconStyle?: 'outl
 			iconStyle ? `Icon--font-${iconStyle}` : ``
 		} ${
 			rest.class || rest.className || ''
-		}`} />;
+		}`}
+	/>;
 }
 
 export default Icon;
