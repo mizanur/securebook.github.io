@@ -1,6 +1,8 @@
 import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
 import { FontSizeMarkAttrs } from "@editor/marks/FontSizeMark";
 import { FontFamilyMarkAttrs } from "@editor/marks/FontFamilyMark";
+import { FontColorMarkAttrs } from "@editor/marks/FontColorMark";
+import { HighlightMarkAttrs } from "@editor/marks/HighlightMark";
 
 export interface MenuState {
 	history: {
@@ -46,11 +48,16 @@ export interface MenuState {
 		attrs: FontFamilyMarkAttrs,
 		canToggle: boolean,
 	},
-	// font_color: {
-	// 	isCurrent: boolean,
-	// 	attrs: FontColorMarkAttrs,
-	// 	canToggle: boolean,
-	// },
+	font_color: {
+		isCurrent: boolean,
+		attrs: FontColorMarkAttrs,
+		canToggle: boolean,
+	},
+	highlight: {
+		isCurrent: boolean,
+		attrs: HighlightMarkAttrs,
+		canToggle: boolean,
+	},
 	blockquote: {
 		isCurrent: boolean,
 		canToggle: boolean,

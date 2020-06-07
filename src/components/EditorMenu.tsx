@@ -9,15 +9,20 @@ import { DropDown, DropDownItem } from '@components/DropDown';
 import Input from '@components/Input';
 import { useFocusOnMount } from '@view/useFocusOnMount';
 import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup } from '@view/fonts';
+import ColorPicker from '@components/ColorPicker';
 
 function EditorMenu() {
 	const { editor } = useContext(StoreContext);
 	const menu = editor.menu;
 	const isFirstRun = useRef(true);
 	const fontRef = useRef<HTMLButtonElement>(null);
+	const fontColorRef = useRef<HTMLButtonElement>(null);
+	const highlightRef = useRef<HTMLButtonElement>(null);
 	const linkRef = useRef<HTMLButtonElement>(null);
 	const headingRef = useRef<HTMLButtonElement>(null);
 	const [isFontEditorOpen, setFontEditorOpen] = useState(false);
+	const [isFontColorEditorOpen, setFontColorEditorOpen] = useState(false);
+	const [isHighlightEditorOpen, setHighlightEditorOpen] = useState(false);
 	const [isLinkEditorOpen, setLinkEditorOpen] = useState(false);
 	const [isHeadingEditorOpen, setHeadingEditorOpen] = useState(false);
 	const useFocusProps = useFocusOnMount();
@@ -44,6 +49,8 @@ function EditorMenu() {
 		]
 	);
 	
+	const [color, setColor] = useState('');
+
 	if (!menu.exists) {
 		return null;
 	}
@@ -180,7 +187,7 @@ function EditorMenu() {
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
-			onClick={!isFontEditorOpen && (() => setFontEditorOpen(true)) || undefined}
+			onClick={() => setFontEditorOpen(true)}
 			title="Font"
 		>
 			<Icon type="format_size" />
@@ -244,11 +251,16 @@ function EditorMenu() {
 												<DropDownItem
 													className="EditorMenu__FontFamily"
 													label={font}
-													onClick={
-														font === defaultFontsLookup.default
-															? menu.actions.font_family.reset
-															: () => menu.actions.font_family.setFontFamily(font)
-													}
+													labelProps={{ className: `EditorMenu__FontFamilyContainer` }}
+													onClick={() => {
+														editor.current.view?.focus();
+														if (font === defaultFontsLookup.default) {
+															menu.actions.font_family.reset();
+														}
+														else {
+															menu.actions.font_family.setFontFamily(font);
+														}
+													}}
 													selected={
 														!menu.state.font_family.isCurrent && font === defaultFontsLookup.default ||
 														menu.state.font_family.isCurrent && font === menu.state.font_family.attrs.fontFamily
@@ -270,6 +282,72 @@ function EditorMenu() {
 							</Fragment>
 					}
 				</DropDown>
+			</ContextMenu>
+		}
+		<button
+			ref={fontColorRef}
+			disabled={!menu.state.font_color.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.font_color.canToggle && menu.state.font_color.isCurrent
+					? `EditorMenu__Button--active`
+					: ``
+			}`}
+			onClick={() => setFontColorEditorOpen(true)}
+			title="Font color"
+		>
+			<Icon type="format_color_text" style={{
+				color: menu.state.font_color.canToggle && menu.state.font_color.isCurrent
+					? `#${menu.state.font_color.attrs.color}`
+					: 'currentColor'
+			}} />
+		</button>
+		{
+			menu.state.font_color.canToggle && isFontColorEditorOpen && <ContextMenu
+				onClose={() => setFontColorEditorOpen(false)}
+				relativeRef={fontColorRef}
+			>
+				<ColorPicker currentColor={menu.state.font_color.attrs.color} onColor={color => {
+					editor.current.view?.focus();
+					if (!color) {
+						menu.actions.font_color.reset();
+					}
+					else {
+						menu.actions.font_color.setColor(color);
+					}
+				}} />
+			</ContextMenu>
+		}
+		<button
+			ref={highlightRef}
+			disabled={!menu.state.highlight.canToggle}
+			className={`EditorMenu__Button ${
+				menu.state.highlight.canToggle && menu.state.highlight.isCurrent
+					? `EditorMenu__Button--active`
+					: ``
+			}`}
+			onClick={() => setHighlightEditorOpen(true)}
+			title="Highlight color"
+		>
+			<Icon type="highlight" style={{
+				color: menu.state.highlight.canToggle && menu.state.highlight.isCurrent
+					? `#${menu.state.highlight.attrs.color}`
+					: 'currentColor'
+			}} />
+		</button>
+		{
+			menu.state.highlight.canToggle && isHighlightEditorOpen && <ContextMenu
+				onClose={() => setHighlightEditorOpen(false)}
+				relativeRef={highlightRef}
+			>
+				<ColorPicker currentColor={menu.state.highlight.attrs.color} onColor={color => {
+					editor.current.view?.focus();
+					if (!color) {
+						menu.actions.highlight.reset();
+					}
+					else {
+						menu.actions.highlight.setColor(color);
+					}
+				}} />
 			</ContextMenu>
 		}
 		<button

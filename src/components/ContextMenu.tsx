@@ -21,9 +21,17 @@ type ElementPosition = {
 	left: number,
 };
 
+export type ContextMenuProps = {
+	direction?: Direction,
+	children: ComponentChildren,
+	onClose: (...args: any) => any,
+	position?: Position,
+	relativeRef?: Ref<null | HTMLElement>
+};
+
 function ContextMenu(
 	{ direction = { v: 'bottom', h: 'right' }, children, onClose, position = { x: 0, y: 0 }, relativeRef = { current: null } }:
-	{ direction?: Direction, children: ComponentChildren, onClose: (...args: any) => any, position?: Position, relativeRef?: Ref<null | HTMLElement> }
+	ContextMenuProps
 ) {
 	let isClosed = useRef<boolean>(false);
 	const element = useRef<HTMLDivElement>(null);

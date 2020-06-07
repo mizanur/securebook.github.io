@@ -39,6 +39,8 @@ import { FontSizeMark } from "@editor/marks/FontSizeMark";
 import { FontFamilyMark } from "@editor/marks/FontFamilyMark";
 import { createEditorCurrentMenuState } from "@editor/createEditorCurrentMenuState";
 import { createEditorCurrentState } from "@editor/createEditorCurrentState";
+import { FontColorMark } from "@editor/marks/FontColorMark";
+import { HighlightMark } from "@editor/marks/HighlightMark";
 
 export function createEditor(): Editor {
 	const connected = {
@@ -67,7 +69,9 @@ export function createEditor(): Editor {
 	const strikethroughMark = new StrikethroughMark();
 	const codeMark = new CodeMark();
 	const fontSizeMark = new FontSizeMark();
+	const fontColorMark = new FontColorMark();
 	const fontFamilyMark = new FontFamilyMark();
+	const highlightMark = new HighlightMark();
 	const history = new History();
 	const cursor = new Cursor();
 	const editorNodes: EditorNode[] = [
@@ -94,7 +98,9 @@ export function createEditor(): Editor {
 		linkMark,
 		codeMark,
 		fontSizeMark,
+		fontColorMark,
 		fontFamilyMark,
+		highlightMark,
 	];
 	const editorSchema = new EditorSchema(editorNodes, editorMarks);
 	const listItems = new ListItems(editorSchema.schema, [
@@ -145,7 +151,9 @@ export function createEditor(): Editor {
 		strikethroughMark,
 		linkMark,
 		fontSizeMark,
+		fontColorMark,
 		fontFamilyMark,
+		highlightMark,
 		codeMark,
 		blockquoteNode,
 		codeBlockNode,
@@ -164,7 +172,9 @@ export function createEditor(): Editor {
 		strikethroughMark,
 		linkMark,
 		fontSizeMark,
+		fontColorMark,
 		fontFamilyMark,
+		highlightMark,
 		codeMark,
 		blockquoteNode,
 		codeBlockNode,

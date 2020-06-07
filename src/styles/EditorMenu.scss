@@ -103,6 +103,10 @@ $font-editor-width: 300px;
 		width: 100%;
 	}
 
+	&__FontFamilyContainer {
+		display: block;
+	}
+
 	&__FontFamilyLabel {
 		font-weight: bold;
 	}
@@ -110,6 +114,8 @@ $font-editor-width: 300px;
 	&__FontFamilyExample {
 		font-size: 12px;
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	&__HeadingEditor {

@@ -1,0 +1,108 @@
+@import "../styles-mixins/variables.scss";
+
+.ColorPicker {
+	&__SaturationPicker {
+		background: linear-gradient(
+			to right,
+			#fff,
+			rgba(204, 154, 129, 0)
+		);
+	}
+	
+	&__LightnessPicker {
+		background: linear-gradient(
+			to top,
+			#000,
+			rgba(204, 154, 129, 0)
+		);
+	}
+
+	&__HuePicker {
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 0, 0),
+			rgba(255, 255, 0),
+			rgba(0, 255, 0),
+			rgba(0, 255, 255),
+			rgba(0, 0, 255),
+			rgba(255, 0, 255),
+			rgba(255, 0, 0)
+		);
+	}
+
+	&__InputItem {
+		display: flex;
+		align-items: center;
+	}
+
+	&__InputBox,
+	&__Hash,
+	&__Reset {
+		flex: 0 0 auto;
+	}
+
+	&__Input {
+		flex: 1 1 auto;
+	}
+
+	&__Pickers {
+		display: flex;
+		height: 250px;
+		border-bottom: 2px solid $main-border-color;
+	}
+
+	&__MainPicker {
+		flex: 1 1 auto;
+		position: relative;
+		margin-right: 6px;
+	}
+
+	&__SaturationPicker,
+	&__LightnessPicker {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	&__HuePicker {
+		flex: 0 0 auto;
+		width: 40px;
+		position: relative;
+	}
+
+	&__HuePosition {
+		position: absolute;
+		left: 0px;
+		right: 0px;
+		height: 6px;
+		border-radius: 2px;
+		border: 2px solid $darker-border-color;
+		transform: translateY(-50%);
+	}
+
+	&__MainPosition {
+		position: absolute;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		border: 2px solid $darker-border-color;
+		transform: translateX(-50%) translateY(-50%);
+	}
+
+	&__DefaultColors {
+		white-space: normal;
+	}
+
+	&__ColorBox {
+		display: inline-block;
+		height: 28px;
+		width: 30px;
+		min-height: auto;
+		min-width: auto;
+		margin-right: $default-padding / 4;
+		border-radius: 3px;
+		border: 2px solid $darker-border-color;
+	}
+}

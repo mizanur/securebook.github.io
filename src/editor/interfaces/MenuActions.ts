@@ -32,6 +32,14 @@ export interface MenuActions {
 		setFontFamily: (fontFamily: string) => void,
 		reset: () => void,
 	},
+	font_color: {
+		setColor: (color: string) => void,
+		reset: () => void,
+	},
+	highlight: {
+		setColor: (color: string) => void,
+		reset: () => void,
+	},
 	blockquote: {
 		toggle: () => void,
 	},
