@@ -6,7 +6,7 @@
 			"type": "firefox",
 			"request": "launch",
 			"reAttach": false,
-			"url": "http://localhost:8080",
+			"url": "http://192.168.0.244:8080",
 			"firefoxArgs": ["--devtools"],
 			"webRoot": "${workspaceFolder}"
 		},

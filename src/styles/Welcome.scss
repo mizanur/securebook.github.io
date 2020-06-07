@@ -1,13 +1,13 @@
-@import "../styles-mixins/flex.scss";
 @import "../styles-mixins/background.scss";
-@import "../styles-mixins/button.scss";
 @import "../styles-mixins/media.scss";
 @import "../styles-mixins/variables.scss";
 
 .Welcome {
-	@include flexParent;
-	@include flexChildExpand;
-	@include flexParentCenterChildren;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 
 	@include sizes("4000x2851","2000x1426","1500x1070","1000x713","701x500") using ($w,$h) {
 		@include bgCenterCover("/assets/used/Welcome__Background-#{$w}x#{$h}.jpg");
@@ -22,9 +22,15 @@
 	}
 
 	&__WelcomeCard {
-		flex: 0 0 auto;
-		max-width: 512px;
-		max-height: 100vh;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+
+		width: 512px;
+		max-width: 100%;
+		max-height: 100%;
+
 		background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.8), rgba(224, 204, 204, 0.9));
 		box-shadow: $big-shadow;
 		border-radius: $dialog-border-radius;
@@ -41,7 +47,6 @@
 	}
 
 	&__LoginButton {
-		@include buttonInit;
 		display: inline-block;
 		width: 100%;
 		background: $main-theme-color;
