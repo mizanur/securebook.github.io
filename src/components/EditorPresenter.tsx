@@ -9,7 +9,10 @@ import { StoreContext } from '@view/StoreContext';
 import { EditorState, Transaction } from 'prosemirror-state';
 import TextLoading from '@components/TextLoading';
 
-function EditorPresenter({ contentId, content, onContentChange, disabled = false, showLoading = false, }: { contentId: any, content: NoteContent, disabled?: boolean, showLoading?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }) {
+function EditorPresenter(
+	{ contentId, content, onContentChange, disabled = false, showLoading = false, }:
+	{ contentId: any, content: NoteContent, disabled?: boolean, showLoading?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }
+) {
 	const { editor } = useContext(StoreContext);
 	const element = useRef<HTMLDivElement>(null);
 	const contentRef = useRef<NoteContent>(null);
