@@ -1,5 +1,8 @@
 @import "../styles-mixins/variables.scss";
 
+$sidebar-open-width: 80%;
+$open-sidebar-button-width: 80px;
+
 .SecureBook {
 	position: absolute;
 	top: 0;
@@ -14,9 +17,12 @@
 		top: $editor-menu-height;
 		left: 0px;
 		bottom: 0px;
-		width: $sidebar-width;
+		width: $sidebar-open-width;
+		max-width: $sidebar-width;
 		overflow: auto;
 		border-right: 3px solid $main-border-color;
+		background: $main-bg-color;
+		z-index: $z-index-sidebar;
 	}
 
 	&__SidebarTop {
@@ -24,11 +30,31 @@
 		top: 0px;
 		left: 0px;
 		height: $editor-menu-height;
-		width: $sidebar-width;
+		width: $sidebar-open-width;
+		max-width: $sidebar-width;
 		display: flex;
 		align-items: center;
 		padding: $default-padding $default-padding $default-padding ($default-padding - ($min-button-size - $main-icon-size) / 2);
 		border-right: 3px solid $main-border-color;
+		background: $main-bg-color;
+		z-index: $z-index-sidebar;
+	}
+
+	&__OpenMenu {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		height: $editor-menu-height;
+		width: $open-sidebar-button-width;
+		border-bottom: 2px solid $main-border-color;
+	}
+
+	&__OpenMenuIcon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
 	}
 
 	&__MainTop {
@@ -37,6 +63,24 @@
 		left: $sidebar-width;
 		right: 0px;
 		height: $editor-menu-height;
+
+		@media (max-width: $optional-sidebar-screen-width) {
+			left: $open-sidebar-button-width;
+		}
+
+		&--under-sidebar {
+			&::before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: $z-index-main-overlay;
+				background: $main-overlay-color;
+			}
+		}
 	}
 
 	&__Loading {
@@ -62,6 +106,24 @@
 		left: $sidebar-width;
 		right: 0px;
 		bottom: 0px;
+
+		@media (max-width: $optional-sidebar-screen-width) {
+			left: 0px;
+		}
+
+		&--under-sidebar {
+			&::before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: $z-index-main-overlay;
+				background: $main-overlay-color;
+			}
+		}
 	}
 
 	&__Editor {
