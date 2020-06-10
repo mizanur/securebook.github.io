@@ -161,47 +161,45 @@ function SecureBook() {
 				<EditorMenu className="SecureBook__Menu" />
 			</div>
 			{
-				notes.selected
-					? <Fragment>
-						<div className="SecureBook__Editor">
-							<EditorPresenter
-								disabled={!isContentLoaded}
-								showLoading={!!isContentLoading}
-								contentId={!isContentLoading && notes.selected.id}
-								content={notes.selected.content.value || { html: '' }}
-								onContentChange={(text, content) => {
-									noteManager.updateSelectedNoteContent(text, content);
-								}}
-							/>
-						</div>
-						<div className="SecureBook__BottomBar">
-							<button
-								className="SecureBook__SaveButton"
-								onClick={() => noteManager.saveSelectedNote()}
-							>
-								<Icon type="save" />
-								{
-									notes.selected.content.status === 'creating' ||
-									notes.selected.content.status === 'updating'
-										? <span>Saving...</span> :
-									notes.selected.content.status === 'loading'
-										? <span>Loading...</span>
-										: <span>Save</span>
-								}
-							</button>
-							<Input
-								className="SecureBook__AddTags"
-								iconType="local_offer"
-								placeholder="Add tags"
-								value={notes.selected.tags.join(' ')}
-								onInput={e => noteManager.updateSelectedNoteTags(
-									e.currentTarget.value.length
-										? e.currentTarget.value.split(/\s+/)
-										: [])}
-							/>
-						</div>
-					</Fragment>
-					: null
+				!!notes.selected && <Fragment>
+					<div className="SecureBook__Editor">
+						<EditorPresenter
+							disabled={!isContentLoaded}
+							showLoading={!!isContentLoading}
+							contentId={!isContentLoading && notes.selected.id}
+							content={notes.selected.content.value || { html: '' }}
+							onContentChange={(text, content) => {
+								noteManager.updateSelectedNoteContent(text, content);
+							}}
+						/>
+					</div>
+					<div className="SecureBook__BottomBar">
+						<button
+							className="SecureBook__SaveButton"
+							onClick={() => noteManager.saveSelectedNote()}
+						>
+							<Icon type="save" />
+							{
+								notes.selected.content.status === 'creating' ||
+								notes.selected.content.status === 'updating'
+									? <span>Saving...</span> :
+								notes.selected.content.status === 'loading'
+									? <span>Loading...</span>
+									: <span>Save</span>
+							}
+						</button>
+						<Input
+							className="SecureBook__AddTags"
+							iconType="local_offer"
+							placeholder="Add tags"
+							value={notes.selected.tags.join(' ')}
+							onInput={e => noteManager.updateSelectedNoteTags(
+								e.currentTarget.value.length
+									? e.currentTarget.value.split(/\s+/)
+									: [])}
+						/>
+					</div>
+				</Fragment>
 			}
 		</main>
 		<PasswordDialog />
