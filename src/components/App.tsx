@@ -5,6 +5,7 @@ import { connect } from '@view/connect';
 import { useContext } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import { Portals } from '@components/Portals';
+import { AppContextProvider } from '@components/AppContext';
 
 function App() {
 	const { authData } = useContext(StoreContext);
@@ -16,6 +17,7 @@ function App() {
 					? <Welcome />
 					: <SecureBook />
 			}
+			<AppContextProvider />
 			<Portals />
 		</Fragment>
 	);

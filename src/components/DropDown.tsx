@@ -2,9 +2,23 @@ import { h, ComponentChildren } from "preact";
 import { IconType } from "@interfaces/Icon";
 import Icon from "@components/Icon";
 import "@styles/DropDown.scss";
+import Link from "@components/Link";
 
-export function DropDownItem({ iconType, label, children, selected = false, labelProps = {}, ...rest }: { selected?: boolean, iconType?: IconType, label?: string, labelProps?: h.JSX.HTMLAttributes<HTMLSpanElement>, children?: ComponentChildren } & h.JSX.HTMLAttributes<HTMLDivElement>) {
-	return <div
+type CommonProps = {
+	selected?: boolean,
+	iconType?: IconType,
+	label?: string,
+	labelProps?: h.JSX.HTMLAttributes<HTMLSpanElement>,
+	children?: ComponentChildren,
+};
+
+export function DropDownItem(
+	{ isLink, iconType, label, children, selected = false, labelProps = {}, ...rest }:
+	({ isLink?: false } & CommonProps & h.JSX.HTMLAttributes<HTMLDivElement>) |
+	({ isLink: true } & CommonProps & h.JSX.HTMLAttributes<HTMLAnchorElement>)
+) {
+	const Tag = (isLink ? Link : 'div') as any;
+	return <Tag
 		{...rest}
 		title={label}
 		className={
@@ -26,7 +40,7 @@ export function DropDownItem({ iconType, label, children, selected = false, labe
 		>
 			{!children ? label : children}
 		</span>
-	</div>;
+	</Tag>;
 }
 
 export function DropDown(props: h.JSX.HTMLAttributes<HTMLDivElement>) {

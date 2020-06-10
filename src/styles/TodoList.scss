@@ -17,27 +17,6 @@
 	&__CheckButton {
 		margin-top: 1.5px;
 		flex: 0 0 auto;
-		position: relative;
-		width: $main-icon-size;
-		height: $main-icon-size;
-		min-width: $main-icon-size;
-		min-height: $main-icon-size;
-	}
-
-	&__Icon {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translateX(-50%) translateY(-50%);
-		transition: opacity 100ms linear;
-
-		&--visible {
-			opacity: 1;
-		}
-
-		&--invisible {
-			opacity: 0;
-		}
 	}
 
 	&__Content {

@@ -89,6 +89,7 @@ export function createApp(): [Connected, Store, Managers] {
 			filesystem,
 			passwordManager,
 			noteManager,
+			locationManager,
 		}
 	]
 }

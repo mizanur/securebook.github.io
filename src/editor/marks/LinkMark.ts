@@ -8,8 +8,13 @@ import { toggleMark } from "prosemirror-commands";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 import { removeMarkAtCurrentPosition } from "@editor/utils/removeMarkAtCurrentPosition";
 import { updateMarkAtCurrentPosition } from "@editor/utils/updateMarkAtCurrentPosition";
+import { NodeViewProvider } from "@interfaces/NodeView";
+import { createNodeViewForComponent } from "@view/NodeView";
+import { LinkNodeView } from "@components/Link";
 
-export class LinkMark implements EditorMark, MenuStateItem<'link'>, MenuActionItem<'link'> {
+export class LinkMark implements EditorMark, NodeViewProvider, MenuStateItem<'link'>, MenuActionItem<'link'> {
+	readonly nodeView = createNodeViewForComponent(LinkNodeView);
+
 	readonly name = "link";
 
 	readonly markSpec: MarkSpec = {

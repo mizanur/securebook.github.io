@@ -1,9 +1,8 @@
 import { h, Fragment } from 'preact';
 import { connect } from '@view/connect';
 import "@styles/SecureBook.scss";
-import BasicInput from '@components/BasicInput';
 import Input from '@components/Input';
-import { useState, useContext, useEffect } from 'preact/hooks';
+import { useState, useContext, useRef } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import { ManagersContext } from '@view/ManagersContext';
 import { filterNotesByTags } from '@utils/tags';
@@ -20,6 +19,7 @@ import { orderByUpdatedDate } from '@utils/notes';
 import TextLoading from '@components/TextLoading';
 import EditorMenu from '@components/EditorMenu';
 import { useEffectOnce } from '@view/useEffectOnce';
+import Checkbox from '@components/Checkbox';
 
 const optionalSidebarScreenWidth = `1350px`;
 
@@ -50,6 +50,10 @@ function SecureBook() {
 			mql.removeListener(resetOptionalSidebar);
 		}
 	});
+
+	const [isSettingsOpen, setSettingsOpen] = useState(false);
+	const [isDarkMode, setDarkMode] = useState(false);
+	const settingsRef = useRef<HTMLButtonElement>(null);
 
 	const onMainClick = (e: MouseEvent) => {
 		if (isOptionalSidebar && isSidebarOpen) {
@@ -102,7 +106,9 @@ function SecureBook() {
 											}`
 										}
 										onClick={() => {
-											noteManager.selectNote(notes.selectedId !== note.id ? note.id : null);
+											if (notes.selectedId !== note.id) {
+												noteManager.selectNote(note.id);
+											}
 											setSidebarOpen(false);
 										}}
 										{...getTriggerProps(note.id)}
@@ -159,6 +165,27 @@ function SecureBook() {
 						</button>
 				}
 				<EditorMenu className="SecureBook__Menu" />
+				<button
+					ref={settingsRef}
+					className="SecureBook__Settings"
+					onClick={() => setSettingsOpen(true)}
+				>
+					<Icon type="more_vert" />
+				</button>
+				{
+					isSettingsOpen && <ContextMenu
+							relativeRef={settingsRef}
+							onClose={() => setSettingsOpen(false)}
+						>
+							<DropDown>
+								<DropDownItem onClick={() => setDarkMode(!isDarkMode)}>
+									<Checkbox className="SecureBook__DarkModeChk" isChecked={isDarkMode} />
+									<span>Dark mode</span>
+								</DropDownItem>
+								<DropDownItem isLink href="https://www.google.com">❤️ Donate</DropDownItem>
+							</DropDown>
+						</ContextMenu>
+				}
 			</div>
 			{
 				!!notes.selected && <Fragment>

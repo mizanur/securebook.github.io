@@ -2,6 +2,7 @@
 
 $sidebar-open-width: 80%;
 $open-sidebar-button-width: $default-padding + $min-button-size;
+$settings-button-width: $default-padding + $min-button-size;
 
 .SecureBook {
 	position: absolute;
@@ -88,11 +89,20 @@ $open-sidebar-button-width: $default-padding + $min-button-size;
 		height: $editor-menu-height;
 	}
 
+	&__Settings {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		width: $settings-button-width;
+		padding: $default-padding $default-padding $default-padding 0px;
+		height: $editor-menu-height;
+	}
+
 	&__Menu {
 		position: absolute;
 		top: 0px;
 		left: 0px;
-		right: 0px;
+		right: $settings-button-width;
 		padding: $default-padding;
 		overflow-y: hidden;
 		overflow-x: auto;
@@ -103,6 +113,10 @@ $open-sidebar-button-width: $default-padding + $min-button-size;
 			left: $open-sidebar-button-width;
 			padding: $default-padding $default-padding $default-padding 0px;
 		}
+	}
+
+	&__DarkModeChk {
+		vertical-align: top;
 	}
 
 	&__Editor {

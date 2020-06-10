@@ -189,6 +189,7 @@ export function createEditor(): Editor {
 	const nodeViews = getNodeViewLookup([
 		codeBlockNode,
 		todoListItemNode,
+		linkMark,
 	]);
 	const current = connected.createEditorCurrentState();
 	const menu = connected.createEditorCurrentMenuState(

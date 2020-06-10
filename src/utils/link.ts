@@ -1,3 +1,3 @@
 export function isLinkExternal(href) {
-	return /^https?\:\/\//.test(href);
+	return /^[a-zA-Z0-9]+?\:\/\//.test(href);
 }

@@ -3,6 +3,7 @@ import { h, FunctionComponent, render } from 'preact';
 import { Node, NodeSpec, DOMOutputSpec } from 'prosemirror-model';
 import { NodeViewComponent, NodeViewProps, NodeViewSpec } from '@interfaces/NodeView';
 import { useState, useMemo } from 'preact/hooks';
+import { AppContextConsumer } from '@components/AppContext';
 
 export function createNodeViewComponent<A>(Component: FunctionComponent<NodeViewProps<A>>, spec: NodeViewSpec<A>): NodeViewComponent<A> {
 	const ComponentWithSpec = Object.assign(Component, spec);
@@ -54,7 +55,7 @@ export function getToDOM<A>(Component: NodeViewSpec<A>) {
 function ParentComponent<A>(
 	{ Component, defaultAttrs, setNodeViewAttrs, provideSetAttrsAndSetRendered }:
 	{
-		Component: NodeViewComponent<A>,
+		Component: FunctionComponent<NodeViewProps<A>>,
 		defaultAttrs: A,
 		setNodeViewAttrs: (newAttrs: A) => void,
 		provideSetAttrsAndSetRendered:
@@ -73,7 +74,7 @@ function ParentComponent<A>(
 	return content;
 }
 
-export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
+export function createNodeViewForComponent<A>(Component: FunctionComponent<NodeViewProps<A>>) {
 	return class implements NodeView {
 		dom: HTMLElement;
 		contentDOM: null | HTMLElement;
@@ -92,15 +93,17 @@ export function createNodeViewForComponent<A>(Component: NodeViewComponent<A>) {
 
 			const frag = document.createDocumentFragment();
 			render(
-				<ParentComponent<A>
-					Component={Component}
-					defaultAttrs={this.node.attrs as A}
-					setNodeViewAttrs={this.setAttrs}
-					provideSetAttrsAndSetRendered={(setAttrs, setRendered) => {
-						this.setRenderedAttrs = setAttrs;
-						this.setRendered = setRendered;
-					}}
-				/>,
+				<AppContextConsumer>
+					<ParentComponent<A>
+						Component={Component}
+						defaultAttrs={this.node.attrs as A}
+						setNodeViewAttrs={this.setAttrs}
+						provideSetAttrsAndSetRendered={(setAttrs, setRendered) => {
+							this.setRenderedAttrs = setAttrs;
+							this.setRendered = setRendered;
+						}}
+					/>
+				</AppContextConsumer>,
 				frag,
 			);
 

@@ -1,7 +1,7 @@
 import  { h } from 'preact';
-import Icon from '@components/Icon';
 import { NodeViewProps } from '@interfaces/NodeView';
 import { createNodeViewComponent } from '@view/NodeView';
+import Checkbox from '@components/Checkbox';
 
 type TodoListItemAttrs = { done: boolean };
 
@@ -15,21 +15,12 @@ function TodoListItem({ attrs, setAttrs }: TodoListItemProps) {
 		data-type={type}
 		data-attrs={JSON.stringify(attrs)}
 	>
-		<button
+		<Checkbox
 			className="TodoList__CheckButton"
+			isChecked={attrs.done}
 			contentEditable={false}
-			onClick={() => setAttrs({
-				...attrs,
-				done: !attrs.done,
-			})}
-		>
-			<Icon type="check_box" className={`TodoList__Icon ${
-				attrs.done ? `TodoList__Icon--visible`: `TodoList__Icon--invisible`
-			}`} />
-			<Icon type="check_box_outline_blank" className={`TodoList__Icon ${
-				attrs.done ? `TodoList__Icon--invisible`: `TodoList__Icon--visible`
-			}`} />
-		</button>
+			onSetChecked={done => setAttrs({...attrs, done})}
+		/>
 		<div data-content={type} className={`TodoList__Content ${
 			attrs.done ? `TodoList__Content--done`: ``
 		}`} />

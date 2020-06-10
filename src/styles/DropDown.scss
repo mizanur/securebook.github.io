@@ -14,6 +14,7 @@ $drop-down-item-width: 250px;
 	background: $drop-down-bg;
 
 	&__Item {
+		display: block;
 		padding: $default-padding / 2;
 		position: relative;
 		width: $drop-down-item-width;
