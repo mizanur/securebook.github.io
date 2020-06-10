@@ -25,7 +25,7 @@ import Donate from '@components/Donate';
 const optionalSidebarScreenWidth = `1400px`;
 
 function SecureBook() {
-	const { notes } = useContext(StoreContext);
+	const { notes, darkMode } = useContext(StoreContext);
 	const { noteManager } = useContext(ManagersContext);
 	const [tagSearch, setTagSearch] = useState('');
 	const trimmedTagSearch = tagSearch.trim();
@@ -63,7 +63,6 @@ function SecureBook() {
 	);
 
 	const [isSettingsOpen, setSettingsOpen] = useState(false);
-	const [isDarkMode, setDarkMode] = useState(false);
 	const settingsRef = useRef<HTMLButtonElement>(null);
 
 	const onMainClick = (e: MouseEvent) => {
@@ -74,7 +73,7 @@ function SecureBook() {
 		}
 	};
 
-	return <div className="SecureBook">
+	return <div className={`SecureBook ${darkMode.isDarkMode ? `dark-mode` : ``}`}>
 		{
 			(!isOptionalSidebar || isSidebarOpen) &&
 				<aside className="SecureBook__Sidebar">
@@ -191,9 +190,9 @@ function SecureBook() {
 							<DropDown>
 								<DropDownItem
 									labelProps={{ className: "SecureBook__DarkModeChk" }}
-									onClick={() => setDarkMode(!isDarkMode)}
+									onClick={() => { darkMode.isDarkMode = !darkMode.isDarkMode; }}
 								>
-									<Checkbox isChecked={isDarkMode} />
+									<Checkbox isChecked={darkMode.isDarkMode} />
 									<span>Dark mode</span>
 								</DropDownItem>
 								<Donate>

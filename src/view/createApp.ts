@@ -30,6 +30,7 @@ import { NoteContent, Note } from "@interfaces/Notes";
 import { EntityManager } from "@modules/EntityManager";
 import { createEditor } from "@editor/createEditor";
 import { AuthURLStorage } from "@modules/AuthURLStorage";
+import { createDarkMode } from "@view/createDarkMode";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -44,6 +45,7 @@ export function createApp(): [Connected, Store, Managers] {
 		// @ts-ignore: Not sure how to deal with generics in the following case
 		createEntityData: connectFactory(createEntityData),
 		createNotes: connectFactory(createNotes),
+		createDarkMode: connectFactory(createDarkMode),
 	};
 
 	const crypter = new Crypter();
@@ -71,6 +73,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const noteManager = new NoteManager(notes, noteEntityManager, pathManager);
 	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
 	const editor = createEditor();
+	const darkMode = connected.createDarkMode();
 	
 	const intents = connected.createIntents([
 		noteViewerIntent,
@@ -79,6 +82,7 @@ export function createApp(): [Connected, Store, Managers] {
 	return [
 		connected,
 		{
+			darkMode,
 			intents,
 			authData: gitlabAuthData,
 			password,

@@ -8,6 +8,7 @@ import { createGitlabData } from "@data/createGitlabData";
 import { createPassword } from "@data/createPassword";
 import { createNotes } from "@data/createNotes";
 import { createEntityData } from "@data/createEntityData";
+import { createDarkMode } from "@view/createDarkMode";
 
 export interface Connected {
 	createRenderer: typeof createRenderer,
@@ -20,4 +21,5 @@ export interface Connected {
 	createPassword: typeof createPassword,
 	createNotes: typeof createNotes,
 	createEntityData: typeof createEntityData,
+	createDarkMode: typeof createDarkMode,
 }
