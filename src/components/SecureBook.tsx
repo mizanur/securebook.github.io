@@ -73,6 +73,8 @@ function SecureBook() {
 		}
 	};
 
+	const donateFormRef = useRef<HTMLFormElement>();
+
 	return <div className={`SecureBook ${darkMode.isDarkMode ? `dark-mode` : ``}`}>
 		{
 			(!isOptionalSidebar || isSidebarOpen) &&
@@ -195,12 +197,12 @@ function SecureBook() {
 									<Checkbox isChecked={darkMode.isDarkMode} className="SecureBook__SettingsIcon" />
 									<span>Dark mode</span>
 								</DropDownItem>
-								<Donate>
-									<DropDownItem isLink>
+								<DropDownItem onClick={() => donateFormRef.current?.submit()}>
+									<Donate formRef={donateFormRef}>
 										<span className="SecureBook__SettingsIcon">❤️</span>
 										<span>Donate</span>
-									</DropDownItem>
-								</Donate>
+									</Donate>
+								</DropDownItem>
 								<DropDownItem
 									isLink
 									iconType="github"
