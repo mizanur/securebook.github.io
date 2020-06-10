@@ -25,6 +25,18 @@ export function createNoteViewerIntent(location: Location, auth: AuthData, passw
 				this.canLoad = false;
 				noteManager.loadNotes();
 			}
-		}
+		},
+
+		loadNoteWhenSelected() {
+			if (notes.selected && notes.selected.content.status === 'not loaded: created') {
+				noteManager.loadNote(notes.selected.id);
+			}
+		},
+
+		deselectNoteWhenIncorrect() {
+			if (notes.status === 'loaded' && notes.selectedId && !notes.selected) {
+				noteManager.selectNote(null);
+			}
+		},
 	}
 }

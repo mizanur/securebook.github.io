@@ -29,6 +29,7 @@ import { createEntityData } from "@data/createEntityData";
 import { NoteContent, Note } from "@interfaces/Notes";
 import { EntityManager } from "@modules/EntityManager";
 import { createEditor } from "@editor/createEditor";
+import { AuthURLStorage } from "@modules/AuthURLStorage";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -52,8 +53,9 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabConfig = gitlabDev;
 	const gitlabAuthStorage = new GitlabAuthStorage();
 	const gitlabAuthData = connected.createGitlabAuthData();
-	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);
-	const pathManager = new PathManager(locationManager);
+	const authURLStorage = new AuthURLStorage(location, locationManager);
+	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData, authURLStorage);
+	const pathManager = new PathManager(locationManager, authURLStorage);
 	connected.createGitlabNotifyAuth(location, pathManager, gitlabAuth);
 	const gitlabProjectManager = new GitlabProjectManager(gitlabAuthData, gitlabConfig);
 	const gitlabData = connected.createGitlabData();
@@ -64,16 +66,16 @@ export function createApp(): [Connected, Store, Managers] {
 	const password = connected.createPassword(gitlabAuthData, filesystem);
 	const passwordManager = new PasswordManager(password);
 	const notesEntityData = connected.createEntityData<NoteContent, Note>();
-	const notes = connected.createNotes(notesEntityData);
+	const notes = connected.createNotes(location, notesEntityData);
 	const noteEntityManager = new EntityManager<NoteContent,Note>('notes', notesEntityData, filesystem, password, crypter, getDefaultNote);
-	const noteManager = new NoteManager(notes, noteEntityManager);
+	const noteManager = new NoteManager(notes, noteEntityManager, pathManager);
 	const noteViewerIntent = connected.createNoteViewerIntent(location, gitlabAuthData, password, notes, noteManager);
 	const editor = createEditor();
-
+	
 	const intents = connected.createIntents([
 		noteViewerIntent,
 	]);
-	
+
 	return [
 		connected,
 		{

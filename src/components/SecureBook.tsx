@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact';
 import { connect } from '@view/connect';
 import "@styles/SecureBook.scss";
 import Input from '@components/Input';
-import { useState, useContext, useRef } from 'preact/hooks';
+import { useState, useContext, useRef, useEffect } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import { ManagersContext } from '@view/ManagersContext';
 import { filterNotesByTags } from '@utils/tags';
@@ -22,7 +22,7 @@ import { useEffectOnce } from '@view/useEffectOnce';
 import Checkbox from '@components/Checkbox';
 import Donate from '@components/Donate';
 
-const optionalSidebarScreenWidth = `1350px`;
+const optionalSidebarScreenWidth = `1400px`;
 
 function SecureBook() {
 	const { notes } = useContext(StoreContext);
@@ -51,6 +51,16 @@ function SecureBook() {
 			mql.removeListener(resetOptionalSidebar);
 		}
 	});
+
+	const isNoteSelected = !!notes.selected?.id;
+	useEffect(
+		() => {
+			if (isNoteSelected && isSidebarOpen) {
+				setSidebarOpen(false);
+			}
+		},
+		[isNoteSelected]
+	);
 
 	const [isSettingsOpen, setSettingsOpen] = useState(false);
 	const [isDarkMode, setDarkMode] = useState(false);

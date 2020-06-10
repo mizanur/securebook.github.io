@@ -2,33 +2,37 @@ import { NoteManager as INoteManager } from "@interfaces/NoteManager";
 import { Notes, Note, NoteContent } from "@interfaces/Notes";
 import { EntityManager } from "@interfaces/EntityManager";
 import { getTimeInMS } from "@utils/time";
+import { PathManager } from "@interfaces/PathManager";
 
 const maxNameCharacters = 100;
 
 export class NoteManager implements INoteManager {
 	private readonly notes: Notes;
 	private readonly noteEntityManager: EntityManager<NoteContent,Note>;
+	private readonly pathManager: PathManager;
 	
-	constructor(notes: Notes, noteEntityManager: EntityManager<NoteContent,Note>) {
+	constructor(notes: Notes, noteEntityManager: EntityManager<NoteContent,Note>, pathManager: PathManager) {
 		this.notes = notes;
 		this.noteEntityManager = noteEntityManager;
+		this.pathManager = pathManager;
 	}
 
 	async loadNotes() {
 		await this.noteEntityManager.loadList();
 	}
 
+	async loadNote(id: string) {
+		await this.noteEntityManager.loadItem(id);
+	}
+
 	async selectNote(id: string | null) {
 		this.notes.selectedId = id;
-		
-		if (id && this.notes.selected && this.notes.selected.content.status === 'not loaded: created') {
-			await this.noteEntityManager.loadItem(id);
-		}
+		this.pathManager.onNoteSelected(id);
 	}
 
 	createNoteAndSelect(): void {
 		const { id } = this.noteEntityManager.createWorkingItem();
-		this.notes.selectedId = id;
+		this.selectNote(id);
 	}
 
 	updateSelectedNoteContent(textContent: string, contentValue: NoteContent): void {
