@@ -10,7 +10,7 @@ import { createIntents } from "@data/createIntents";
 import { createGitlabNotifyAuth } from "@data/createGitlabNotifyAuth";
 import { GitlabAuth } from "@modules/GitlabAuth";
 import { LocationManager } from "@view/LocationManager";
-import { GitlabDev } from "@configs/GitlabDev";
+import { gitlabDev } from "@configs/GitlabDev";
 import { createGitlabAuthData } from "@data/createGitlabAuthData";
 import { GitlabAuthStorage } from "@modules/GitlabAuthStorage";
 import { PathManager } from "@modules/PathManager";
@@ -49,7 +49,7 @@ export function createApp(): [Connected, Store, Managers] {
 	const queryBuilder = new QueryBuilder();
 	const location = connected.createLocation(queryBuilder);
 	const locationManager = new LocationManager(location);
-	const gitlabConfig = new GitlabDev();
+	const gitlabConfig = gitlabDev;
 	const gitlabAuthStorage = new GitlabAuthStorage();
 	const gitlabAuthData = connected.createGitlabAuthData();
 	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData);

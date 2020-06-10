@@ -20,6 +20,7 @@ import TextLoading from '@components/TextLoading';
 import EditorMenu from '@components/EditorMenu';
 import { useEffectOnce } from '@view/useEffectOnce';
 import Checkbox from '@components/Checkbox';
+import Donate from '@components/Donate';
 
 const optionalSidebarScreenWidth = `1350px`;
 
@@ -178,11 +179,16 @@ function SecureBook() {
 							onClose={() => setSettingsOpen(false)}
 						>
 							<DropDown>
-								<DropDownItem onClick={() => setDarkMode(!isDarkMode)}>
-									<Checkbox className="SecureBook__DarkModeChk" isChecked={isDarkMode} />
+								<DropDownItem
+									labelProps={{ className: "SecureBook__DarkModeChk" }}
+									onClick={() => setDarkMode(!isDarkMode)}
+								>
+									<Checkbox isChecked={isDarkMode} />
 									<span>Dark mode</span>
 								</DropDownItem>
-								<DropDownItem isLink href="https://www.google.com">❤️ Donate</DropDownItem>
+								<Donate>
+									<DropDownItem isLink>❤️ Donate</DropDownItem>
+								</Donate>
 							</DropDown>
 						</ContextMenu>
 				}

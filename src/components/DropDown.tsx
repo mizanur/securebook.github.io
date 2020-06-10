@@ -27,7 +27,7 @@ export function DropDownItem(
 			} ${
 				selected ? `DropDown__Item--selected` : ``
 			} ${
-				rest.onClick ? `DropDown__Item--with-click` : ``
+				(isLink || rest.onClick) ? `DropDown__Item--with-click` : ``
 			}`
 		}
 	>
