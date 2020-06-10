@@ -4,7 +4,7 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { wrapInList } from "@editor/utils/wrapInList";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { wrappingInputRule } from "prosemirror-inputrules";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveNode } from "@editor/utils/isActiveNode";
 import { toggleList } from "@editor/utils/toggleList";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
@@ -44,13 +44,13 @@ export class OrderedListNode implements EditorNode, KeyBindings, InputRules, Men
 		));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(state, schema.nodes.ordered_list);
+				return isActiveNode(current.state, schema.nodes.ordered_list);
 			},
 			get canToggle() {
-				return !!toggleList(schema.nodes.ordered_list, schema.nodes.list_item)(state);
+				return !!toggleList(schema.nodes.ordered_list, schema.nodes.list_item)(current.state);
 			},
 		}
 	}

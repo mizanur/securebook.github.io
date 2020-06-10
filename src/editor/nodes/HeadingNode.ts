@@ -4,7 +4,7 @@ import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { setBlockType } from "prosemirror-commands";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { textblockTypeInputRule } from "prosemirror-inputrules";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveNode } from "@editor/utils/isActiveNode";
 import { getNodeAttrs } from "@editor/utils/getNodeAttrs";
 import { toggleBlockType } from "@editor/utils/toggleBlockType";
@@ -45,16 +45,16 @@ export class HeadingNode implements EditorNode, KeyBindings, InputRules, MenuSta
 		));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent(): boolean {
-				return isActiveNode(state, schema.nodes.heading);
+				return isActiveNode(current.state, schema.nodes.heading);
 			},
 			get canToggle() {
-				return !!toggleBlockType(schema.nodes.heading, schema.nodes.paragraph)(state);
+				return !!toggleBlockType(schema.nodes.heading, schema.nodes.paragraph)(current.state);
 			},
 			get level(): number {
-				return this.isCurrent && getNodeAttrs(state, schema.nodes.heading).level || 0;
+				return this.isCurrent && getNodeAttrs(current.state, schema.nodes.heading).level || 0;
 			}
 		}
 	}

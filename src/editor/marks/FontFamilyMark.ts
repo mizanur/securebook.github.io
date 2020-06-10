@@ -1,7 +1,7 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema, Mark } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { removeMark } from "@editor/utils/removeMark";
@@ -40,16 +40,16 @@ export class FontFamilyMark implements EditorMark, MenuStateItem<'font_family'>,
 		}
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.font_family);
+				return isActiveMark(current.state, schema.marks.font_family);
 			},
 			get attrs() {
-				return getMarkAttrs(state, schema.marks.font_family) as FontFamilyMarkAttrs;
+				return getMarkAttrs(current.state, schema.marks.font_family) as FontFamilyMarkAttrs;
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.font_family)(state);
+				return !!toggleMark(schema.marks.font_family)(current.state);
 			},
 		}
 	}

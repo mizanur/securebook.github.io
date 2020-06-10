@@ -5,7 +5,7 @@ import { wrapInList } from "@editor/utils/wrapInList";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
 import { wrappingInputRule } from "prosemirror-inputrules";
 import { isActiveNode } from "@editor/utils/isActiveNode";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { toggleList } from "@editor/utils/toggleList";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
@@ -29,13 +29,13 @@ export class BulletListNode implements EditorNode, KeyBindings, InputRules, Menu
 		addInputRule(wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(state, schema.nodes.bullet_list);
+				return isActiveNode(current.state, schema.nodes.bullet_list);
 			},
 			get canToggle() {
-				return !!toggleList(schema.nodes.bullet_list, schema.nodes.list_item)(state);
+				return !!toggleList(schema.nodes.bullet_list, schema.nodes.list_item)(current.state);
 			},
 		}
 	}

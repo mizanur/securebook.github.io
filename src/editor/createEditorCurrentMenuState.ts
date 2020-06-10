@@ -46,7 +46,7 @@ export function createEditorCurrentMenuState<
 			const menuState = {} as MenuState;
 			for (let i = 0; i < menuStateItems.length; i++) {
 				const menuStateItem: MenuStateItem<any> = menuStateItems[i];
-				menuState[menuStateItem.name] = menuStateItem.getMenuState(editorCurrentState.state, schema);
+				menuState[menuStateItem.name] = menuStateItem.getMenuState(editorCurrentState, schema);
 			}
 			return menuState;
 		},

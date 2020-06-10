@@ -4,7 +4,7 @@ import { wrappingInputRule } from "prosemirror-inputrules";
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveNode } from "@editor/utils/isActiveNode";
 import { toggleWrap } from "@editor/utils/toggleWrap";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
@@ -32,13 +32,13 @@ export class BlockquoteNode implements EditorNode, KeyBindings, InputRules, Menu
 		addInputRule(wrappingInputRule(/^\s*>\s$/, schema.nodes.blockquote));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(state, schema.nodes.blockquote);
+				return isActiveNode(current.state, schema.nodes.blockquote);
 			},
 			get canToggle() {
-				return !!toggleWrap(schema.nodes.blockquote)(state);
+				return !!toggleWrap(schema.nodes.blockquote)(current.state);
 			},
 		}
 	}

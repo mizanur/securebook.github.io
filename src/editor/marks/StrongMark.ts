@@ -2,7 +2,7 @@ import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { toggleMark } from "prosemirror-commands";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
@@ -38,13 +38,13 @@ export class StrongMark implements EditorMark, KeyBindings, MenuStateItem<'stron
 		addKeyBinding("Mod-B", toggleMark(schema.marks.strong));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.strong);
+				return isActiveMark(current.state, schema.marks.strong);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(state);
+				return !!toggleMark(schema.marks.strong)(current.state);
 			},
 		}
 	}

@@ -1,7 +1,7 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema, Mark } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { removeMark } from "@editor/utils/removeMark";
@@ -45,16 +45,16 @@ export class FontColorMark implements EditorMark, MenuStateItem<'font_color'>, M
 		}
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.font_color);
+				return isActiveMark(current.state, schema.marks.font_color);
 			},
 			get attrs() {
-				return getMarkAttrs(state, schema.marks.font_color) as FontColorMarkAttrs;
+				return getMarkAttrs(current.state, schema.marks.font_color) as FontColorMarkAttrs;
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.font_color)(state);
+				return !!toggleMark(schema.marks.font_color)(current.state);
 			},
 		}
 	}

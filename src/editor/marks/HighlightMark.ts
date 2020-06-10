@@ -1,7 +1,7 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema, Mark } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { removeMark } from "@editor/utils/removeMark";
@@ -45,16 +45,16 @@ export class HighlightMark implements EditorMark, MenuStateItem<'highlight'>, Me
 		}
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.highlight);
+				return isActiveMark(current.state, schema.marks.highlight);
 			},
 			get attrs() {
-				return getMarkAttrs(state, schema.marks.highlight) as HighlightMarkAttrs;
+				return getMarkAttrs(current.state, schema.marks.highlight) as HighlightMarkAttrs;
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.highlight)(state);
+				return !!toggleMark(schema.marks.highlight)(current.state);
 			},
 		}
 	}

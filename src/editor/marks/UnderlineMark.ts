@@ -2,7 +2,7 @@ import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { toggleMark } from "prosemirror-commands";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
@@ -28,13 +28,13 @@ export class UnderlineMark implements EditorMark, KeyBindings, MenuStateItem<'un
 		addKeyBinding("Mod-U", toggleMark(schema.marks.underline));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.underline);
+				return isActiveMark(current.state, schema.marks.underline);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(state);
+				return !!toggleMark(schema.marks.strong)(current.state);
 			},
 		}
 	}

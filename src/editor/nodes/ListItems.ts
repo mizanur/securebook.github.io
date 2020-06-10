@@ -5,6 +5,7 @@ import { splitListItem } from "@editor/utils/splitListItem";
 import { liftListItem } from "@editor/utils/liftListItem";
 import { sinkListItem } from "@editor/utils/sinkListItem";
 import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { Dispatch } from "@editor/interfaces/Actions";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
@@ -64,14 +65,14 @@ export class ListItems implements KeyBindings, MenuStateItem<'list_items'>, Menu
 		addKeyBinding("Mod-]", this.decreaseIndent());
 	}
 
-	getMenuState = (state: EditorState) => {
+	getMenuState = (current: EditorActiveState) => {
 		const self = this;
 		return {
 			get canIncreaseIndent() {
-				return self.increaseIndent()(state);
+				return self.increaseIndent()(current.state);
 			},
 			get canDecreaseIndent() {
-				return self.decreaseIndent()(state);
+				return self.decreaseIndent()(current.state);
 			},
 		}
 	}

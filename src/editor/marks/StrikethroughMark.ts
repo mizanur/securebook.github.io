@@ -1,7 +1,7 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 
@@ -22,13 +22,13 @@ export class StrikethroughMark implements EditorMark, MenuStateItem<'strikethrou
 		}
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.strikethrough);
+				return isActiveMark(current.state, schema.marks.strikethrough);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(state);
+				return !!toggleMark(schema.marks.strong)(current.state);
 			},
 		}
 	}

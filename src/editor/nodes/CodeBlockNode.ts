@@ -4,7 +4,7 @@ import { textblockTypeInputRule } from "prosemirror-inputrules";
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { KeyBindings, AddKeyBinding } from "@editor/interfaces/KeyBindings";
 import { InputRules, AddInputRule } from "@editor/interfaces/InputRules";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { isActiveNode } from "@editor/utils/isActiveNode";
 import { toggleBlockType } from "@editor/utils/toggleBlockType";
 import { CodeBlockView, arrowHandler } from "@view/CodeBlockView";
@@ -42,13 +42,13 @@ export class CodeBlockNode implements EditorNode, KeyBindings, InputRules, NodeV
 		addInputRule(textblockTypeInputRule(/^```$/, schema.nodes.code_block));
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveNode(state, schema.nodes.code_block);
+				return isActiveNode(current.state, schema.nodes.code_block);
 			},
 			get canToggle() {
-				return !!toggleBlockType(schema.nodes.code_block, schema.nodes.paragraph)(state);
+				return !!toggleBlockType(schema.nodes.code_block, schema.nodes.paragraph)(current.state);
 			},
 		}
 	}

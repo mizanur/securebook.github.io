@@ -3,7 +3,7 @@ import { MarkSpec, Schema } from "prosemirror-model";
 import { isLinkExternal } from "@utils/link";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { isActiveMark } from "@editor/utils/isActiveMark";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { toggleMark } from "prosemirror-commands";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 import { removeMarkAtCurrentPosition } from "@editor/utils/removeMarkAtCurrentPosition";
@@ -49,22 +49,22 @@ export class LinkMark implements EditorMark, NodeViewProvider, MenuStateItem<'li
 		}
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent() {
-				return isActiveMark(state, schema.marks.link);
+				return isActiveMark(current.state, schema.marks.link);
 			},
 			get canToggle() {
-				return !!toggleMark(schema.marks.strong)(state);
+				return !!toggleMark(schema.marks.strong)(current.state);
 			},
 			get isSelected() {
-				return this.isCurrent || !state.selection.empty;
+				return this.isCurrent || !current.state.selection.empty;
 			},
 			get attrs() {
 				if (!this.isCurrent) {
 					return { href: '', title: '' };
 				}
-				const attrs = getMarkAttrs(state, schema.marks.link);
+				const attrs = getMarkAttrs(current.state, schema.marks.link);
 				return {
 					href: attrs.href || '',
 					title: attrs.title || '',

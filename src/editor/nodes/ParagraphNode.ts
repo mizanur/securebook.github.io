@@ -1,7 +1,7 @@
 import { EditorNode } from "@editor/interfaces/EditorNode";
 import { NodeSpec, Schema } from "prosemirror-model";
 import { isActiveNode } from "@editor/utils/isActiveNode";
-import { EditorState } from "prosemirror-state";
+import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
 import { getNodeAttrs } from "@editor/utils/getNodeAttrs";
 import { setBlockType } from "prosemirror-commands";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
@@ -43,16 +43,16 @@ export class ParagraphNode implements EditorNode, MenuStateItem<'paragraph'>, Me
 		}
 	}
 
-	getMenuState(state: EditorState, schema: Schema) {
+	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
 			get isCurrent(): boolean {
-				return isActiveNode(state, schema.nodes.paragraph);
+				return isActiveNode(current.state, schema.nodes.paragraph);
 			},
 			get attrs(): ParagraphAttrs {
 				if (!this.isCurrent) {
 					return { textAlign: 'left' };
 				}
-				const attrs = getNodeAttrs(state, schema.nodes.paragraph) as ParagraphAttrs;
+				const attrs = getNodeAttrs(current.state, schema.nodes.paragraph) as ParagraphAttrs;
 				return attrs || { textAlign: 'left' };
 			},
 		}
