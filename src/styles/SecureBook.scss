@@ -117,10 +117,15 @@ $settings-button-width: $default-padding + $min-button-size;
 
 	&__DarkModeChk {
 		display: block;
-		
-		> * {
-			vertical-align: middle;
-		}
+	}
+
+	&__SettingsIcon {
+		display: inline-block;
+		margin-right: 10px;
+		vertical-align: middle;
+		width: 24px;
+		height: 24px;
+		text-align: center;
 	}
 
 	&__Editor {

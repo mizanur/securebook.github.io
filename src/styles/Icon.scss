@@ -1565,4 +1565,13 @@
 	&--zoom_out_map::before { content: '\E56B'; }
 	&--zoom_out::before { content: '\E900'; }
 	&--zoom_in::before { content: '\E8FF'; }
+
+	&--github {
+		background-image: url('/assets/used/github.png');
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center center;
+		width: $main-icon-size;
+		height: $main-icon-size;
+	}
 }

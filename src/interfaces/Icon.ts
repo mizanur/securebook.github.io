@@ -302,4 +302,4 @@ export type IconType = '360' | '1k_plus' | '19mp' | '18mp' | '17mp' |
 	'wb_incandescent' | 'wb_cloudy' | 'wb_auto' | 'waves' | 'waterfall_chart' | 
 	'water_damage' | 'watch_later' | 'watch' | 'wash' | 'warning' | 
 	'wallpaper' | 'wallet_travel' | 'wallet_membership' | 'wallet_giftcard' | 'youtube_searched_for' | 
-	'zoom_out_map' | 'zoom_out' | 'zoom_in';
+	'zoom_out_map' | 'zoom_out' | 'zoom_in' | 'github';

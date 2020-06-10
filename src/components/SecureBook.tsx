@@ -192,12 +192,27 @@ function SecureBook() {
 									labelProps={{ className: "SecureBook__DarkModeChk" }}
 									onClick={() => { darkMode.isDarkMode = !darkMode.isDarkMode; }}
 								>
-									<Checkbox isChecked={darkMode.isDarkMode} />
+									<Checkbox isChecked={darkMode.isDarkMode} className="SecureBook__SettingsIcon" />
 									<span>Dark mode</span>
 								</DropDownItem>
 								<Donate>
-									<DropDownItem isLink>❤️ Donate</DropDownItem>
+									<DropDownItem isLink>
+										<span className="SecureBook__SettingsIcon">❤️</span>
+										<span>Donate</span>
+									</DropDownItem>
 								</Donate>
+								<DropDownItem
+									isLink
+									iconType="github"
+									href="https://github.com/guitarino/securebook"
+									label="View on Github"
+								/>
+								<DropDownItem
+									isLink
+									iconType="bug_report"
+									href="https://github.com/guitarino/securebook/issues"
+									label="Report an issue"
+								/>
 							</DropDown>
 						</ContextMenu>
 				}
