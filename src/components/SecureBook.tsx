@@ -60,10 +60,10 @@ function SecureBook() {
 	};
 
 	return <div className="SecureBook">
-		<div className="SecureBook__TopBar">
-			{
-				(!isOptionalSidebar || isSidebarOpen) &&
-					<div className="SecureBook__SidebarTop">
+		{
+			(!isOptionalSidebar || isSidebarOpen) &&
+				<aside className="SecureBook__Sidebar">
+					<article className="SecureBook__SidebarTop">
 						<button
 							title="Add note"
 							onClick={() => {
@@ -81,32 +81,8 @@ function SecureBook() {
 							placeholder="Tag search"
 							className="SecureBook__TagSearch"
 						/>
-					</div>
-			}
-			{
-				isOptionalSidebar &&
-					<button
-						className="SecureBook__OpenMenu"
-						onClick={() => setSidebarOpen(true)}
-					>
-						<Icon type="notes" className="SecureBook__OpenMenuIcon" />
-					</button>
-			}
-			<div
-				className={`SecureBook__MainTop ${
-					isOptionalSidebar && isSidebarOpen
-						? `SecureBook__MainTop--under-sidebar`
-						: ``
-				}`}
-				onClickCapture={onMainClick}
-			>
-				<EditorMenu />
-			</div>
-		</div>
-		{
-			(!isOptionalSidebar || isSidebarOpen) &&
-				<aside className="SecureBook__Sidebar">
-					<article className="SecureBook__Notes">
+					</article>
+					<section className="SecureBook__Notes">
 						{
 							notes.status === 'loading'
 								? <Fragment>
@@ -154,7 +130,7 @@ function SecureBook() {
 									</article>
 								))
 						}
-					</article>
+					</section>
 				</aside>
 		}
 		<main
@@ -165,6 +141,25 @@ function SecureBook() {
 			}`}
 			onClickCapture={onMainClick}
 		>
+			<div
+				className={`SecureBook__MainTop ${
+					isOptionalSidebar && isSidebarOpen
+						? `SecureBook__MainTop--under-sidebar`
+						: ``
+				}`}
+				onClickCapture={onMainClick}
+			>
+				{
+					isOptionalSidebar &&
+						<button
+							className="SecureBook__OpenMenu"
+							onClick={() => setSidebarOpen(true)}
+						>
+							<Icon type="notes" />
+						</button>
+				}
+				<EditorMenu className="SecureBook__Menu" />
+			</div>
 			{
 				notes.selected
 					? <Fragment>
@@ -206,10 +201,10 @@ function SecureBook() {
 							/>
 						</div>
 					</Fragment>
-					: <div></div>
+					: null
 			}
-			<PasswordDialog />
 		</main>
+		<PasswordDialog />
 	</div>;
 }
 

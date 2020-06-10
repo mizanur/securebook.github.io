@@ -11,7 +11,7 @@ import { useFocusOnMount } from '@view/useFocusOnMount';
 import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup } from '@view/fonts';
 import ColorPicker from '@components/ColorPicker';
 
-function EditorMenu() {
+function EditorMenu({ className }: { className?: string }) {
 	const { editor } = useContext(StoreContext);
 	const menu = editor.menu;
 	const isFirstRun = useRef(true);
@@ -55,7 +55,7 @@ function EditorMenu() {
 		return null;
 	}
 
-	return <div className='EditorMenu' onMouseDown={e => e.preventDefault()}>
+	return <div className={`EditorMenu ${className || ''}`} onMouseDown={e => e.preventDefault()}>
 		<button
 			disabled={!menu.state.history.canUndo}
 			className="EditorMenu__Button"

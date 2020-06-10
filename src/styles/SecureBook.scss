@@ -1,7 +1,7 @@
 @import "../styles-mixins/variables.scss";
 
 $sidebar-open-width: 80%;
-$open-sidebar-button-width: 80px;
+$open-sidebar-button-width: $default-padding + $min-button-size;
 
 .SecureBook {
 	position: absolute;
@@ -14,12 +14,11 @@ $open-sidebar-button-width: 80px;
 
 	&__Sidebar {
 		position: absolute;
-		top: $editor-menu-height;
+		top: 0px;
 		left: 0px;
 		bottom: 0px;
 		width: $sidebar-open-width;
 		max-width: $sidebar-width;
-		overflow: auto;
 		border-right: 3px solid $main-border-color;
 		background: $main-bg-color;
 		z-index: $z-index-sidebar;
@@ -29,80 +28,25 @@ $open-sidebar-button-width: 80px;
 		position: absolute;
 		top: 0px;
 		left: 0px;
+		right: 0px;
 		height: $editor-menu-height;
-		width: $sidebar-open-width;
-		max-width: $sidebar-width;
 		display: flex;
 		align-items: center;
 		padding: $default-padding $default-padding $default-padding ($default-padding - ($min-button-size - $main-icon-size) / 2);
-		border-right: 3px solid $main-border-color;
-		background: $main-bg-color;
-		z-index: $z-index-sidebar;
-	}
-
-	&__OpenMenu {
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		right: 0px;
-		height: $editor-menu-height;
-		width: $open-sidebar-button-width;
-		border-bottom: 2px solid $main-border-color;
-	}
-
-	&__OpenMenuIcon {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translateX(-50%) translateY(-50%);
-	}
-
-	&__MainTop {
-		position: absolute;
-		top: 0px;
-		left: $sidebar-width;
-		right: 0px;
-		height: $editor-menu-height;
-
-		@media (max-width: $optional-sidebar-screen-width) {
-			left: $open-sidebar-button-width;
-		}
-
-		&--under-sidebar {
-			&::before {
-				content: '';
-				display: block;
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				z-index: $z-index-main-overlay;
-				background: $main-overlay-color;
-			}
-		}
-	}
-
-	&__Loading {
-		padding: $default-padding;
 	}
 
 	&__Notes {
 		position: absolute;
-		top: 0px;
+		top: $editor-menu-height;
 		bottom: 0px;
 		left: 0px;
-		width: 100%;
+		right: 0px;
 		overflow: auto;
-	}
-
-	&__TagSearch {
-		padding-right: 20px;
 	}
 
 	&__Main {
 		position: absolute;
-		top: $editor-menu-height;
+		top: 0px;
 		left: $sidebar-width;
 		right: 0px;
 		bottom: 0px;
@@ -126,12 +70,55 @@ $open-sidebar-button-width: 80px;
 		}
 	}
 
-	&__Editor {
+	&__MainTop {
 		position: absolute;
 		top: 0px;
 		left: 0px;
 		right: 0px;
+		height: $editor-menu-height;
+		border-bottom: 2px solid $main-border-color;
+	}
+
+	&__OpenMenu {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: $open-sidebar-button-width;
+		padding: $default-padding 0px $default-padding $default-padding;
+		height: $editor-menu-height;
+	}
+
+	&__Menu {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		padding: $default-padding;
+		overflow-y: hidden;
+		overflow-x: auto;
+		height: $editor-menu-height;
+		white-space: nowrap;
+
+		@media (max-width: $optional-sidebar-screen-width) {
+			left: $open-sidebar-button-width;
+			padding: $default-padding $default-padding $default-padding 0px;
+		}
+	}
+
+	&__Editor {
+		position: absolute;
+		top: $editor-menu-height;
+		left: 0px;
+		right: 0px;
 		bottom: $bottom-bar-height;
+	}
+
+	&__Loading {
+		padding: $default-padding;
+	}
+
+	&__TagSearch {
+		padding-right: 20px;
 	}
 
 	&__BottomBar {
