@@ -16,8 +16,8 @@ export function createGitlabNotifyAuth(location: Location, pathManager: PathMana
 						query.error_description || ''
 					);
 				}
+				pathManager.onAuthCompleted();
 			}
-			pathManager.onAuthCompleted();
 		}
 	}
 }
