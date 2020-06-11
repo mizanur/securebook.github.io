@@ -15,10 +15,10 @@ type CommonProps = {
 };
 
 export function DropDownItem(
-	{ isLink = false, tag = 'div', iconType, label, children, selected = false, labelProps = {}, ...rest }:
+	{ isLink = false, tag, iconType, label, children, selected = false, labelProps = {}, ...rest }:
 	CommonProps & h.JSX.HTMLAttributes<HTMLElement>
 ) {
-	const Tag = (isLink && !tag ? Link : tag) as any;
+	const Tag = (isLink && !tag ? Link : tag) as any || 'div';
 	return <Tag
 		{...rest}
 		title={label}
