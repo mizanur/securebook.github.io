@@ -1,4 +1,5 @@
 import { ParagraphAttrs } from "@editor/nodes/ParagraphNode";
+import { ImageAttrs } from "@editor/nodes/ImageNode";
 
 export interface MenuActions {
 	history: {
@@ -68,5 +69,10 @@ export interface MenuActions {
 	list_items: {
 		increaseIndent: () => void,
 		decreaseIndent: () => void,
+	},
+	image: {
+		create: (attrs: ImageAttrs) => void,
+		setAttrs: (newAttrs: Partial<ImageAttrs>) => void,
+		remove: () => void,
 	},
 }

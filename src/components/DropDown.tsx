@@ -5,6 +5,8 @@ import "@styles/DropDown.scss";
 import Link from "@components/Link";
 
 type CommonProps = {
+	isLink?: boolean,
+	tag?: string,
 	selected?: boolean,
 	iconType?: IconType,
 	label?: string,
@@ -13,11 +15,10 @@ type CommonProps = {
 };
 
 export function DropDownItem(
-	{ isLink, iconType, label, children, selected = false, labelProps = {}, ...rest }:
-	({ isLink?: false } & CommonProps & h.JSX.HTMLAttributes<HTMLDivElement>) |
-	({ isLink: true } & CommonProps & h.JSX.HTMLAttributes<HTMLAnchorElement>)
+	{ isLink = false, tag = 'div', iconType, label, children, selected = false, labelProps = {}, ...rest }:
+	CommonProps & h.JSX.HTMLAttributes<HTMLElement>
 ) {
-	const Tag = (isLink ? Link : 'div') as any;
+	const Tag = (isLink && !tag ? Link : tag) as any;
 	return <Tag
 		{...rest}
 		title={label}

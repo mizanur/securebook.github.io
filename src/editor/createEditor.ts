@@ -163,6 +163,7 @@ export function createEditor(): Editor {
 		orderedListNode,
 		todoListNode,
 		listItems,
+		imageNode,
 	];
 	const menuActionItems = [
 		history,
@@ -185,6 +186,7 @@ export function createEditor(): Editor {
 		orderedListNode,
 		todoListNode,
 		listItems,
+		imageNode,
 	];
 	const nodeViews = getNodeViewLookup([
 		codeBlockNode,
@@ -196,7 +198,7 @@ export function createEditor(): Editor {
 		current,
 		menuStateItems,
 		menuActionItems,
-		editorSchema.schema
+		editorSchema.schema,
 	);
 	return {
 		editorSchema,

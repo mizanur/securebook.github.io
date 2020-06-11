@@ -88,4 +88,16 @@
 	li {
 		padding-left: $editor-list-item-padding;
 	}
+
+	img[data-position] {
+		margin: 0px $default-padding 0px $default-padding;
+	}
+
+	img[data-position="left"] {
+		margin: $default-padding $default-padding $default-padding 0px;
+	}
+
+	img[data-position="right"] {
+		margin: $default-padding 0px $default-padding $default-padding;
+	}
 }

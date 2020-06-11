@@ -47,13 +47,13 @@ export class HeadingNode implements EditorNode, KeyBindings, InputRules, MenuSta
 
 	getMenuState(current: EditorActiveState, schema: Schema) {
 		return {
-			get isCurrent(): boolean {
+			get isCurrent() {
 				return isActiveNode(current.state, schema.nodes.heading);
 			},
 			get canToggle() {
 				return !!toggleBlockType(schema.nodes.heading, schema.nodes.paragraph)(current.state);
 			},
-			get level(): number {
+			get level() {
 				return this.isCurrent && getNodeAttrs(current.state, schema.nodes.heading).level || 0;
 			}
 		}

@@ -22,7 +22,7 @@ import { useEffectOnce } from '@view/useEffectOnce';
 import Checkbox from '@components/Checkbox';
 import Donate from '@components/Donate';
 
-const optionalSidebarScreenWidth = `1400px`;
+const optionalSidebarScreenWidth = `1450px`;
 
 function SecureBook() {
 	const { notes, darkMode } = useContext(StoreContext);
@@ -73,7 +73,7 @@ function SecureBook() {
 		}
 	};
 
-	const donateFormRef = useRef<HTMLFormElement>();
+	const donateFormRef = useRef<HTMLFormElement>(null);
 
 	return <div className={`SecureBook ${darkMode.isDarkMode ? `dark-mode` : ``}`}>
 		{
@@ -197,7 +197,7 @@ function SecureBook() {
 									<Checkbox isChecked={darkMode.isDarkMode} className="SecureBook__SettingsIcon" />
 									<span>Dark mode</span>
 								</DropDownItem>
-								<DropDownItem onClick={() => donateFormRef.current?.submit()}>
+								<DropDownItem onClick={() => donateFormRef.current.submit()}>
 									<Donate formRef={donateFormRef}>
 										<span className="SecureBook__SettingsIcon">❤️</span>
 										<span>Donate</span>

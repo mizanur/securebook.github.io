@@ -3,6 +3,7 @@ import { FontSizeMarkAttrs } from "@editor/marks/FontSizeMark";
 import { FontFamilyMarkAttrs } from "@editor/marks/FontFamilyMark";
 import { FontColorMarkAttrs } from "@editor/marks/FontColorMark";
 import { HighlightMarkAttrs } from "@editor/marks/HighlightMark";
+import { ImageAttrs } from "@editor/nodes/ImageNode";
 
 export interface MenuState {
 	history: {
@@ -90,5 +91,9 @@ export interface MenuState {
 	list_items: {
 		canIncreaseIndent: boolean,
 		canDecreaseIndent: boolean,
+	},
+	image: {
+		isCurrent: boolean,
+		attrs: ImageAttrs | null,
 	},
 }

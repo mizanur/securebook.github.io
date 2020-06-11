@@ -34,8 +34,8 @@ function ColorPicker(
 	{ currentColor, onColor }:
 	{ currentColor: null | string, onColor: (hex: null | string) => any }
 ) {
-	const mainPickerRef = useRef<HTMLDivElement>();
-	const huePickerRef = useRef<HTMLDivElement>();
+	const mainPickerRef = useRef<HTMLDivElement>(null);
+	const huePickerRef = useRef<HTMLDivElement>(null);
 	const mainPicker = useRef<MainPickerData>({
 		started: false,
 	});
@@ -62,7 +62,7 @@ function ColorPicker(
 	const hueColor = hsvToRgb([hsv[0], 1, 1]);
 
 	function setMainColor(e: MouseEvent, triggerEvent: boolean) {
-		if (mainPickerRef.current && mainPicker.current.started) {
+		if (mainPicker.current.started) {
 			e.preventDefault();
 			const { rect } = mainPicker.current;
 			const l = 1 - cap(0, 1, (e.clientY - rect.top) / rect.height);
@@ -89,7 +89,7 @@ function ColorPicker(
 	};
 
 	function setHueColor(e: MouseEvent, triggerEvent: boolean) {
-		if (huePickerRef.current && huePicker.current.started) {
+		if (huePicker.current.started) {
 			e.preventDefault();
 			const { rect } = huePicker.current;
 			const h = cap(0, 1, (e.clientY - rect.top) / rect.height);
@@ -115,37 +115,33 @@ function ColorPicker(
 	};
 
 	const onMainDown = (e: MouseEvent) => {
-		if (mainPickerRef.current) {
-			const rect = mainPickerRef.current.getBoundingClientRect();
-			mainPicker.current = {
-				started: true,
-				rect: {
-					top: rect.top,
-					left: rect.left,
-					width: rect.width,
-					height: rect.height,
-				},
-			};
-			setMainColor(e, false);
-			window.addEventListener('mousemove', onMainMove);
-			window.addEventListener('mouseup', onMainUp);
-		}
+		const rect = mainPickerRef.current.getBoundingClientRect();
+		mainPicker.current = {
+			started: true,
+			rect: {
+				top: rect.top,
+				left: rect.left,
+				width: rect.width,
+				height: rect.height,
+			},
+		};
+		setMainColor(e, false);
+		window.addEventListener('mousemove', onMainMove);
+		window.addEventListener('mouseup', onMainUp);
 	};
 
 	const onHueDown = (e: MouseEvent) => {
-		if (huePickerRef.current) {
-			const rect = huePickerRef.current.getBoundingClientRect();
-			huePicker.current = {
-				started: true,
-				rect: {
-					top: rect.top,
-					height: rect.height,
-				},
-			};
-			setHueColor(e, false);
-			window.addEventListener('mousemove', onHueMove);
-			window.addEventListener('mouseup', onHueUp);
-		}
+		const rect = huePickerRef.current.getBoundingClientRect();
+		huePicker.current = {
+			started: true,
+			rect: {
+				top: rect.top,
+				height: rect.height,
+			},
+		};
+		setHueColor(e, false);
+		window.addEventListener('mousemove', onHueMove);
+		window.addEventListener('mouseup', onHueUp);
 	};
 	
 	useUnmount(() => {

@@ -1,11 +1,5 @@
 @import "../styles-mixins/variables.scss";
 
-$drop-down-bg: #ededed;
-$drop-down-item-clickable-hover: #e4e4e4;
-$drop-down-item-selected: #dbdbdb;
-$drop-down-item-selected-hover: #d2d2d2;
-$drop-down-item-width: 250px;
-
 .DropDown {
 	position: relative;
 	max-width: $drop-down-item-width;

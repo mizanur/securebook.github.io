@@ -10,6 +10,10 @@ import Input from '@components/Input';
 import { useFocusOnMount } from '@view/useFocusOnMount';
 import { getAvailableFonts, defaultFontsLookup, defaultFonts, fontTypeLookup } from '@view/fonts';
 import ColorPicker from '@components/ColorPicker';
+import { ImageAttrs, defaultImageAttrs } from '@editor/nodes/ImageNode';
+import LoadingSpinner from '@components/LoadingSpinner';
+
+const maxImageSize = 1; // MB
 
 function EditorMenu({ className }: { className?: string }) {
 	const { editor } = useContext(StoreContext);
@@ -20,11 +24,13 @@ function EditorMenu({ className }: { className?: string }) {
 	const highlightRef = useRef<HTMLButtonElement>(null);
 	const linkRef = useRef<HTMLButtonElement>(null);
 	const headingRef = useRef<HTMLButtonElement>(null);
+	const imageRef = useRef<HTMLButtonElement>(null);
 	const [isFontEditorOpen, setFontEditorOpen] = useState(false);
 	const [isFontColorEditorOpen, setFontColorEditorOpen] = useState(false);
 	const [isHighlightEditorOpen, setHighlightEditorOpen] = useState(false);
 	const [isLinkEditorOpen, setLinkEditorOpen] = useState(false);
 	const [isHeadingEditorOpen, setHeadingEditorOpen] = useState(false);
+	const [isImageEditorOpen, setImageEditorOpen] = useState(false);
 	const useFocusProps = useFocusOnMount();
 	const [fontSearch, setFontSearch] = useState('');
 	const availableFonts = useMemo(() => ({
@@ -38,7 +44,7 @@ function EditorMenu({ className }: { className?: string }) {
 				isFirstRun.current = false;
 				return;
 			}
-			if (!isFontEditorOpen && !isLinkEditorOpen && !isHeadingEditorOpen) {
+			if (!isFontEditorOpen && !isLinkEditorOpen && !isHeadingEditorOpen && !isImageEditorOpen) {
 				editor.current.view?.focus();
 			}
 		},
@@ -46,10 +52,29 @@ function EditorMenu({ className }: { className?: string }) {
 			isFontEditorOpen,
 			isLinkEditorOpen,
 			isHeadingEditorOpen,
+			isImageEditorOpen,
 		]
 	);
 	
-	const [color, setColor] = useState('');
+	const [imageAttrs, setImageAttrs] = useState<ImageAttrs>(defaultImageAttrs);
+	const [isImageLoading, setImageLoading] = useState(false);
+	const [isImageFileSizeWarning, setImageFileSizeWarning] = useState(false);
+
+	useEffect(
+		() => {
+			if (menu.state?.image.attrs) {
+				setImageAttrs(menu.state.image.attrs);
+			}
+		},
+		[menu.state?.image.attrs || null]
+	);
+
+	useEffect(
+		() => {
+			setImageFileSizeWarning(false);
+		},
+		[isImageEditorOpen]
+	);
 
 	if (!menu.exists) {
 		return null;
@@ -75,7 +100,7 @@ function EditorMenu({ className }: { className?: string }) {
 		<button
 			disabled={!menu.state.heading.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.heading.canToggle && menu.state.heading.isCurrent ? `EditorMenu__Button--active`: ``
+				(isHeadingEditorOpen || menu.state.heading.canToggle && menu.state.heading.isCurrent) ? `EditorMenu__Button--active`: ``
 			}`}
 			onClick={() => setHeadingEditorOpen(true)}
 			title="Heading"
@@ -182,8 +207,8 @@ function EditorMenu({ className }: { className?: string }) {
 			ref={fontRef}
 			disabled={!menu.state.font_size.canToggle && !menu.state.font_family.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.font_size.canToggle && menu.state.font_size.isCurrent ||
-				menu.state.font_family.canToggle && menu.state.font_family.isCurrent
+				(isFontEditorOpen || menu.state.font_size.canToggle && menu.state.font_size.isCurrent ||
+				menu.state.font_family.canToggle && menu.state.font_family.isCurrent)
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
@@ -202,14 +227,14 @@ function EditorMenu({ className }: { className?: string }) {
 						menu.state.font_size.canToggle &&
 							<DropDownItem
 								className="EditorMenu__FontEditorItem"
-								labelProps={{ className: "EditorMenu__FontSize" }}
+								labelProps={{ className: "EditorMenu__DropDownFieldWithUnit" }}
 							>
 								<Input
 									className="EditorMenu__FontSizeInput"
 									iconType="format_size"
 									type="number"
 									placeholder="Font size"
-									fieldClassName="EditorMenu__FontSizeInputField"
+									fieldClassName="EditorMenu__FieldWithUnit"
 									value={
 										menu.state.font_size.isCurrent
 											? menu.state.font_size.attrs.fontSize
@@ -220,7 +245,7 @@ function EditorMenu({ className }: { className?: string }) {
 									)}
 									{...useFocusProps}
 								/>
-								<span className="EditorMenu__FontSizeUnit">(px)</span>
+								<span className="EditorMenu__FieldUnit">(px)</span>
 								<button
 									className="EditorMenu__FontSizeDefault"
 									title="Reset font size to default"
@@ -288,7 +313,7 @@ function EditorMenu({ className }: { className?: string }) {
 			ref={fontColorRef}
 			disabled={!menu.state.font_color.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.font_color.canToggle && menu.state.font_color.isCurrent
+				(isFontColorEditorOpen || menu.state.font_color.canToggle && menu.state.font_color.isCurrent)
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
@@ -321,7 +346,7 @@ function EditorMenu({ className }: { className?: string }) {
 			ref={highlightRef}
 			disabled={!menu.state.highlight.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.highlight.canToggle && menu.state.highlight.isCurrent
+				(isHighlightEditorOpen || menu.state.highlight.canToggle && menu.state.highlight.isCurrent)
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
@@ -354,7 +379,7 @@ function EditorMenu({ className }: { className?: string }) {
 			ref={linkRef}
 			disabled={!menu.state.link.canToggle}
 			className={`EditorMenu__Button ${
-				menu.state.link.canToggle && menu.state.link.isCurrent ? `EditorMenu__Button--active`: ``
+				(isLinkEditorOpen || menu.state.link.canToggle && menu.state.link.isCurrent) ? `EditorMenu__Button--active`: ``
 			}`}
 			onClick={() => setLinkEditorOpen(!isLinkEditorOpen)}
 			title="Link"
@@ -545,6 +570,203 @@ function EditorMenu({ className }: { className?: string }) {
 		>
 			<Icon type="format_indent_increase" />
 		</button>
+		<button
+			ref={imageRef}
+			className={`EditorMenu__Button ${
+				(isImageEditorOpen || menu.state.image.isCurrent) ? `EditorMenu__Button--active`: ``
+			}`}
+			onClick={() => setImageEditorOpen(true)}
+			title="Image"
+		>
+			<Icon type="image" />
+		</button>
+		{
+			isImageEditorOpen && <ContextMenu
+				onClose={() => setImageEditorOpen(false)}
+				relativeRef={imageRef}
+			>
+				<DropDown className={`EditorMenu__ImageEditor ${
+					isImageLoading ? `EditorMenu__ImageEditor--loading` : ``
+				}`}>
+					{
+						isImageLoading && <LoadingSpinner className="EditorMenu__ImageLoading" />
+					}
+					<DropDownItem>
+						<Input
+							iconType="link"
+							placeholder="Enter URL"
+							value={imageAttrs.src || ''}
+							onInput={e => setImageAttrs({
+								...imageAttrs,
+								src: e.currentTarget.value,
+							})}
+						/>
+					</DropDownItem>
+					{isImageFileSizeWarning && <DropDownItem
+						className="EditorMenu__ImageSizeWarning"
+						iconType="warning"
+						label={`Image exceeds ${maxImageSize}MB`}
+					/>}
+					<DropDownItem isLink tag="label" for="EditorMenu__ImageFileBrowse" iconType="folder_open">
+						<span>Or, browse</span>
+						<input
+							id="EditorMenu__ImageFileBrowse"
+							name="EditorMenu__ImageFileBrowse"
+							className="EditorMenu__ImageFileBrowse"
+							type="file"
+							accept="image/*"
+							onChange={e => {
+								const { currentTarget: input } = e;
+								if (input.files && input.files[0]) {
+									const file = input.files[0];
+
+									if (file.size > maxImageSize * 1024 * 1024) {
+										setImageFileSizeWarning(true);
+									}
+									else {
+										const reader = new FileReader();
+	
+										setImageFileSizeWarning(false);
+										setImageLoading(true);
+										
+										reader.addEventListener('load', e => {
+											setImageLoading(false);
+											setImageAttrs({
+												...imageAttrs,
+												src: reader.result as string,
+											});
+										});
+										
+										reader.addEventListener('error', () => {
+											setImageLoading(false);
+										});
+										
+										reader.readAsDataURL(file);
+									}
+								}
+							}}
+						/>
+					</DropDownItem>
+					<DropDownItem>
+						<Input
+							iconType="title"
+							placeholder="Title (optional)"
+							value={imageAttrs.title || ''}
+							onInput={e => setImageAttrs({
+								...imageAttrs,
+								title: e.currentTarget.value,
+							})}
+						/>
+					</DropDownItem>
+					<DropDownItem labelProps={{ className: "EditorMenu__DropDownFieldWithUnit" }}>
+						<Input
+							iconType="border_horizontal"
+							placeholder="Width (optional)"
+							fieldClassName="EditorMenu__FieldWithUnit"
+							value={imageAttrs.width || ''}
+							onInput={e => setImageAttrs({
+								...imageAttrs,
+								width: Number(e.currentTarget.value) || null,
+							})}
+						/>
+						<span className="EditorMenu__FieldUnit">(px)</span>
+					</DropDownItem>
+					<DropDownItem labelProps={{ className: "EditorMenu__DropDownFieldWithUnit" }}>
+						<Input
+							iconType="border_vertical"
+							placeholder="Height (optional)"
+							fieldClassName="EditorMenu__FieldWithUnit"
+							value={imageAttrs.height || ''}
+							onInput={e => setImageAttrs({
+								...imageAttrs,
+								height: Number(e.currentTarget.value) || null,
+							})}
+						/>
+						<span className="EditorMenu__FieldUnit">(px)</span>
+					</DropDownItem>
+					<DropDownItem>
+						<div className="EditorMenu__ImagePositionLabel">Position:</div>
+						<div className="EditorMenu__ImagePositions">
+							<button
+								title="Float to the left of text"
+								onClick={() => setImageAttrs({ ...imageAttrs, position: 'left' })}
+								className={`EditorMenu__ImageButton ${
+									imageAttrs.position === 'left' ? `EditorMenu__ImageButton--active` : ``
+								}`}
+							>
+								<Icon type="image" />
+							</button>
+							<Icon type="format_align_justify" />
+							<div className="EditorMenu__ImageCentralPositions">
+								<button
+									title="To the top of the line"
+									onClick={() => setImageAttrs({ ...imageAttrs, position: 'top' })}
+									className={`EditorMenu__ImageButton ${
+										imageAttrs.position === 'top' ? `EditorMenu__ImageButton--active` : ``
+									}`}
+								>
+									<Icon type="image" />
+								</button>
+								<button
+									title="In the middle of the line"
+									onClick={() => setImageAttrs({ ...imageAttrs, position: 'middle' })}
+									className={`EditorMenu__ImageButton ${
+										imageAttrs.position === 'middle' ? `EditorMenu__ImageButton--active` : ``
+									}`}
+								>
+									<Icon type="image" />
+								</button>
+								<button
+									title="To the bottom of the line"
+									onClick={() => setImageAttrs({ ...imageAttrs, position: 'bottom' })}
+									className={`EditorMenu__ImageButton ${
+										imageAttrs.position === 'bottom' ? `EditorMenu__ImageButton--active` : ``
+									}`}
+								>
+									<Icon type="image" />
+								</button>
+							</div>
+							<Icon type="format_align_justify" />
+							<button
+								title="Float to the right of text"
+								onClick={() => setImageAttrs({ ...imageAttrs, position: 'right' })}
+								className={`EditorMenu__ImageButton ${
+									imageAttrs.position === 'right' ? `EditorMenu__ImageButton--active` : ``
+								}`}
+							>
+								<Icon type="image" />
+							</button>
+						</div>
+					</DropDownItem>
+					<DropDownItem
+						iconType="add_photo_alternate"
+						label={
+							menu.state.image.isCurrent
+								? "Update image"
+								: "Add image"
+						}
+						onClick={() => {
+							if (menu.state.image.isCurrent) {
+								menu.actions.image.setAttrs(imageAttrs);
+								
+							}
+							else {
+								menu.actions.image.create(imageAttrs);
+							}
+							editor.current.view?.focus();
+						}}
+					/>
+					{
+						menu.state.image.isCurrent &&
+							<DropDownItem
+								iconType="delete"
+								label="Remove image"
+								onClick={menu.actions.image.remove}
+							/>
+					}
+				</DropDown>
+			</ContextMenu>
+		}
 	</div>
 }
 

@@ -14,6 +14,7 @@ $main-bg-color: #FBFBFB;
 $main-border-color: #E6E6E6;
 $darker-border-color: #5e5e5e;
 $main-theme-color: #a30316;
+$warn-color: #c2591d;
 $main-theme-text-color: #e6e5d8;
 $main-hovered-selected-bg-color: #e4e4e4;
 $main-selected-bg-color: #ededed;
@@ -21,7 +22,13 @@ $main-hovered-bg-color: #f6f6f6;
 $main-overlay-color: rgba(0,0,0,0.4);
 $main-disabled-color: #8a8a8a;
 
-$optional-sidebar-screen-width: 1400px;
+$drop-down-bg: #ededed;
+$drop-down-item-clickable-hover: #e4e4e4;
+$drop-down-item-selected: #dbdbdb;
+$drop-down-item-selected-hover: #d2d2d2;
+$drop-down-item-width: 250px;
+
+$optional-sidebar-screen-width: 1450px;
 
 $gentle-shadow: 3px 3px 9px -5px rgba(0,0,0,0.75);
 $big-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 1);
