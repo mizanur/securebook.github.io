@@ -65,6 +65,9 @@ function EditorMenu({ className }: { className?: string }) {
 			if (menu.state?.image.attrs) {
 				setImageAttrs(menu.state.image.attrs);
 			}
+			else {
+				setImageAttrs(defaultImageAttrs);
+			}
 		},
 		[menu.state?.image.attrs || null]
 	);
@@ -605,7 +608,7 @@ function EditorMenu({ className }: { className?: string }) {
 					{isImageFileSizeWarning && <DropDownItem
 						className="EditorMenu__ImageSizeWarning"
 						iconType="warning"
-						label={`Image exceeds ${maxImageSize}MB`}
+						label={`Image can't exceed ${maxImageSize}MB`}
 					/>}
 					<DropDownItem isLink tag="label" for="EditorMenu__ImageFileBrowse" iconType="folder_open">
 						<span>Or, browse</span>
