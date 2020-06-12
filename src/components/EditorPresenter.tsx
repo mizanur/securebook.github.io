@@ -56,10 +56,13 @@ function EditorPresenter(
 		};
 	});
 
-	useEffect(() => {
-		setStateFromProps();
-		editor.current.view!.updateState(editor.current.state!);
-	}, [contentId]);
+	useEffect(
+		() => {
+			setStateFromProps();
+			editor.current.view!.updateState(editor.current.state!);
+		},
+		[contentId]
+	);
 
 	return <div className={`EditorPresenter ${disabled ? 'EditorPresenter--disabled': ``}`}>
 		{showLoading && <TextLoading className="EditorPresenter__TextLoading" />}

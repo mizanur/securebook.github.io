@@ -66,9 +66,6 @@ export class NoteManager implements INoteManager {
 	}
 
 	deleteNote(id: string): void {
-		if (id === this.notes.selectedId) {
-			this.notes.selectedId = null;
-		}
 		this.noteEntityManager.deleteItem(id);
 	}
 

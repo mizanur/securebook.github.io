@@ -63,8 +63,9 @@
 	}
 
 	blockquote {
-		border-left: 3px solid #333;
-		padding-left: 3px;
+		border-left: 3px solid $main-theme-color;
+		padding: $default-padding;
+		background: $editor-blockquote-bg;
 	}
 
 	ol {

@@ -610,7 +610,7 @@ function EditorMenu({ className }: { className?: string }) {
 						iconType="warning"
 						label={`Image can't exceed ${maxImageSize}MB`}
 					/>}
-					<DropDownItem isLink tag="label" for="EditorMenu__ImageFileBrowse" iconType="folder_open">
+					<DropDownItem isLink tag="label" for="EditorMenu__ImageFileBrowse" iconType="folder_open" label="Browse">
 						<span>Or, browse</span>
 						<input
 							id="EditorMenu__ImageFileBrowse"
