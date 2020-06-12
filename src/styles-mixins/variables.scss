@@ -21,7 +21,8 @@ $main-theme-text-color: #e6e5d8;
 $main-hovered-selected-bg-color: #e4e4e4;
 $main-selected-bg-color: #ededed;
 $main-hovered-bg-color: #f6f6f6;
-$main-overlay-color: rgba(0,0,0,0.4);
+$main-overlay-color: rgba(0, 0, 0, 0.4);
+$lighter-overlay-color: rgba(251, 251, 251, 0.5);
 $main-disabled-color: #8a8a8a;
 
 $drop-down-bg: #ededed;
@@ -41,3 +42,4 @@ $z-index-sidebar: 2;
 $z-index-main-overlay: 1;
 
 $note-dirty-text-color: #c2591d;
+$loading-spinner-color: #a30316;

@@ -9,7 +9,7 @@
 	display: inline-block;
 	
 	&__Icon {
-		color: $main-theme-color;
+		color: $loading-spinner-color;
 		animation: loadingSpinner 1s linear infinite;
 		transform-origin: center center;
 		font-size: $main-icon-size * 2;
