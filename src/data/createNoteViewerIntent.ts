@@ -28,15 +28,26 @@ export function createNoteViewerIntent(location: Location, auth: AuthData, passw
 		},
 
 		loadNoteWhenSelected() {
-			if (notes.selected && notes.selected.content.status === 'not loaded: created') {
+			if (this.isCurrentIntentValid && notes.selected && notes.selected.content.status === 'not loaded: created') {
 				noteManager.loadNote(notes.selected.id);
 			}
 		},
 
 		deselectNoteWhenIncorrect() {
-			if (notes.status === 'loaded' && notes.selectedId && !notes.selected) {
+			if (this.isCurrentIntentValid && notes.status === 'loaded' && notes.selectedId && !notes.selected) {
 				noteManager.selectNote(null);
 			}
+		},
+
+		get hasUnsavedChanges() {
+			if (this.isCurrentIntentValid) {
+				for (const id in notes.dirty) {
+					if (notes.dirty[id]) {
+						return true;
+					}
+				}
+			}
+			return false;
 		},
 	}
 }

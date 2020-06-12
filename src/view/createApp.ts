@@ -88,6 +88,7 @@ export function createApp(): [Connected, Store, Managers] {
 			password,
 			notes,
 			editor,
+			noteViewerIntent,
 		},
 		{
 			crypter,

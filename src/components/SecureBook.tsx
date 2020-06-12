@@ -15,7 +15,7 @@ import { useContextMenu } from '@view/useContextMenu';
 import { DropDown, DropDownItem } from '@components/DropDown';
 import ThemeBorder from '@components/ThemeBorder';
 import PasswordDialog from '@components/PasswordDialog';
-import { orderByUpdatedDate } from '@utils/notes';
+import { orderByUpdatedDate, unsavedChangesListener, isConfirmedUnsavedChanges } from '@utils/notes';
 import TextLoading from '@components/TextLoading';
 import EditorMenu from '@components/EditorMenu';
 import { useEffectOnce } from '@view/useEffectOnce';
@@ -27,8 +27,8 @@ import Tags from '@components/Tags';
 const optionalSidebarScreenWidth = `1450px`;
 
 function SecureBook() {
-	const { notes, darkMode } = useContext(StoreContext);
-	const { noteManager } = useContext(ManagersContext);
+	const { notes, darkMode, noteViewerIntent } = useContext(StoreContext);
+	const { noteManager, auth } = useContext(ManagersContext);
 	const [tagSearch, setTagSearch] = useState<string[]>([]);
 	const list = orderByUpdatedDate(getValues(notes.list));
 	const isContentLoaded = notes.selected
@@ -80,6 +80,22 @@ function SecureBook() {
 			setSidebarOpen(false);
 		}
 	};
+
+	
+	useEffect(
+		() => {
+			let isAdded = noteViewerIntent.hasUnsavedChanges;
+			if (isAdded) {
+				window.addEventListener('beforeunload', unsavedChangesListener);
+			}
+			return () => {
+				if (isAdded) {
+					window.removeEventListener('beforeunload', unsavedChangesListener);
+				}
+			};
+		},
+		[noteViewerIntent.hasUnsavedChanges]
+	);
 
 	const donateFormRef = useRef<HTMLFormElement>(null);
 
@@ -231,6 +247,15 @@ function SecureBook() {
 									iconType="bug_report"
 									href="https://github.com/guitarino/securebook/issues"
 									label="Report an issue"
+								/>
+								<DropDownItem
+									iconType="exit_to_app"
+									onClick={() => {
+										if (!noteViewerIntent.hasUnsavedChanges || isConfirmedUnsavedChanges()) {
+											auth.logout();
+										}
+									}}
+									label="Log out"
 								/>
 							</DropDown>
 						</ContextMenu>
