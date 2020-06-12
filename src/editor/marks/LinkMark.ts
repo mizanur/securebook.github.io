@@ -1,6 +1,5 @@
 import { EditorMark } from "@editor/interfaces/EditorMark";
 import { MarkSpec, Schema } from "prosemirror-model";
-import { isLinkExternal } from "@utils/link";
 import { getMarkAttrs } from "@editor/utils/getMarkAttrs";
 import { isActiveMark } from "@editor/utils/isActiveMark";
 import { EditorActiveState } from "@editor/interfaces/EditorCurrentState";
@@ -8,13 +7,8 @@ import { toggleMark } from "prosemirror-commands";
 import { MenuStateItem, MenuActionItem } from "@editor/interfaces/MenuItem";
 import { removeMarkAtCurrentPosition } from "@editor/utils/removeMarkAtCurrentPosition";
 import { updateMarkAtCurrentPosition } from "@editor/utils/updateMarkAtCurrentPosition";
-import { NodeViewProvider } from "@interfaces/NodeView";
-import { createNodeViewForComponent } from "@view/NodeView";
-import { LinkNodeView } from "@components/Link";
 
-export class LinkMark implements EditorMark, NodeViewProvider, MenuStateItem<'link'>, MenuActionItem<'link'> {
-	readonly nodeView = createNodeViewForComponent(LinkNodeView);
-
+export class LinkMark implements EditorMark, MenuStateItem<'link'>, MenuActionItem<'link'> {
 	readonly name = "link";
 
 	readonly markSpec: MarkSpec = {
@@ -34,17 +28,11 @@ export class LinkMark implements EditorMark, NodeViewProvider, MenuStateItem<'li
 		}],
 		toDOM(node) {
 			const { href, title } = node.attrs;
-			if (isLinkExternal(href)) {
-				return ["a", {
-					target: "_blank",
-					rel: "noopener noreferrer",
-					href,
-					title
-				}, 0];
-			}
 			return ["a", {
+				target: "_blank",
+				rel: "noopener noreferrer",
 				href,
-				title
+				title,
 			}, 0];
 		}
 	}

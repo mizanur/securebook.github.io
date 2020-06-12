@@ -25,11 +25,4 @@ function Link(props: h.JSX.HTMLAttributes<HTMLAnchorElement>) {
 	return <a {...newProps} />;
 }
 
-export function LinkNodeView(
-	{ attrs }:
-	{ attrs: h.JSX.HTMLAttributes<HTMLAnchorElement>, setAttrs: any }
-) {
-	return <Link {...attrs} />;
-}
-
 export default connect(Link);
