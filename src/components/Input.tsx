@@ -6,7 +6,17 @@ import ThemeBorder from '@components/ThemeBorder';
 import { IconType } from '@interfaces/Icon';
 import Icon from '@components/Icon';
 
-function Input(props: { iconType?: IconType, fieldClass?: string, fieldClassName?: string, fieldRef?: Ref<HTMLInputElement>, useField?: () => void } & h.JSX.HTMLAttributes<HTMLInputElement>) {
+export type InputProps = {
+		iconType?: IconType,
+		fieldClass?: string,
+		fieldClassName?: string,
+		fieldRef?: Ref<HTMLInputElement>,
+		useField?: () => void
+	}
+	& h.JSX.HTMLAttributes<HTMLInputElement>
+;
+
+function Input(props: InputProps) {
 	const [isFocused, setFocused] = useState<boolean>(false);
 	const className = props.class || props.className || ``;
 	const fieldClassName = props.fieldClass || props.fieldClassName || ``;

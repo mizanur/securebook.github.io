@@ -19,4 +19,5 @@ export type Notes = {
 	selected: null | Note,
 	dirty: { [k: string]: boolean },
 	state: { [k: string]: EditorState },
+	tags: string[],
 };

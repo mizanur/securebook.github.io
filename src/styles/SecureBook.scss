@@ -157,11 +157,18 @@ $settings-button-width: $default-padding + $min-button-size;
 		right: 0px;
 	}
 
+	&__SaveButton {
+		margin-right: $default-padding / 2;
+	}
+
+	&__CancelButton {
+		margin-left: $default-padding / 2;
+	}
+
 	&__SaveButton,
 	&__CancelButton {
 		flex: 0 0 auto;
 		min-width: 100px;
-		margin-right: $default-padding / 2;
 		text-align: left;
 		
 		i {

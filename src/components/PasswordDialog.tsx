@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { connect } from "@view/connect";
-import { useState, useRef, useContext } from 'preact/hooks';
-import { useEffectOnce } from '@view/useEffectOnce';
+import { useState, useContext } from 'preact/hooks';
 import Input from '@components/Input';
 import Icon from '@components/Icon';
 import Dialog from '@components/Dialog';

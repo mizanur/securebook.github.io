@@ -22,14 +22,14 @@ import { useEffectOnce } from '@view/useEffectOnce';
 import Checkbox from '@components/Checkbox';
 import Donate from '@components/Donate';
 import LoadingSpinner from '@components/LoadingSpinner';
+import Tags from '@components/Tags';
 
 const optionalSidebarScreenWidth = `1450px`;
 
 function SecureBook() {
 	const { notes, darkMode } = useContext(StoreContext);
 	const { noteManager } = useContext(ManagersContext);
-	const [tagSearch, setTagSearch] = useState('');
-	const trimmedTagSearch = tagSearch.trim();
+	const [tagSearch, setTagSearch] = useState<string[]>([]);
 	const list = orderByUpdatedDate(getValues(notes.list));
 	const isContentLoaded = notes.selected
 		&& (notes.selected.content.status === 'loaded'
@@ -44,6 +44,7 @@ function SecureBook() {
 		);
 	const { contextMenuId, getTriggerProps, contextMenuProps } = useContextMenu();
 	const focusedId = contextMenuId ?? notes.selectedId;
+	const contentId = notes.selected && !isContentLoading && notes.selected.id;
 
 	const mql = window.matchMedia(`(max-width: ${optionalSidebarScreenWidth})`);
 	const [isOptionalSidebar, setOptionalSidebar] = useState(mql.matches);
@@ -96,13 +97,13 @@ function SecureBook() {
 						>
 							<Icon type="add_box" />
 						</button>
-						<Input
+						<Tags
 							iconType="search"
 							type="text"
-							value={tagSearch}
-							onInput={e => setTagSearch(e.currentTarget.value)}
 							placeholder="Tag search"
 							className="SecureBook__TagSearch"
+							tags={tagSearch}
+							onTagsChange={setTagSearch}
 						/>
 					</article>
 					<section className="SecureBook__Notes">
@@ -113,49 +114,47 @@ function SecureBook() {
 									<TextLoading className="SecureBook__Loading" />
 									<TextLoading className="SecureBook__Loading" />
 								</Fragment>
-								: (trimmedTagSearch
-									? filterNotesByTags(list, trimmedTagSearch)
-									: list)
-								.map(note => (
-									<button
-										key={note.id}
-										className={
-											`SecureBook__Section SecureBook__Note ${
-												notes.selectedId === note.id ? `SecureBook__Note--selected` : ``
-											} ${
-												notes.dirty[note.id] ? `SecureBook__Note--dirty` : ``
-											}`
-										}
-										onClick={() => {
-											if (notes.selectedId !== note.id) {
-												noteManager.selectNote(note.id);
+								: filterNotesByTags(list, tagSearch)
+									.map(note => (
+										<button
+											key={note.id}
+											className={
+												`SecureBook__Section SecureBook__Note ${
+													notes.selectedId === note.id ? `SecureBook__Note--selected` : ``
+												} ${
+													notes.dirty[note.id] ? `SecureBook__Note--dirty` : ``
+												}`
 											}
-											setSidebarOpen(false);
-										}}
-										{...getTriggerProps(note.id)}
-									>
-										{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
-										<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
-										{note.tags.length > 0 &&
-											<div className="SecureBook__Tags" title={note.tags.join(' ')}>
-												<Icon type="local_offer" /> {note.tags.join(' ')}
-											</div>}
-										<div className="SecureBook__DateTime" title={
-											"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
-											"Created: " + getFormattedDateTime(note.createdTime, true)}>
-											<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
-										{contextMenuId === note.id &&
-											<ContextMenu {...contextMenuProps}>
-												<DropDown>
-													<DropDownItem
-														iconType="delete"
-														label="Delete note"
-														onClick={() => noteManager.deleteNote(note.id)}
-													/>
-												</DropDown>
-											</ContextMenu>}
-									</button>
-								))
+											onClick={() => {
+												if (notes.selectedId !== note.id) {
+													noteManager.selectNote(note.id);
+												}
+												setSidebarOpen(false);
+											}}
+											{...getTriggerProps(note.id)}
+										>
+											{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
+											<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
+											{note.tags.length > 0 &&
+												<div className="SecureBook__Tags" title={note.tags.join(' ')}>
+													<Icon type="local_offer" /> {note.tags.join(' ')}
+												</div>}
+											<div className="SecureBook__DateTime" title={
+												"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
+												"Created: " + getFormattedDateTime(note.createdTime, true)}>
+												<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
+											{contextMenuId === note.id &&
+												<ContextMenu {...contextMenuProps}>
+													<DropDown>
+														<DropDownItem
+															iconType="delete"
+															label="Delete note"
+															onClick={() => noteManager.deleteNote(note.id)}
+														/>
+													</DropDown>
+												</ContextMenu>}
+										</button>
+									))
 						}
 					</section>
 				</aside>
@@ -242,7 +241,7 @@ function SecureBook() {
 						<EditorPresenter
 							disabled={!isContentLoaded}
 							showTextLoading={!!isContentLoading}
-							contentId={!isContentLoading && notes.selected.id}
+							contentId={contentId}
 							content={notes.selected.content.value || { html: '' }}
 							onContentChange={(text, content) => {
 								noteManager.updateSelectedNoteContent(text, content);
@@ -264,6 +263,17 @@ function SecureBook() {
 									: <span>Save</span>
 							}
 						</button>
+						<Tags
+							key={contentId}
+							isNewAllowed
+							isChangedOnInput
+							className="SecureBook__AddTags"
+							iconType="local_offer"
+							placeholder="Add tags"
+							direction={{ v: 'top', h: 'left' }}
+							tags={notes.selected.tags}
+							onTagsChange={tags => noteManager.updateSelectedNoteTags(tags)}
+						/>
 						{
 							!!(notes.selectedId && notes.dirty[notes.selectedId]) && <button
 								className="SecureBook__CancelButton"
@@ -272,16 +282,6 @@ function SecureBook() {
 								<Icon type="cancel" /><span>Cancel</span>
 							</button>
 						}
-						<Input
-							className="SecureBook__AddTags"
-							iconType="local_offer"
-							placeholder="Add tags"
-							value={notes.selected.tags.join(' ')}
-							onInput={e => noteManager.updateSelectedNoteTags(
-								e.currentTarget.value.length
-									? e.currentTarget.value.split(/\s+/)
-									: [])}
-						/>
 					</div>
 				</Fragment>
 			}
