@@ -197,7 +197,7 @@ function SecureBook() {
 				<button
 					ref={settingsRef}
 					className="SecureBook__Settings"
-					onClick={() => setSettingsOpen(true)}
+					onClick={() => setSettingsOpen(!isSettingsOpen)}
 				>
 					<Icon type="more_vert" />
 				</button>
