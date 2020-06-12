@@ -7,6 +7,7 @@ export interface NoteManager {
 	createNoteAndSelect(): void;
 	updateSelectedNoteContent(textContent: string, contentValue: NoteContent): void;
 	updateSelectedNoteTags(tags: string[]): void;
-	deleteNote(id: string): void;
-	saveSelectedNote(): void;
+	deleteNote(id: string): Promise<any>;
+	saveSelectedNote(): Promise<any>;
+	cancelSelectedNoteChanges(): void;
 }

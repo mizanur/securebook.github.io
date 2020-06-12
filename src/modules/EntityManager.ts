@@ -56,7 +56,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 	}
 
 	async loadList() {
-		this.performAfterCurrentRequest(async () => {
+		await this.performAfterCurrentRequest(async () => {
 			const entityListName = this.getEntityListFileName();
 			this.entityData.status = 'loading';
 			let isNoteListCreated = false;
@@ -115,7 +115,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 	}
 
 	async loadItem(id: string) {
-		this.performAfterCurrentRequest(async () => {
+		await this.performAfterCurrentRequest(async () => {
 			this.entityData.status = 'loading entity';
 			this.performOnLists(list => list[id].content.status = 'loading');
 			let content: C;
@@ -136,7 +136,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 	}
 
 	async createItem(id: string) {
-		this.performAfterCurrentRequest(async () => {
+		await this.performAfterCurrentRequest(async () => {
 			this.entityData.status = 'creating entity';
 			this.entityData.workingList[id].content.status = 'creating';
 			this.entityData.workingList = { ...this.entityData.workingList };
@@ -161,7 +161,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 	}
 
 	async updateItem(id: string) {
-		this.performAfterCurrentRequest(async () => {
+		await this.performAfterCurrentRequest(async () => {
 			this.entityData.status = 'updating entity';
 			this.performOnLists(list => list[id].content.status = 'updating');
 			const loadedList = { ...this.entityData.loadedList };
@@ -184,7 +184,7 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 	}
 
 	async deleteItem(id: string) {
-		this.performAfterCurrentRequest(async () => {
+		await this.performAfterCurrentRequest(async () => {
 			const prevItemStatus = this.entityData.workingList[id].content.status;
 			this.entityData.status = 'deleting entity';
 			this.performOnLists(list => {
@@ -244,5 +244,16 @@ export class EntityManager<C, T extends BaseEntity<C>> implements IEntityManager
 			[workingItem.id]: workingItem
 		};
 		return workingItem;
+	}
+
+	restoreWorkingItem(id: string) {
+		const workingList = { ...this.entityData.workingList };
+		if (id in this.entityData.loadedList) {
+			workingList[id] = deepCopy(this.entityData.loadedList[id]);
+		}
+		else {
+			delete workingList[id];
+		}
+		this.entityData.workingList = workingList;
 	}
 }

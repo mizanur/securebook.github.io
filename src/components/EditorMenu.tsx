@@ -105,7 +105,7 @@ function EditorMenu({ className }: { className?: string }) {
 			className={`EditorMenu__Button ${
 				(isHeadingEditorOpen || menu.state.heading.canToggle && menu.state.heading.isCurrent) ? `EditorMenu__Button--active`: ``
 			}`}
-			onClick={() => setHeadingEditorOpen(true)}
+			onClick={() => setHeadingEditorOpen(!isHeadingEditorOpen)}
 			title="Heading"
 			ref={headingRef}
 		>
@@ -215,7 +215,7 @@ function EditorMenu({ className }: { className?: string }) {
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
-			onClick={() => setFontEditorOpen(true)}
+			onClick={() => setFontEditorOpen(!isFontEditorOpen)}
 			title="Font"
 		>
 			<Icon type="format_size" />
@@ -320,7 +320,7 @@ function EditorMenu({ className }: { className?: string }) {
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
-			onClick={() => setFontColorEditorOpen(true)}
+			onClick={() => setFontColorEditorOpen(!isFontColorEditorOpen)}
 			title="Font color"
 		>
 			<Icon type="format_color_text" style={{
@@ -353,7 +353,7 @@ function EditorMenu({ className }: { className?: string }) {
 					? `EditorMenu__Button--active`
 					: ``
 			}`}
-			onClick={() => setHighlightEditorOpen(true)}
+			onClick={() => setHighlightEditorOpen(!isHighlightEditorOpen)}
 			title="Highlight color"
 		>
 			<Icon type="highlight" style={{
@@ -578,7 +578,7 @@ function EditorMenu({ className }: { className?: string }) {
 			className={`EditorMenu__Button ${
 				(isImageEditorOpen || menu.state.image.isCurrent) ? `EditorMenu__Button--active`: ``
 			}`}
-			onClick={() => setImageEditorOpen(true)}
+			onClick={() => setImageEditorOpen(!isImageEditorOpen)}
 			title="Image"
 		>
 			<Icon type="image" />

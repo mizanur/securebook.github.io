@@ -1,4 +1,5 @@
 import { BaseEntity, EntityData } from "@interfaces/EntityData";
+import { EditorState } from "prosemirror-state";
 
 export type NoteContent = {
 	html: string,
@@ -16,4 +17,6 @@ export type Notes = {
 	list: EntityData<NoteContent, Note>['workingList'],
 	selectedId: null | string,
 	selected: null | Note,
+	dirty: { [k: string]: boolean },
+	state: { [k: string]: EditorState },
 };

@@ -33,5 +33,9 @@ export function createNotes(location: Location, notesEntityData: EntityData<Note
 		get selected() {
 			return this.selectedId && this.list[this.selectedId] || null;
 		},
+
+		dirty: {},
+		
+		state: {},
 	}
 }

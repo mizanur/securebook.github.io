@@ -10,22 +10,29 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import TextLoading from '@components/TextLoading';
 
 function EditorPresenter(
-	{ contentId, content, onContentChange, disabled = false, showLoading = false, }:
-	{ contentId: any, content: NoteContent, disabled?: boolean, showLoading?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }
+	{ contentId, content, onContentChange, disabled = false, showTextLoading = false, }:
+	{ contentId: any, content: NoteContent, disabled?: boolean, showTextLoading?: boolean, onContentChange: (textContent: string, content: NoteContent) => any }
 ) {
-	const { editor } = useContext(StoreContext);
+	const { editor, notes } = useContext(StoreContext);
 	const element = useRef<HTMLDivElement>(null);
 	const contentRef = useRef<NoteContent>(null);
+	const id = useRef<any>();
+	id.current = contentId;
 	contentRef.current = content;
 
 	function setStateFromProps() {
-		const contentNode = document.createElement('span');
-		contentNode.innerHTML = contentRef.current.html;
-		editor.current.state = EditorState.create({
-			schema: editor.editorSchema.schema,
-			doc: editor.domParser.parse(contentNode),
-			plugins: editor.editorPluginsManager.getPlugins(editor.editorSchema.schema),
-		});
+		if (id.current && notes.state[id.current]) {
+			editor.current.state = notes.state[id.current];
+		}
+		else {
+			const contentNode = document.createElement('span');
+			contentNode.innerHTML = contentRef.current.html;
+			editor.current.state = EditorState.create({
+				schema: editor.editorSchema.schema,
+				doc: editor.domParser.parse(contentNode),
+				plugins: editor.editorPluginsManager.getPlugins(editor.editorSchema.schema),
+			});
+		}
 	}
 
 	useEffectOnce(() => {
@@ -34,6 +41,9 @@ function EditorPresenter(
 		const dispatchTransaction = (transaction: Transaction) => {
 			const div = document.createElement('div');
 			editor.current.state = editor.current.state!.apply(transaction);
+			if (id.current) {
+				notes.state[id.current] = editor.current.state;
+			}
 			editor.current.view!.updateState(editor.current.state);
 			div.appendChild(editor.domSerializer.serializeFragment(editor.current.state.doc.content));
 			if (contentRef.current.html !== div.innerHTML) {
@@ -61,11 +71,11 @@ function EditorPresenter(
 			setStateFromProps();
 			editor.current.view!.updateState(editor.current.state!);
 		},
-		[contentId]
+		[contentId, notes.state]
 	);
 
 	return <div className={`EditorPresenter ${disabled ? 'EditorPresenter--disabled': ``}`}>
-		{showLoading && <TextLoading className="EditorPresenter__TextLoading" />}
+		{showTextLoading && <TextLoading className="EditorPresenter__TextLoading" />}
 		<div className="EditorPresenter__Content" ref={element}></div>
 	</div>;
 }

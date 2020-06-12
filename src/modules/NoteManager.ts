@@ -25,7 +25,7 @@ export class NoteManager implements INoteManager {
 		await this.noteEntityManager.loadItem(id);
 	}
 
-	async selectNote(id: string | null) {
+	selectNote(id: string | null) {
 		this.notes.selectedId = id;
 		this.pathManager.onNoteSelected(id);
 	}
@@ -33,6 +33,10 @@ export class NoteManager implements INoteManager {
 	createNoteAndSelect(): void {
 		const { id } = this.noteEntityManager.createWorkingItem();
 		this.selectNote(id);
+		this.notes.dirty = {
+			...this.notes.dirty,
+			[id]: true,
+		};
 	}
 
 	updateSelectedNoteContent(textContent: string, contentValue: NoteContent): void {
@@ -50,6 +54,10 @@ export class NoteManager implements INoteManager {
 			note.content.value = contentValue;
 			note.lastUpdatedTime = getTimeInMS();
 			this.noteEntityManager.updateWorkingItem(note);
+			this.notes.dirty = {
+				...this.notes.dirty,
+				[this.notes.selectedId]: true,
+			};
 		}
 	}
 
@@ -62,20 +70,38 @@ export class NoteManager implements INoteManager {
 			note.tags = tags;
 			note.lastUpdatedTime = getTimeInMS();
 			this.noteEntityManager.updateWorkingItem(note);
+			this.notes.dirty = {
+				...this.notes.dirty,
+				[this.notes.selectedId]: true,
+			};
 		}
 	}
 
-	deleteNote(id: string): void {
-		this.noteEntityManager.deleteItem(id);
+	async deleteNote(id: string) {
+		await this.noteEntityManager.deleteItem(id);
+		const dirty = { ...this.notes.dirty };
+		const state = { ...this.notes.state };
+		delete dirty[id];
+		delete state[id];
+		this.notes.dirty = dirty;
+		this.notes.state = state;
 	}
 
-	saveSelectedNote(): void {
+	async saveSelectedNote() {
 		if (this.notes.selectedId && this.notes.selected) {
 			if (this.notes.selected.content.status === 'loaded: not created' || this.notes.selected.content.status === 'not loaded: not created') {
-				this.noteEntityManager.createItem(this.notes.selectedId);
+				await this.noteEntityManager.createItem(this.notes.selectedId);
+				this.notes.dirty = {
+					...this.notes.dirty,
+					[this.notes.selectedId]: false,
+				};
 			}
 			else if (this.notes.selected.content.status === 'loaded') {
-				this.noteEntityManager.updateItem(this.notes.selectedId);
+				await this.noteEntityManager.updateItem(this.notes.selectedId);
+				this.notes.dirty = {
+					...this.notes.dirty,
+					[this.notes.selectedId]: false,
+				};
 			}
 			else {
 				console.error('This should not happen: trying to save non-loaded note');
@@ -83,6 +109,19 @@ export class NoteManager implements INoteManager {
 		}
 		else {
 			console.error('This should not happen: trying to save non-selected note');
+		}
+	}
+
+	cancelSelectedNoteChanges() {
+		const id = this.notes.selectedId;
+		if (id && this.notes.dirty) {
+			this.noteEntityManager.restoreWorkingItem(id);
+			const state = { ...this.notes.state };
+			delete state[id];
+			this.notes.state = state;
+			const dirty = { ...this.notes.dirty };
+			delete dirty[id];
+			this.notes.dirty = dirty;
 		}
 	}
 }

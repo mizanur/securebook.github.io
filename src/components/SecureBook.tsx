@@ -21,6 +21,7 @@ import EditorMenu from '@components/EditorMenu';
 import { useEffectOnce } from '@view/useEffectOnce';
 import Checkbox from '@components/Checkbox';
 import Donate from '@components/Donate';
+import LoadingSpinner from '@components/LoadingSpinner';
 
 const optionalSidebarScreenWidth = `1450px`;
 
@@ -35,6 +36,12 @@ function SecureBook() {
 			|| notes.selected.content.status === 'loaded: not created');
 	const isContentLoading = notes.selected
 		&& (notes.selected.content.status === 'loading');
+	const isEditorSpinnerShown = notes.selected
+		&& (
+			notes.selected.content.status === 'deleting' ||
+			notes.selected.content.status === 'updating' ||
+			notes.selected.content.status === 'creating'
+		);
 	const { contextMenuId, getTriggerProps, contextMenuProps } = useContextMenu();
 	const focusedId = contextMenuId ?? notes.selectedId;
 
@@ -110,11 +117,13 @@ function SecureBook() {
 									? filterNotesByTags(list, trimmedTagSearch)
 									: list)
 								.map(note => (
-									<article
+									<button
 										key={note.id}
 										className={
 											`SecureBook__Section SecureBook__Note ${
 												notes.selectedId === note.id ? `SecureBook__Note--selected` : ``
+											} ${
+												notes.dirty[note.id] ? `SecureBook__Note--dirty` : ``
 											}`
 										}
 										onClick={() => {
@@ -145,7 +154,7 @@ function SecureBook() {
 													/>
 												</DropDown>
 											</ContextMenu>}
-									</article>
+									</button>
 								))
 						}
 					</section>
@@ -156,9 +165,17 @@ function SecureBook() {
 				isOptionalSidebar && isSidebarOpen
 					? `SecureBook__Main--under-sidebar`
 					: ``
+			} ${
+				isEditorSpinnerShown
+					? `SecureBook__Main--loading`
+					: ``
 			}`}
 			onClickCapture={onMainClick}
 		>
+			{
+				isEditorSpinnerShown &&
+					<LoadingSpinner className="SecureBook__MainLoading" />
+			}
 			<div
 				className={`SecureBook__MainTop ${
 					isOptionalSidebar && isSidebarOpen
@@ -224,7 +241,7 @@ function SecureBook() {
 					<div className="SecureBook__Editor">
 						<EditorPresenter
 							disabled={!isContentLoaded}
-							showLoading={!!isContentLoading}
+							showTextLoading={!!isContentLoading}
 							contentId={!isContentLoading && notes.selected.id}
 							content={notes.selected.content.value || { html: '' }}
 							onContentChange={(text, content) => {
@@ -247,6 +264,14 @@ function SecureBook() {
 									: <span>Save</span>
 							}
 						</button>
+						{
+							!!(notes.selectedId && notes.dirty[notes.selectedId]) && <button
+								className="SecureBook__CancelButton"
+								onClick={() => noteManager.cancelSelectedNoteChanges()}
+							>
+								<Icon type="cancel" /><span>Cancel</span>
+							</button>
+						}
 						<Input
 							className="SecureBook__AddTags"
 							iconType="local_offer"
