@@ -4,6 +4,11 @@ $sidebar-open-width: 80%;
 $open-sidebar-button-width: $default-padding + $min-button-size;
 $settings-button-width: $default-padding + $min-button-size;
 
+@keyframes mainScreenOverlayAppear {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
 .SecureBook {
 	position: absolute;
 	top: 0;
@@ -23,6 +28,12 @@ $settings-button-width: $default-padding + $min-button-size;
 		border-right: 3px solid $main-border-color;
 		background: $main-bg-color;
 		z-index: $z-index-sidebar;
+		transition: transform 150ms ease-in-out;
+
+		&--hidden {
+			transform: translateX(-101%);
+			pointer-events: none;
+		}
 	}
 
 	&__SidebarTop {
@@ -68,6 +79,8 @@ $settings-button-width: $default-padding + $min-button-size;
 				bottom: 0;
 				z-index: $z-index-main-overlay;
 				background: $main-overlay-color;
+				will-change: opacity;
+				animation: mainScreenOverlayAppear 150ms linear;
 			}
 		}
 	}

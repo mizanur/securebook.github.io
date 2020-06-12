@@ -85,79 +85,80 @@ function SecureBook() {
 
 	return <div className={`SecureBook ${darkMode.isDarkMode ? `dark-mode` : ``}`}>
 		{
-			(!isOptionalSidebar || isSidebarOpen) &&
-				<aside className="SecureBook__Sidebar">
-					<article className="SecureBook__SidebarTop">
-						<button
-							title="Add note"
-							onClick={() => {
-								noteManager.createNoteAndSelect();
-								setSidebarOpen(false);
-							}}
-						>
-							<Icon type="add_box" />
-						</button>
-						<Tags
-							iconType="search"
-							type="text"
-							placeholder="Tag search"
-							className="SecureBook__TagSearch"
-							tags={tagSearch}
-							onTagsChange={setTagSearch}
-						/>
-					</article>
-					<section className="SecureBook__Notes">
-						{
-							notes.status === 'loading'
-								? <Fragment>
-									<TextLoading className="SecureBook__Loading" />
-									<TextLoading className="SecureBook__Loading" />
-									<TextLoading className="SecureBook__Loading" />
-								</Fragment>
-								: filterNotesByTags(list, tagSearch)
-									.map(note => (
-										<button
-											key={note.id}
-											className={
-												`SecureBook__Section SecureBook__Note ${
-													notes.selectedId === note.id ? `SecureBook__Note--selected` : ``
-												} ${
-													notes.dirty[note.id] ? `SecureBook__Note--dirty` : ``
-												}`
+			<aside className={`SecureBook__Sidebar ${
+				(isOptionalSidebar && !isSidebarOpen) ? `SecureBook__Sidebar--hidden` : ``
+			}`}>
+				<article className="SecureBook__SidebarTop">
+					<button
+						title="Add note"
+						onClick={() => {
+							noteManager.createNoteAndSelect();
+							setSidebarOpen(false);
+						}}
+					>
+						<Icon type="add_box" />
+					</button>
+					<Tags
+						iconType="search"
+						type="text"
+						placeholder="Tag search"
+						className="SecureBook__TagSearch"
+						tags={tagSearch}
+						onTagsChange={setTagSearch}
+					/>
+				</article>
+				<section className="SecureBook__Notes">
+					{
+						notes.status === 'loading'
+							? <Fragment>
+								<TextLoading className="SecureBook__Loading" />
+								<TextLoading className="SecureBook__Loading" />
+								<TextLoading className="SecureBook__Loading" />
+							</Fragment>
+							: filterNotesByTags(list, tagSearch)
+								.map(note => (
+									<button
+										key={note.id}
+										className={
+											`SecureBook__Section SecureBook__Note ${
+												notes.selectedId === note.id ? `SecureBook__Note--selected` : ``
+											} ${
+												notes.dirty[note.id] ? `SecureBook__Note--dirty` : ``
+											}`
+										}
+										onClick={() => {
+											if (notes.selectedId !== note.id) {
+												noteManager.selectNote(note.id);
 											}
-											onClick={() => {
-												if (notes.selectedId !== note.id) {
-													noteManager.selectNote(note.id);
-												}
-												setSidebarOpen(false);
-											}}
-											{...getTriggerProps(note.id)}
-										>
-											{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
-											<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
-											{note.tags.length > 0 &&
-												<div className="SecureBook__Tags" title={note.tags.join(' ')}>
-													<Icon type="local_offer" /> {note.tags.join(' ')}
-												</div>}
-											<div className="SecureBook__DateTime" title={
-												"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
-												"Created: " + getFormattedDateTime(note.createdTime, true)}>
-												<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
-											{contextMenuId === note.id &&
-												<ContextMenu {...contextMenuProps}>
-													<DropDown>
-														<DropDownItem
-															iconType="delete"
-															label="Delete note"
-															onClick={() => noteManager.deleteNote(note.id)}
-														/>
-													</DropDown>
-												</ContextMenu>}
-										</button>
-									))
-						}
-					</section>
-				</aside>
+											setSidebarOpen(false);
+										}}
+										{...getTriggerProps(note.id)}
+									>
+										{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
+										<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
+										{note.tags.length > 0 &&
+											<div className="SecureBook__Tags" title={note.tags.join(' ')}>
+												<Icon type="local_offer" /> {note.tags.join(' ')}
+											</div>}
+										<div className="SecureBook__DateTime" title={
+											"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
+											"Created: " + getFormattedDateTime(note.createdTime, true)}>
+											<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
+										{contextMenuId === note.id &&
+											<ContextMenu {...contextMenuProps}>
+												<DropDown>
+													<DropDownItem
+														iconType="delete"
+														label="Delete note"
+														onClick={() => noteManager.deleteNote(note.id)}
+													/>
+												</DropDown>
+											</ContextMenu>}
+									</button>
+								))
+					}
+				</section>
+			</aside>
 		}
 		<main
 			className={`SecureBook__Main ${
