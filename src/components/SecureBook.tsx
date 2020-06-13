@@ -1,7 +1,6 @@
 import { h, Fragment } from 'preact';
 import { connect } from '@view/connect';
 import "@styles/SecureBook.scss";
-import Input from '@components/Input';
 import { useState, useContext, useRef, useEffect } from 'preact/hooks';
 import { StoreContext } from '@view/StoreContext';
 import { ManagersContext } from '@view/ManagersContext';
@@ -23,6 +22,7 @@ import Checkbox from '@components/Checkbox';
 import Donate from '@components/Donate';
 import LoadingSpinner from '@components/LoadingSpinner';
 import Tags from '@components/Tags';
+import NoteItem from './NoteItem';
 
 const optionalSidebarScreenWidth = `1450px`;
 
@@ -31,6 +31,7 @@ function SecureBook() {
 	const { noteManager, auth } = useContext(ManagersContext);
 	const [tagSearch, setTagSearch] = useState<string[]>([]);
 	const list = orderByUpdatedDate(getValues(notes.list));
+	const noteResultingList = filterNotesByTags(list, tagSearch);
 	const isContentLoaded = notes.selected
 		&& (notes.selected.content.status === 'loaded'
 			|| notes.selected.content.status === 'loaded: not created');
@@ -141,52 +142,30 @@ function SecureBook() {
 				<section className="SecureBook__Notes">
 					{
 						notes.status === 'loading'
-							? <Fragment>
-								<TextLoading className="SecureBook__Loading" />
-								<TextLoading className="SecureBook__Loading" />
-								<TextLoading className="SecureBook__Loading" />
-							</Fragment>
-							: filterNotesByTags(list, tagSearch)
-								.map(note => (
-									<button
-										key={note.id}
-										className={
-											`SecureBook__Section SecureBook__Note ${
-												notes.selectedId === note.id ? `SecureBook__Note--selected` : ``
-											} ${
-												notes.dirty[note.id] ? `SecureBook__Note--dirty` : ``
-											}`
-										}
-										onClick={() => {
-											if (notes.selectedId !== note.id) {
-												noteManager.selectNote(note.id);
-											}
-											setSidebarOpen(false);
-										}}
-										{...getTriggerProps(note.id)}
-									>
-										{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
-										<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
-										{note.tags.filter(tag => (tag.length > 0)).length > 0 &&
-											<div className="SecureBook__Tags" title={note.tags.join(' ')}>
-												<Icon type="local_offer" /> {note.tags.join(' ')}
-											</div>}
-										<div className="SecureBook__DateTime" title={
-											"Last edited: " + getFormattedDateTime(note.lastUpdatedTime, true) + "\n" +
-											"Created: " + getFormattedDateTime(note.createdTime, true)}>
-											<Icon type="edit" /> {getFormattedDateTime(note.lastUpdatedTime)}</div>
-										{contextMenuId === note.id &&
-											<ContextMenu {...contextMenuProps}>
-												<DropDown>
-													<DropDownItem
-														iconType="delete"
-														label="Delete note"
-														onClick={() => noteManager.deleteNote(note.id)}
-													/>
-												</DropDown>
-											</ContextMenu>}
-									</button>
-								))
+							?
+								<Fragment>
+									<TextLoading className="SecureBook__Loading" />
+									<TextLoading className="SecureBook__Loading" />
+									<TextLoading className="SecureBook__Loading" />
+								</Fragment>
+							:
+						noteResultingList.length === 0 && notes.status === 'loaded'
+							?
+								<div className="SecureBook__EmptyNotes">
+									No notes are currently added. To add a note, click <Icon type="add_box" /> above.
+								</div>
+							:
+								noteResultingList.map(note =>
+									<NoteItem
+										note={note}
+										isDirty={!!notes.dirty[note.id]}
+										selectedId={notes.selectedId}
+										focusedId={focusedId}
+										setSidebarOpen={setSidebarOpen}
+										getTriggerProps={getTriggerProps}
+										contextMenuId={contextMenuId}
+										contextMenuProps={contextMenuProps}
+									/>)
 					}
 				</section>
 			</aside>
@@ -281,54 +260,60 @@ function SecureBook() {
 				}
 			</div>
 			{
-				!!notes.selected && <Fragment>
-					<div className="SecureBook__Editor">
-						<EditorPresenter
-							disabled={!isContentLoaded}
-							showTextLoading={!!isContentLoading}
-							contentId={contentId}
-							content={notes.selected.content.value || { html: '' }}
-							onContentChange={(text, content) => {
-								noteManager.updateSelectedNoteContent(text, content);
-							}}
-						/>
+				!notes.selected && notes.status === 'loaded'
+					? <div className="SecureBook__EditorEmpty">
+						Note is not selected. You can select a note, or add a new one in the sidebar{
+							isOptionalSidebar &&
+								<Fragment> by clicking <Icon type="notes" /></Fragment>}.
 					</div>
-					<div className="SecureBook__BottomBar">
-						<button
-							className="SecureBook__SaveButton"
-							onClick={() => noteManager.saveSelectedNote()}
-						>
-							<Icon type="save" />
-							{
-								notes.selected.content.status === 'creating' ||
-								notes.selected.content.status === 'updating'
-									? <span>Saving...</span> :
-								notes.selected.content.status === 'loading'
-									? <span>Loading...</span>
-									: <span>Save</span>
-							}
-						</button>
-						<Tags
-							key={contentId}
-							isNewAllowed
-							isChangedOnInput
-							className="SecureBook__AddTags"
-							iconType="local_offer"
-							placeholder="Add tags"
-							direction={{ v: 'top', h: 'left' }}
-							tags={notes.selected.tags}
-							onTagsChange={tags => noteManager.updateSelectedNoteTags(tags)}
-						/>
-						{
-							!!(notes.selectedId && notes.dirty[notes.selectedId]) && <button
-								className="SecureBook__CancelButton"
-								onClick={() => noteManager.cancelSelectedNoteChanges()}
+					: !!notes.selected && <Fragment>
+						<div className="SecureBook__Editor">
+							<EditorPresenter
+								disabled={!isContentLoaded}
+								showTextLoading={!!isContentLoading}
+								contentId={contentId}
+								content={notes.selected.content.value || { html: '' }}
+								onContentChange={(text, content) => {
+									noteManager.updateSelectedNoteContent(text, content);
+								}}
+							/>
+						</div>
+						<div className="SecureBook__BottomBar">
+							<button
+								className="SecureBook__SaveButton"
+								onClick={() => noteManager.saveSelectedNote()}
 							>
-								<Icon type="cancel" /><span>Cancel</span>
+								<Icon type="save" />
+								{
+									notes.selected.content.status === 'creating' ||
+									notes.selected.content.status === 'updating'
+										? <span>Saving...</span> :
+									notes.selected.content.status === 'loading'
+										? <span>Loading...</span>
+										: <span>Save</span>
+								}
 							</button>
-						}
-					</div>
-				</Fragment>
+							<Tags
+								key={contentId}
+								isNewAllowed
+								isChangedOnInput
+								className="SecureBook__AddTags"
+								iconType="local_offer"
+								placeholder="Add tags"
+								direction={{ v: 'top', h: 'left' }}
+								tags={notes.selected.tags}
+								onTagsChange={tags => noteManager.updateSelectedNoteTags(tags)}
+							/>
+							{
+								!!(notes.selectedId && notes.dirty[notes.selectedId]) && <button
+									className="SecureBook__CancelButton"
+									onClick={() => noteManager.cancelSelectedNoteChanges()}
+								>
+									<Icon type="cancel" /><span>Cancel</span>
+								</button>
+							}
+						</div>
+					</Fragment>
 			}
 		</main>
 		<PasswordDialog />

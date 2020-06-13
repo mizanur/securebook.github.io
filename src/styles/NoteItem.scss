@@ -1,0 +1,59 @@
+@import "../styles-mixins/variables.scss";
+
+.NoteItem {
+	display: block;
+	width: 100%;
+	line-height: inherit;
+	text-align: inherit;
+	position: relative;
+	padding: $default-padding;
+	cursor: pointer;
+	
+	@include themed using ($theme) {
+		border-bottom: 1px solid map-get($theme, 'main-border-color');
+	}
+
+	&--dirty {
+		@include themed using ($theme) {
+			color: map-get($theme, 'note-dirty-text-color');
+		}
+	}
+
+	&:hover {
+		@include themed using ($theme) {
+			background: map-get($theme, 'main-hovered-bg-color');
+		}
+	}
+
+	&--selected {
+		@include themed using ($theme) {
+			background: map-get($theme, 'main-selected-bg-color');
+		}
+
+		&:hover {
+			@include themed using ($theme) {
+				background: map-get($theme, 'main-hovered-selected-bg-color');
+			}
+		}
+	}
+
+	&__NoteName {
+		position: relative;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		font-weight: 600;
+		overflow: hidden;
+		max-height: 3em;
+		font-size: 18px;
+	}
+
+	&__Tags,
+	&__DateTime {
+		position: relative;
+		font-size: 14px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
