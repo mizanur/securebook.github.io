@@ -1,0 +1,22 @@
+{
+  "icons": [
+    {
+      "src": "icon_512x512.7c41fdf875a8a396aa88935406e18779.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_192x192.223b5fb450918166375b7e76fb883b20.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Secure Book",
+  "short_name": "Secure Book",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Write notes securely",
+  "theme_color": "#A30316",
+  "background_color": "#643C22"
+}

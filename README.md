@@ -1,2 +1,0 @@
-# notesecure
-Note Secure

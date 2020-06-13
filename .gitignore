@@ -41,9 +41,6 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
-
 # TypeScript cache
 *.tsbuildinfo
 
@@ -102,3 +99,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+
+.build/
+.garbage/
+.prod-configs/
