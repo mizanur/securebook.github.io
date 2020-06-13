@@ -9,19 +9,21 @@ import { ManagersContext } from '@view/ManagersContext';
 import "@styles/PasswordDialog.scss";
 import { keycodes } from '@utils/keycode';
 import { useFocusOnMount } from '@view/useFocusOnMount';
+import Checkbox from './Checkbox';
 
 function PasswordDialog() {
 	const { password } = useContext(StoreContext);
 	const { passwordManager } = useContext(ManagersContext);
 
 	const [passwordValue, setPasswordValue] = useState('');
+	const [rememberPassword, setRememberPassword] = useState(false);
 	const [isRevealed, setRevealed] = useState(false);
 
 	const useFocusProps = useFocusOnMount();
 
 	const submitOnEnter = (e: KeyboardEvent) => {
 		if (e.keyCode === keycodes.enter) {
-			passwordManager.providePassword(passwordValue);
+			passwordManager.providePassword(passwordValue, rememberPassword);
 		}
 	};
 
@@ -34,13 +36,32 @@ function PasswordDialog() {
 					This password will be used to encrypt all of your notes. Without knowing
 					the password, nobody will be able to see your notes.
 				</p>
-				<h2><Icon type="warning" /> A word of caution</h2>
+				<h2 className="PasswordDialog__Warn"><Icon type="warning" /> A word of caution</h2>
 				<p>
 					If the password is lost, all notes will be lost too. There is no way to
 					recover the password, because it's not stored anywhere in any
 					shape or form. In addition, it's currently impossible to change password
 					once it was chosen (this feature is still under development).
 				</p>
+				{
+					password.status === 'incorrect' &&
+						<p className="PasswordDialog__Incorrect">
+							The provided password is incorrect. Please, try again:
+						</p>
+				}
+				<button
+					className="PasswordDialog__RememberPassword"
+					onClick={() => setRememberPassword(!rememberPassword)}
+					title="Remember password on this device until logging out"
+				>
+					<Checkbox
+						className="PasswordDialog__RememberPasswordCheckbox"
+						isChecked={rememberPassword}
+					/>
+					<span className="PasswordDialog__RememberPasswordLabel">
+						Remember password
+					</span>
+				</button>
 				<div className="PasswordDialog__PasswordField">
 					<Input
 						iconType="vpn_key"

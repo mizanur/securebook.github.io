@@ -1,3 +1,3 @@
 export interface PasswordManager {
-	providePassword(value: string): void;
+	providePassword(value: string, rememberPassword: boolean): void;
 }

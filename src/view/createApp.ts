@@ -31,6 +31,7 @@ import { EntityManager } from "@modules/EntityManager";
 import { createEditor } from "@editor/createEditor";
 import { AuthURLStorage } from "@modules/AuthURLStorage";
 import { createDarkMode } from "@view/createDarkMode";
+import { PassStorage } from "@view/PassStorage";
 
 export function createApp(): [Connected, Store, Managers] {
 	const connected: Connected = {
@@ -55,7 +56,8 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabAuthStorage = new GitlabAuthStorage();
 	const gitlabAuthData = connected.createGitlabAuthData();
 	const authURLStorage = new AuthURLStorage(location, locationManager);
-	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData, authURLStorage);
+	const passStorage = new PassStorage();
+	const gitlabAuth = new GitlabAuth(locationManager, gitlabConfig, queryBuilder, gitlabAuthStorage, gitlabAuthData, authURLStorage, passStorage);
 	const pathManager = new PathManager(locationManager, authURLStorage);
 	connected.createGitlabNotifyAuth(location, pathManager, gitlabAuth);
 	const gitlabProjectManager = new GitlabProjectManager(gitlabAuthData, gitlabConfig);
@@ -64,8 +66,8 @@ export function createApp(): [Connected, Store, Managers] {
 	const gitlabRequest = new GitlabRequest(gitlabAuthData, gitlabProjectManager, gitlabConfig, gitlabData, request);
 	const gitlabCommits = new GitlabCommits(gitlabRequest);
 	const filesystem = new GitlabFilesystem(gitlabRequest, gitlabCommits, queryBuilder);
-	const password = connected.createPassword(gitlabAuthData, filesystem);
-	const passwordManager = new PasswordManager(password);
+	const password = connected.createPassword(passStorage);
+	const passwordManager = new PasswordManager(password, passStorage);
 	const notesEntityData = connected.createEntityData<NoteContent, Note>();
 	const notes = connected.createNotes(location, notesEntityData);
 	const noteEntityManager = new EntityManager<NoteContent,Note>('notes', notesEntityData, filesystem, password, crypter, getDefaultNote);

@@ -5,6 +5,7 @@ import { GitlabAuthStorage } from "@interfaces/GitlabAuthStorage";
 import { GitlabAuthData } from "@interfaces/GitlabAuthData";
 import { GitlabAuth as IGitlabAuth } from "@interfaces/GitlabAuth";
 import { AuthURLStorage } from "@interfaces/AuthURLStorage";
+import { PassStorage } from "@interfaces/PassStorage";
 
 export class GitlabAuth implements IGitlabAuth {
 	private readonly locationManager: LocationManager;
@@ -13,8 +14,9 @@ export class GitlabAuth implements IGitlabAuth {
 	private readonly authStorage: GitlabAuthStorage;
 	private readonly authData: GitlabAuthData;
 	private readonly authURLStorage: AuthURLStorage;
+	private readonly passStorage: PassStorage;
 
-	constructor(locationManager: LocationManager, config: GitlabConfig, queryBuilder: QueryBuilder, authStorage: GitlabAuthStorage, authData: GitlabAuthData, authURLStorage: AuthURLStorage) {
+	constructor(locationManager: LocationManager, config: GitlabConfig, queryBuilder: QueryBuilder, authStorage: GitlabAuthStorage, authData: GitlabAuthData, authURLStorage: AuthURLStorage, passStorage: PassStorage) {
 		this.locationManager = locationManager;
 		this.config = config;
 		this.queryBuilder = queryBuilder;
@@ -22,6 +24,7 @@ export class GitlabAuth implements IGitlabAuth {
 		this.authData = authData;
 		this.authURLStorage = authURLStorage;
 		this.authData.data = this.getInitialStoredData();
+		this.passStorage = passStorage;
 	}
 
 	private getInitialStoredData(): GitlabAuthData['data'] {
@@ -71,5 +74,6 @@ export class GitlabAuth implements IGitlabAuth {
 			status: 'Unauthenticated'
 		};
 		this.authStorage.clearToken();
+		this.passStorage.delete();
 	}
 }
