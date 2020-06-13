@@ -241,11 +241,15 @@ function SecureBook() {
 								<DropDownItem
 									labelProps={{ className: "SecureBook__DarkModeChk" }}
 									onClick={() => { darkMode.isDarkMode = !darkMode.isDarkMode; }}
+									label="Dark mode"
 								>
 									<Checkbox isChecked={darkMode.isDarkMode} className="SecureBook__SettingsIcon" />
 									<span>Dark mode</span>
 								</DropDownItem>
-								<DropDownItem onClick={() => donateFormRef.current.submit()}>
+								<DropDownItem
+									onClick={() => donateFormRef.current.submit()}
+									label="Donate"
+								>
 									<Donate formRef={donateFormRef}>
 										<span className="SecureBook__SettingsIcon">❤️</span>
 										<span>Donate</span>
