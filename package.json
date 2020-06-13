@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --config ./webpack.dev.js --host 0.0.0.0",
     "test": "ava",
     "test:cov": "c8 --include src/modules --include src/data --all yarn test",
-    "build": "webpack --config webpack.prod.js"
+    "build": "rimraf ./.build && webpack --config webpack.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -41,6 +41,7 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "pnp-webpack-plugin": "^1.6.4",
+    "rimraf": "^3.0.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",

@@ -226,6 +226,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:6.12.1"
       ],
       [
+        "rimraf",
+        "npm:3.0.2"
+      ],
+      [
         "sass",
         "npm:1.26.5"
       ],
@@ -326,6 +330,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prosemirror-utils", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:0.9.6"],
             ["prosemirror-view", "npm:1.14.11"],
             ["query-string", "npm:6.12.1"],
+            ["rimraf", "npm:3.0.2"],
             ["sass", "npm:1.26.5"],
             ["sass-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.0.2"],
             ["style-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:1.2.1"],
@@ -11052,6 +11057,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prosemirror-utils", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:0.9.6"],
             ["prosemirror-view", "npm:1.14.11"],
             ["query-string", "npm:6.12.1"],
+            ["rimraf", "npm:3.0.2"],
             ["sass", "npm:1.26.5"],
             ["sass-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:8.0.2"],
             ["style-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:1.2.1"],
