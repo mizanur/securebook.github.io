@@ -4,6 +4,7 @@ import { connect } from "@view/connect";
 import { useContext } from "preact/hooks";
 import { StoreContext } from "@view/StoreContext";
 import { ManagersContext } from "@view/ManagersContext";
+import Link from "@components/Link";
 
 function Welcome() {
 	const { authData } = useContext(StoreContext);
@@ -19,7 +20,10 @@ function Welcome() {
 				<section className="Welcome__HowSection">
 					<h2 className="Welcome__How">How does it work?</h2>
 					<ol className="Welcome__HowList">
-						<li className="Welcome__HowListItem">Sign in via GitLab. GitLab is a service that allows you to create private repositories and store content inside of them.</li>
+						<li className="Welcome__HowListItem">
+							<p>Sign in via GitLab. GitLab is a service that allows you to create private repositories and store content inside of them.</p>
+							<p><strong className="Welcome__Note">Note</strong>: if you'd like to sign up via Google, GitHub, Twitter, etc, please <Link className="Welcome__Link" href="https://gitlab.com/users/sign_up">Sign Up here</Link> and accept <strong>Terms and Conditions</strong> before entering the app.</p>
+						</li>
 						<li className="Welcome__HowListItem">Choose a password for your notes. Nobody will be able to read the contents of the notes without knowing the password.</li>
 						<li className="Welcome__HowListItem">Create, edit and delete notes.</li>
 					</ol>
