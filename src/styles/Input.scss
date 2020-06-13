@@ -48,7 +48,7 @@ $icon-width: 34px;
 			font-weight: 600;
 
 			@include themed using ($theme) {
-				border-bottom: 1px solid map-get($theme, 'secondary-text-color');
+				color: map-get($theme, 'secondary-text-color');
 			}
 		}
 	}
