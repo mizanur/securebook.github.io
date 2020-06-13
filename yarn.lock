@@ -9477,6 +9477,7 @@ fsevents@~2.1.2:
     webpack: ^4.43.0
     webpack-cli: ^3.3.11
     webpack-dev-server: ^3.11.0
+    webpack-merge: ^4.2.2
     webpack-pwa-manifest: ^4.2.0
     worker-loader: ^2.0.0
   languageName: unknown
@@ -11025,6 +11026,15 @@ typescript@^3.8.3:
     ansi-colors: ^3.0.0
     uuid: ^3.3.2
   checksum: 3/250db04c41e278aa15a4f452808ef32ca8eca0f7df9d4c7c28b3d94e45d2649fbeb90a0adbee1c675447209b6a35136e13c1fb31476c3ca81c972bb41f0535bb
+  languageName: node
+  linkType: hard
+
+"webpack-merge@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "webpack-merge@npm:4.2.2"
+  dependencies:
+    lodash: ^4.17.15
+  checksum: 3/038c6d8ba45f538ce8e4505a8a3d90fbd2e554ba2065bacffe4d7cff0229cce9f0d983bf56061f8e0fef86c711da7232f88681aab285c06673b3916b1040cd9e
   languageName: node
   linkType: hard
 

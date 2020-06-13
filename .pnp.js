@@ -258,6 +258,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.11.0"
       ],
       [
+        "webpack-merge",
+        "npm:4.2.2"
+      ],
+      [
         "webpack-pwa-manifest",
         "npm:4.2.0"
       ],
@@ -330,6 +334,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["webpack", "npm:4.43.0"],
             ["webpack-cli", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.3.11"],
             ["webpack-dev-server", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.11.0"],
+            ["webpack-merge", "npm:4.2.2"],
             ["webpack-pwa-manifest", "npm:4.2.0"],
             ["worker-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0"]
           ],
@@ -11055,6 +11060,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["webpack", "npm:4.43.0"],
             ["webpack-cli", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.3.11"],
             ["webpack-dev-server", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.11.0"],
+            ["webpack-merge", "npm:4.2.2"],
             ["webpack-pwa-manifest", "npm:4.2.0"],
             ["worker-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:2.0.0"]
           ],
@@ -12797,6 +12803,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["webpack-log", "npm:2.0.0"],
             ["ansi-colors", "npm:3.2.4"],
             ["uuid", "npm:3.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["webpack-merge", [
+        ["npm:4.2.2", {
+          "packageLocation": "./.yarn/cache/webpack-merge-npm-4.2.2-f98139a8eb-3.zip/node_modules/webpack-merge/",
+          "packageDependencies": [
+            ["webpack-merge", "npm:4.2.2"],
+            ["lodash", "npm:4.17.15"]
           ],
           "linkType": "HARD",
         }]
