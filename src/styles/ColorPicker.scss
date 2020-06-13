@@ -48,7 +48,10 @@
 	&__Pickers {
 		display: flex;
 		height: 250px;
-		border-bottom: 2px solid $main-border-color;
+
+		@include themed using ($theme) {
+			border-bottom: 2px solid map-get($theme, 'main-border-color');
+		}
 	}
 
 	&__MainPicker {
@@ -78,8 +81,11 @@
 		right: 0px;
 		height: 6px;
 		border-radius: 2px;
-		border: 2px solid $darker-border-color;
 		transform: translateY(-50%);
+
+		@include themed using ($theme) {
+			border: 2px solid map-get($theme, 'darker-border-color');
+		}
 	}
 
 	&__MainPosition {
@@ -87,8 +93,11 @@
 		width: 6px;
 		height: 6px;
 		border-radius: 50%;
-		border: 2px solid $darker-border-color;
 		transform: translateX(-50%) translateY(-50%);
+		
+		@include themed using ($theme) {
+			border: 2px solid map-get($theme, 'darker-border-color');
+		}
 	}
 
 	&__DefaultColors {
@@ -103,6 +112,9 @@
 		min-width: auto;
 		margin-right: $default-padding / 4;
 		border-radius: 3px;
-		border: 2px solid $darker-border-color;
+
+		@include themed using ($theme) {
+			border: 2px solid map-get($theme, 'darker-border-color');
+		}
 	}
 }

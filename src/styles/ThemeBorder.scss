@@ -1,8 +1,6 @@
 @import "../styles-mixins/variables.scss";
 
 .ThemeBorder {
-	$edge-border-color: adjust-color($main-theme-color, $alpha: -1);
-
 	&__BorderRight,
 	&__BorderBottom,
 	&__BorderTop,
@@ -37,11 +35,17 @@
 
 	&__BorderTop,
 	&__BorderBottom {
-		background: linear-gradient(to right, $edge-border-color, $main-theme-color, $main-theme-color, $edge-border-color);
+		@include themed using ($theme) {
+			$edge-border-color: adjust-color(map-get($theme, 'main-theme-color'), $alpha: -1);
+			background: linear-gradient(to right, $edge-border-color, map-get($theme, 'main-theme-color'), map-get($theme, 'main-theme-color'), $edge-border-color);
+		}
 	}
 
 	&__BorderRight,
 	&__BorderLeft {
-		background: linear-gradient(to bottom, $edge-border-color, $main-theme-color, $main-theme-color, $edge-border-color);
+		@include themed using ($theme) {
+			$edge-border-color: adjust-color(map-get($theme, 'main-theme-color'), $alpha: -1);
+			background: linear-gradient(to bottom, $edge-border-color, map-get($theme, 'main-theme-color'), map-get($theme, 'main-theme-color'), $edge-border-color);
+		}
 	}
 }

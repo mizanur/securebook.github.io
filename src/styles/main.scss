@@ -18,6 +18,11 @@ html, body {
 	letter-spacing: 0.3px;
 	line-height: 1.5;
 	font-size: 14px;
+	
+	@include themed using ($theme) {
+		background: map-get($theme, 'main-bg-color');
+		color: map-get($theme, 'main-text-color');
+	}
 }
 
 button {

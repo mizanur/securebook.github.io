@@ -5,32 +5,11 @@ $editor-menu-content-height: 24px;
 $editor-menu-height: 80px;
 $editor-side-padding: $default-padding + 8px;
 $editor-list-item-padding: $default-padding / 4;
-$editor-code-bg: #c9c9c9;
-$editor-blockquote-bg: #ededed;
 $dialog-border-radius: 4px;
 $min-button-size: 40px;
 $main-icon-size: 24px;
 
-$main-text-color: #2e2e2e;
-$main-bg-color: #FBFBFB;
-$main-border-color: #E6E6E6;
-$darker-border-color: #5e5e5e;
-$main-theme-color: #a30316;
-$warn-color: #c2591d;
-$main-theme-text-color: #e6e5d8;
-$main-hovered-selected-bg-color: #e4e4e4;
-$main-selected-bg-color: #ededed;
-$main-hovered-bg-color: #f6f6f6;
-$main-overlay-color: rgba(0, 0, 0, 0.4);
-$lighter-overlay-color: rgba(251, 251, 251, 0.5);
-$main-disabled-color: #8a8a8a;
-
-$drop-down-bg: #ededed;
-$drop-down-item-clickable-hover: #e4e4e4;
-$drop-down-item-selected: #dbdbdb;
-$drop-down-item-selected-hover: #d2d2d2;
 $drop-down-item-width: 250px;
-
 $optional-sidebar-screen-width: 1450px;
 
 $gentle-shadow: 3px 3px 9px -5px rgba(0,0,0,0.75);
@@ -41,5 +20,65 @@ $z-index-dialog: 3;
 $z-index-sidebar: 2;
 $z-index-main-overlay: 1;
 
-$note-dirty-text-color: #c2591d;
-$loading-spinner-color: #a30316;
+$themes: (
+	'main': (
+		'editor-code-bg': #c9c9c9,
+		'editor-blockquote-bg': #ededed,
+		'main-text-color': #2e2e2e,
+		'secondary-text-color': #424242,
+		'main-bg-color': #FBFBFB,
+		'main-border-color': #E6E6E6,
+		'darker-border-color': #5e5e5e,
+		'main-theme-color': #a30316,
+		'warn-color': #c2591d,
+		'main-theme-text-color': #e6e5d8,
+		'main-hovered-selected-bg-color': #e4e4e4,
+		'main-selected-bg-color': #ededed,
+		'main-hovered-bg-color': #f6f6f6,
+		'main-overlay-color': rgba(0, 0, 0, 0.4),
+		'lighter-overlay-color': rgba(251, 251, 251, 0.5),
+		'main-disabled-color': #8a8a8a,
+		'drop-down-bg': #ededed,
+		'drop-down-item-clickable-hover': #e4e4e4,
+		'drop-down-item-selected': #dbdbdb,
+		'drop-down-item-selected-hover': #d2d2d2,
+		'note-dirty-text-color': #c2591d,
+		'loading-spinner-color': #a30316,
+		'text-loading-color': rgba(0,0,0,0.05),
+		'text-loading-gradient': linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0)),
+	),
+	'dark': (
+		'editor-code-bg': #777777,
+		'editor-blockquote-bg': #444444,
+		'main-text-color': #ebebeb,
+		'secondary-text-color': #cacaca,
+		'main-bg-color': #313131,
+		'main-border-color': #424242,
+		'darker-border-color': #303030,
+		'main-theme-color': #a30316,
+		'warn-color': #c2591d,
+		'main-theme-text-color': #e6e5d8,
+		'main-hovered-selected-bg-color': #585858,
+		'main-selected-bg-color': #474747,
+		'main-hovered-bg-color': #3d3d3d,
+		'main-overlay-color': rgba(0, 0, 0, 0.4),
+		'lighter-overlay-color': rgba(251, 251, 251, 0.5),
+		'main-disabled-color': #8a8a8a,
+		'drop-down-bg': #3d3d3d,
+		'drop-down-item-clickable-hover': #4b4b4b,
+		'drop-down-item-selected': #5a5a5a,
+		'drop-down-item-selected-hover': #646464,
+		'note-dirty-text-color': #dd966d,
+		'loading-spinner-color': #a30316,
+		'text-loading-color': rgba(255,255,255,0.05),
+		'text-loading-gradient': linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.1), rgba(255,255,255,0)),
+	),
+);
+
+@mixin themed {
+	@content($theme: map-get($themes, 'main'));
+
+	.dark-mode & {
+		@content($theme: map-get($themes, 'dark'));
+	}
+}

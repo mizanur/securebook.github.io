@@ -1,3 +1,5 @@
+@import "../styles-mixins/variables.scss";
+
 @keyframes textLoadingGradient {
 	from { transform: translateX(-100%); }
 	to { transform: translateX(130%); }
@@ -6,11 +8,14 @@
 .TextLoading {
 	&__Line {
 		position: relative;
-		background: rgba(0,0,0,0.05);
 		border-radius: 0.3em;
 		overflow: hidden;
 		height: 1.5em;
 		margin-bottom: 0.5em;
+
+		@include themed using ($theme) {
+			background: map-get($theme, 'text-loading-color');
+		}
 
 		&-1 { width: 90%; }
 		&-2 { width: 95%; }
@@ -23,8 +28,11 @@
 		left: 0px;
 		right: 0px;
 		bottom: 0px;
-		background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
 		will-change: transition;
 		animation: textLoadingGradient 2.5s infinite;
+
+		@include themed using ($theme) {
+			background: map-get($theme, 'text-loading-gradient');
+		}
 	}
 }

@@ -59,14 +59,20 @@
 	}
 
 	code {
-		background-color: $editor-code-bg;
 		font-family: 'Courier New', Courier, monospace;
+		
+		@include themed using ($theme) {
+			background-color: map-get($theme, 'editor-code-bg');
+		}
 	}
 
 	blockquote {
-		border-left: 3px solid $main-theme-color;
 		padding: $default-padding;
-		background: $editor-blockquote-bg;
+
+		@include themed using ($theme) {
+			border-left: 3px solid map-get($theme, 'main-theme-color');
+			background: map-get($theme, 'editor-blockquote-bg');
+		}
 	}
 
 	ol {

@@ -15,8 +15,6 @@ $settings-button-width: $default-padding + $min-button-size;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background: $main-bg-color;
-	color: $main-text-color;
 
 	&__Sidebar {
 		position: absolute;
@@ -25,10 +23,13 @@ $settings-button-width: $default-padding + $min-button-size;
 		bottom: 0px;
 		width: $sidebar-open-width;
 		max-width: $sidebar-width;
-		border-right: 3px solid $main-border-color;
-		background: $main-bg-color;
 		z-index: $z-index-sidebar;
 		transition: transform 150ms ease-in-out;
+
+		@include themed using ($theme) {
+			border-right: 3px solid map-get($theme, 'main-border-color');
+			background: map-get($theme, 'main-bg-color');
+		}
 
 		&--hidden {
 			transform: translateX(-101%);
@@ -83,10 +84,14 @@ $settings-button-width: $default-padding + $min-button-size;
 			}
 		}
 		&--loading::before {
-			background: $lighter-overlay-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'lighter-overlay-color');
+			}
 		}
 		&--under-sidebar::before {
-			background: $main-overlay-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'main-overlay-color');
+			}
 		}
 	}
 
@@ -96,7 +101,10 @@ $settings-button-width: $default-padding + $min-button-size;
 		left: 0px;
 		right: 0px;
 		height: $editor-menu-height;
-		border-bottom: 2px solid $main-border-color;
+
+		@include themed using ($theme) {
+			border-bottom: 2px solid map-get($theme, 'main-border-color');
+		}
 	}
 
 	&__OpenMenu {
@@ -168,25 +176,27 @@ $settings-button-width: $default-padding + $min-button-size;
 		display: flex;
 		align-items: center;
 		padding: $default-padding;
-		border-top: 1px solid $main-border-color;
 		height: $bottom-bar-height;
 		bottom: 0px;
 		left: 0px;
 		right: 0px;
+		
+		@include themed using ($theme) {
+			border-top: 1px solid map-get($theme, 'main-border-color');
+		}
 	}
 
 	&__SaveButton {
-		margin-right: $default-padding / 2;
+		margin-right: $default-padding;
 	}
 
 	&__CancelButton {
-		margin-left: $default-padding / 2;
+		margin-left: $default-padding;
 	}
 
 	&__SaveButton,
 	&__CancelButton {
 		flex: 0 0 auto;
-		min-width: 100px;
 		text-align: left;
 		
 		i {
@@ -204,7 +214,10 @@ $settings-button-width: $default-padding + $min-button-size;
 		line-height: inherit;
 		text-align: inherit;
 		position: relative;
-		border-bottom: 1px solid $main-border-color;
+		
+		@include themed using ($theme) {
+			border-bottom: 1px solid map-get($theme, 'main-border-color');
+		}
 	}
 
 	&__Note {
@@ -212,18 +225,26 @@ $settings-button-width: $default-padding + $min-button-size;
 		cursor: pointer;
 
 		&--dirty {
-			color: $note-dirty-text-color;
+			@include themed using ($theme) {
+				color: map-get($theme, 'note-dirty-text-color');
+			}
 		}
 
 		&:hover {
-			background: $main-hovered-bg-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'main-hovered-bg-color');
+			}
 		}
 
 		&--selected {
-			background: $main-selected-bg-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'main-selected-bg-color');
+			}
 
 			&:hover {
-				background: $main-hovered-selected-bg-color;
+				@include themed using ($theme) {
+					background: map-get($theme, 'main-hovered-selected-bg-color');
+				}
 			}
 		}
 	}

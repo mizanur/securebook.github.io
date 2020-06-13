@@ -9,21 +9,29 @@ $font-editor-width: 300px;
 		border-radius: 3px;
 
 		&:hover {
-			background: $main-hovered-bg-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'main-hovered-bg-color');
+			}
 		}
 
 		&--active {
-			background: $main-selected-bg-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'main-selected-bg-color');
+			}
 
 			&:hover {
-				background: $main-hovered-selected-bg-color;
+				@include themed using ($theme) {
+					background: map-get($theme, 'main-hovered-selected-bg-color');
+				}
 			}
 		}
 
 		&[disabled] {
 			pointer-events: none;
 			background: transparent;
-			color: $main-disabled-color;
+			@include themed using ($theme) {
+				color: map-get($theme, 'main-disabled-color');
+			}
 		}
 	}
 
@@ -134,15 +142,21 @@ $font-editor-width: 300px;
 
 	&__ImageButton {
 		&:hover {
-			background: $drop-down-item-clickable-hover;
+			@include themed using ($theme) {
+				background: map-get($theme, 'drop-down-item-clickable-hover');
+			}
 		}
 		
 		&--active {
-			background: $drop-down-item-selected;
-			color: $main-theme-color;
+			@include themed using ($theme) {
+				background: map-get($theme, 'drop-down-item-selected');
+				color: map-get($theme, 'main-theme-color');
+			}
 
 			&:hover {
-				background: $drop-down-item-selected-hover;
+				@include themed using ($theme) {
+					background: map-get($theme, 'drop-down-item-selected-hover');
+				}
 			}
 		}
 	}
@@ -161,7 +175,9 @@ $font-editor-width: 300px;
 	}
 
 	&__ImageSizeWarning {
-		color: $warn-color;
+		@include themed using ($theme) {
+			color: map-get($theme, 'warn-color');
+		}
 	}
 
 	&__ImageEditor {
@@ -176,7 +192,10 @@ $font-editor-width: 300px;
 				left: 0;
 				right: 0;
 				bottom: 0;
-				background: $lighter-overlay-color;
+
+				@include themed using ($theme) {
+					background: map-get($theme, 'lighter-overlay-color');
+				}
 			}
 		}
 	}

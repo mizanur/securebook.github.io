@@ -50,6 +50,21 @@ function SecureBook() {
 	const [isOptionalSidebar, setOptionalSidebar] = useState(mql.matches);
 	const [isSidebarOpen, setSidebarOpen] = useState(true);
 
+	useEffect(
+		() => {
+			if (darkMode.isDarkMode) {
+				document.body.classList.add('dark-mode');
+			}
+			else {
+				document.body.classList.remove('dark-mode');
+			}
+			return () => {
+				document.body.classList.remove('dark-mode');
+			}
+		},
+		[darkMode.isDarkMode]
+	);
+
 	useEffectOnce(() => {
 		const resetOptionalSidebar = () => setOptionalSidebar(mql.matches);
 
@@ -99,7 +114,7 @@ function SecureBook() {
 
 	const donateFormRef = useRef<HTMLFormElement>(null);
 
-	return <div className={`SecureBook ${darkMode.isDarkMode ? `dark-mode` : ``}`}>
+	return <div className="SecureBook">
 		{
 			<aside className={`SecureBook__Sidebar ${
 				(isOptionalSidebar && !isSidebarOpen) ? `SecureBook__Sidebar--hidden` : ``
@@ -152,7 +167,7 @@ function SecureBook() {
 									>
 										{focusedId === note.id && <ThemeBorder widths={{ left: 4 }} />}
 										<h1 className="SecureBook__NoteName" title={note.name}>{!note.name ? <em>Unnamed note</em> : note.name}</h1>
-										{note.tags.length > 0 &&
+										{note.tags.filter(tag => (tag.length > 0)).length > 0 &&
 											<div className="SecureBook__Tags" title={note.tags.join(' ')}>
 												<Icon type="local_offer" /> {note.tags.join(' ')}
 											</div>}

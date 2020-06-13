@@ -3,9 +3,12 @@
 .DropDown {
 	position: relative;
 	max-width: $drop-down-item-width;
-	border: 1px solid $main-border-color;
 	box-shadow: $gentle-shadow;
-	background: $drop-down-bg;
+
+	@include themed using ($theme) {
+		background: map-get($theme, 'drop-down-bg');
+		border: 1px solid map-get($theme, 'main-border-color');
+	}
 
 	&__Item {
 		display: block;
@@ -15,7 +18,10 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		border-bottom: 2px solid $main-border-color;
+
+		@include themed using ($theme) {
+			border-bottom: 2px solid map-get($theme, 'main-border-color');
+		}
 
 		&:last-child {
 			border-bottom: none;
@@ -25,15 +31,21 @@
 			cursor: pointer;
 
 			&:hover {
-				background: $drop-down-item-clickable-hover;
+				@include themed using ($theme) {
+					background: map-get($theme, 'drop-down-item-clickable-hover');
+				}
 			}
 		}
 
 		&--selected {
-			background: $drop-down-item-selected;
+			@include themed using ($theme) {
+				background: map-get($theme, 'drop-down-item-selected');
+			}
 
 			&:hover {
-				background: $drop-down-item-selected-hover;
+				@include themed using ($theme) {
+					background: map-get($theme, 'drop-down-item-selected-hover');
+				}
 			}
 		}
 	}

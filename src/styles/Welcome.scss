@@ -49,8 +49,8 @@
 	&__LoginButton {
 		display: inline-block;
 		width: 100%;
-		background: $main-theme-color;
-		color: $main-theme-text-color;
+		background: map-get(map-get($themes, 'main'), 'main-theme-color');
+		color: map-get(map-get($themes, 'main'), 'main-theme-text-color');
 		padding: 24px;
 		text-align: center;
 		font-weight: bold;

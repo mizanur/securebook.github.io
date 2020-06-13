@@ -22,7 +22,10 @@ $default-dialog-width: 600px;
 		left: 0;
 		bottom: 0;
 		right: 0;
-		background: $main-overlay-color;
+		
+		@include themed using ($theme) {
+			background: map-get($theme, 'main-overlay-color');
+		}
 	}
 
 	&__Main {
@@ -30,12 +33,15 @@ $default-dialog-width: 600px;
 		top: 50%;
 		left: 50%;
 		transform: translateX(-50%) translateY(-50%);
-		background: $main-bg-color;
 		width: $default-dialog-width;
 		max-width: 100%;
 		max-height: 100%;
 		border-radius: $dialog-border-radius;
 		box-shadow: $big-shadow;
 		overflow: auto;
+		
+		@include themed using ($theme) {
+			background: map-get($theme, 'main-bg-color');
+		}
 	}
 }
