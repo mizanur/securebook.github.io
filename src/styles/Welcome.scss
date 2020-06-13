@@ -10,7 +10,7 @@
 	bottom: 0;
 
 	@include sizes("4000x2851","2000x1426","1500x1070","1000x713","701x500") using ($w,$h) {
-		@include bgCenterCover("/assets/used/Welcome__Background-#{$w}x#{$h}.jpg");
+		@include bgCenterCover("../../assets/used/Welcome__Background-#{$w}x#{$h}.jpg");
 	}
 
 	font-size: 16px;
