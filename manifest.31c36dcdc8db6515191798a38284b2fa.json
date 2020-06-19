@@ -13,10 +13,10 @@
   ],
   "name": "Secure Book",
   "short_name": "Secure Book",
-  "orientation": "portrait",
+  "orientation": "any",
   "display": "standalone",
   "start_url": "/",
-  "description": "Write notes securely",
+  "description": "Secure Book is a free private note-taking web application.",
   "theme_color": "#A30316",
-  "background_color": "#643C22"
+  "background_color": "#FBFBFB"
 }
