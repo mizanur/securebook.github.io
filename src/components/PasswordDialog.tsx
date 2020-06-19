@@ -9,7 +9,7 @@ import { ManagersContext } from '@view/ManagersContext';
 import "@styles/PasswordDialog.scss";
 import { keycodes } from '@utils/keycode';
 import { useFocusOnMount } from '@view/useFocusOnMount';
-import Checkbox from './Checkbox';
+import Checkbox from '@components/Checkbox';
 
 function PasswordDialog() {
 	const { password } = useContext(StoreContext);

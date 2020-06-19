@@ -8,11 +8,9 @@ import { filterNotesByTags } from '@utils/tags';
 import { getValues } from '@utils/object';
 import EditorPresenter from '@components/EditorPresenter';
 import Icon from '@components/Icon';
-import { getFormattedDateTime } from '@utils/time';
 import ContextMenu from '@components/ContextMenu';
 import { useContextMenu } from '@view/useContextMenu';
 import { DropDown, DropDownItem } from '@components/DropDown';
-import ThemeBorder from '@components/ThemeBorder';
 import PasswordDialog from '@components/PasswordDialog';
 import { orderByUpdatedDate, unsavedChangesListener, isConfirmedUnsavedChanges } from '@utils/notes';
 import TextLoading from '@components/TextLoading';
@@ -22,7 +20,7 @@ import Checkbox from '@components/Checkbox';
 import Donate from '@components/Donate';
 import LoadingSpinner from '@components/LoadingSpinner';
 import Tags from '@components/Tags';
-import NoteItem from './NoteItem';
+import NoteItem from '@components/NoteItem';
 
 const optionalSidebarScreenWidth = `1450px`;
 

@@ -70,17 +70,24 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			title: 'Secure Book',
+			title: 'Secure Book: private note-taking',
 			favicon: './assets/original/favicon.ico',
+			mobile: true,
+			meta: [{
+				name: 'description',
+				content: 'Secure Book is a free private note-taking web application. ' +
+						 'It provides convenient note editing and encrypted storage using aes-256 standard.',
+			}]
 		}),
 		new WebpackPwaManifest({
 			"name": "Secure Book",
 			"short_name": "Secure Book",
-			"description": "Write notes securely",
+			"description": "Secure Book is a free private note-taking web application.",
 			"start_url": "/",
 			"theme_color": "#A30316",
-			"background_color": "#643C22",
+			"background_color": "#FBFBFB",
 			"display": "standalone",
+			"orientation": "any",
 			"icons": [
 				{
 					"src": "./assets/original/logo-192x192.png",

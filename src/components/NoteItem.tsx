@@ -6,7 +6,7 @@ import ThemeBorder from '@components/ThemeBorder';
 import Icon from '@components/Icon';
 import { getFormattedDateTime } from '@utils/time';
 import ContextMenu from '@components/ContextMenu';
-import { DropDown, DropDownItem } from './DropDown';
+import { DropDown, DropDownItem } from '@components/DropDown';
 import { useContextMenu } from '@view/useContextMenu';
 import "@styles/NoteItem.scss";
 
