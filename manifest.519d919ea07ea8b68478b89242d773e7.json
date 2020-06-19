@@ -13,7 +13,7 @@
   ],
   "name": "Secure Book",
   "short_name": "Secure Book",
-  "orientation": "any",
+  "orientation": "natural",
   "display": "standalone",
   "start_url": "/",
   "description": "Secure Book is a free private note-taking web application.",
