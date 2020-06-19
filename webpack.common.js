@@ -87,7 +87,7 @@ module.exports = {
 			"theme_color": "#A30316",
 			"background_color": "#FBFBFB",
 			"display": "standalone",
-			"orientation": "any",
+			"orientation": "natural",
 			"icons": [
 				{
 					"src": "./assets/original/logo-192x192.png",
