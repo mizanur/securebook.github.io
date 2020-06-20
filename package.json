@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --config ./webpack.dev.js --host 0.0.0.0",
     "test": "ava",
     "test:cov": "c8 --include src/modules --include src/data --all yarn run test",
-    "cov_report": "c8 report --reporter=text-lcov | coveralls",
+    "cov_report": "c8 report --include src/modules --include src/data --all --reporter=text-lcov | coveralls",
     "build": "rimraf ./.build && webpack --config webpack.prod.js"
   },
   "devDependencies": {
