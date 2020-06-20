@@ -4,7 +4,7 @@ config = {
 	...config,
 	plugins: [
 		...(config.plugins || []),
-		["babel-plugin-webpack-alias-7", {"config": "./webpack.config.js"}]
+		["babel-plugin-webpack-alias-7", {"config": "./webpack.dev.js"}]
 	]
 };
 
