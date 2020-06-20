@@ -235,13 +235,13 @@ function SecureBook() {
 								<DropDownItem
 									isLink
 									iconType="github"
-									href="https://github.com/guitarino/securebook"
+									href="https://github.com/securebook/securebook.github.io"
 									label="View on Github"
 								/>
 								<DropDownItem
 									isLink
 									iconType="bug_report"
-									href="https://github.com/guitarino/securebook/issues"
+									href="https://github.com/securebook/securebook.github.io/issues"
 									label="Report an issue"
 								/>
 								<DropDownItem
