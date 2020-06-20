@@ -1,3 +1,5 @@
+import { GitlabConfig } from "@interfaces/GitlabConfig";
+
 declare module "*.worker" {
 	class WebpackWorker extends Worker {
 		constructor();
@@ -7,3 +9,7 @@ declare module "*.worker" {
 }
 
 declare module '*.svg';
+
+declare global {
+	const GITLAB_CONFIG: GitlabConfig;
+}

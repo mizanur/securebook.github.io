@@ -1,12 +1,14 @@
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
-const path = require('path');
 
 module.exports = merge(common, {
 	mode: 'production',
-	resolve: {
-		alias: {
-			"@configs": path.resolve(__dirname, "./.prod-configs"),
-		},
-	},
+	plugins: [
+		new webpack.DefinePlugin({
+			'GITLAB_CONFIG': process.env.GITLAB_CONFIG
+				? process.env.GITLAB_CONFIG
+				: JSON.stringify(require('./.prod-configs/Gitlab'))
+		}),
+	]
 });
