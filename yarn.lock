@@ -3833,6 +3833,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"coveralls@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "coveralls@npm:3.1.0"
+  dependencies:
+    js-yaml: ^3.13.1
+    lcov-parse: ^1.0.0
+    log-driver: ^1.2.7
+    minimist: ^1.2.5
+    request: ^2.88.2
+  bin:
+    coveralls: ./bin/coveralls.js
+  checksum: bac2998bf30432827b982d9a098db396d99f3763d473fccba0599c77ec1b67124804a37e2a5dbedf4915917627ed3814c0582e334c382f31ab4c156e9ca2dd69
+  languageName: node
+  linkType: hard
+
 "create-ecdh@npm:^4.0.0":
   version: 4.0.3
   resolution: "create-ecdh@npm:4.0.3"
@@ -6537,6 +6552,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^3.13.1":
+  version: 3.14.0
+  resolution: "js-yaml@npm:3.14.0"
+  dependencies:
+    argparse: ^1.0.7
+    esprima: ^4.0.0
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 2eb95464e5263aedc20ae2d9280f0e29b00adab15ece080ec42473d7055efaab24b904108644d115f687efe05a5bde02972b883aafa93607c4c108f667a56fa7
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:~0.1.0":
   version: 0.1.1
   resolution: "jsbn@npm:0.1.1"
@@ -6733,6 +6760,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"lcov-parse@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "lcov-parse@npm:1.0.0"
+  bin:
+    lcov-parse: ./bin/cli.js
+  checksum: 7747ea686f77cf0c7f5d2d4c5bf95549ed7b966623e0d006941934ab7d9ffd97bc6fe9b1e33a38371b262a71c5ff5ae45dac08f7baa91132f31f6b78fb576356
+  languageName: node
+  linkType: hard
+
 "leven@npm:^3.1.0":
   version: 3.1.0
   resolution: "leven@npm:3.1.0"
@@ -6893,6 +6929,13 @@ fsevents@~2.1.2:
   version: 4.17.15
   resolution: "lodash@npm:4.17.15"
   checksum: aec3fbb7570aa67bda500b8299b1b1821d60646bede87f76a74dfcc7666ab3445267d734ec71424d70809d52ad67a1356fab5ab694a3faa1908d68e9d48f00f5
+  languageName: node
+  linkType: hard
+
+"log-driver@npm:^1.2.7":
+  version: 1.2.7
+  resolution: "log-driver@npm:1.2.7"
+  checksum: b4355545c33328fc022f49a48f68a834191efedf7a8279f51aefdc1b3b387e20db41c0ce0124db84d170da9d8443ad66d1869325336630ba376a89bc83c357a6
   languageName: node
   linkType: hard
 
@@ -9086,7 +9129,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"request@npm:^2.88.0":
+"request@npm:^2.88.0, request@npm:^2.88.2":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
@@ -9451,6 +9494,7 @@ fsevents@~2.1.2:
     c8: ^7.1.2
     clean-webpack-plugin: ^3.0.0
     codemirror: ^5.54.0
+    coveralls: ^3.1.0
     css-loader: ^3.5.3
     file-loader: ^6.0.0
     html-webpack-plugin: ^4.3.0

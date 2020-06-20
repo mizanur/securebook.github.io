@@ -150,6 +150,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:5.54.0"
       ],
       [
+        "coveralls",
+        "npm:3.1.0"
+      ],
+      [
         "css-loader",
         "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.5.3"
       ],
@@ -311,6 +315,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["c8", "npm:7.1.2"],
             ["clean-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.0.0"],
             ["codemirror", "npm:5.54.0"],
+            ["coveralls", "npm:3.1.0"],
             ["css-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.5.3"],
             ["file-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:6.0.0"],
             ["html-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:4.3.0"],
@@ -4782,6 +4787,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["coveralls", [
+        ["npm:3.1.0", {
+          "packageLocation": "./.yarn/cache/coveralls-npm-3.1.0-598f5463a9-bac2998bf3.zip/node_modules/coveralls/",
+          "packageDependencies": [
+            ["coveralls", "npm:3.1.0"],
+            ["js-yaml", "npm:3.14.0"],
+            ["lcov-parse", "npm:1.0.0"],
+            ["log-driver", "npm:1.2.7"],
+            ["minimist", "npm:1.2.5"],
+            ["request", "npm:2.88.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["create-ecdh", [
         ["npm:4.0.3", {
           "packageLocation": "./.yarn/cache/create-ecdh-npm-4.0.3-c40d23c7aa-ea4cc33d33.zip/node_modules/create-ecdh/",
@@ -7803,6 +7822,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esprima", "npm:4.0.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:3.14.0", {
+          "packageLocation": "./.yarn/cache/js-yaml-npm-3.14.0-7ecf74b3d2-2eb95464e5.zip/node_modules/js-yaml/",
+          "packageDependencies": [
+            ["js-yaml", "npm:3.14.0"],
+            ["argparse", "npm:1.0.10"],
+            ["esprima", "npm:4.0.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["jsbn", [
@@ -8015,6 +8043,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["lcov-parse", [
+        ["npm:1.0.0", {
+          "packageLocation": "./.yarn/cache/lcov-parse-npm-1.0.0-c94e390b1c-7747ea686f.zip/node_modules/lcov-parse/",
+          "packageDependencies": [
+            ["lcov-parse", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["leven", [
         ["npm:3.1.0", {
           "packageLocation": "./.yarn/cache/leven-npm-3.1.0-b7697736a3-6ebca75298.zip/node_modules/leven/",
@@ -8193,6 +8230,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lodash.merge-npm-4.6.2-77cb4416bf-4e2bb42a87.zip/node_modules/lodash.merge/",
           "packageDependencies": [
             ["lodash.merge", "npm:4.6.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["log-driver", [
+        ["npm:1.2.7", {
+          "packageLocation": "./.yarn/cache/log-driver-npm-1.2.7-1d1901a631-b4355545c3.zip/node_modules/log-driver/",
+          "packageDependencies": [
+            ["log-driver", "npm:1.2.7"]
           ],
           "linkType": "HARD",
         }]
@@ -11036,6 +11082,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["c8", "npm:7.1.2"],
             ["clean-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.0.0"],
             ["codemirror", "npm:5.54.0"],
+            ["coveralls", "npm:3.1.0"],
             ["css-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:3.5.3"],
             ["file-loader", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:6.0.0"],
             ["html-webpack-plugin", "virtual:4c800ca8cd67ed5d31d4104f402a29e41ce72041f5ea108f192f810c376c3ad9b493f8e4052fef98cc4d7b98d8072e7f3f74650d940fd54ae093a3861376fd64#npm:4.3.0"],
