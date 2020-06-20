@@ -59,6 +59,8 @@ src
 
 Interfaces can only depend on other interfaces; they cannot depend on any other folders.
 
+---
+
 Business logic of the application should only be located in 2 folders:
 
 ```
