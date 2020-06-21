@@ -99,13 +99,16 @@
 
 	img[data-position] {
 		margin: 0px $default-padding 0px $default-padding;
+		max-width: calc(100% - #{2 * $default-padding});
 	}
 
 	img[data-position="left"] {
 		margin: $default-padding $default-padding $default-padding 0px;
+		max-width: calc(100% - #{$default-padding});
 	}
 
 	img[data-position="right"] {
 		margin: $default-padding 0px $default-padding $default-padding;
+		max-width: calc(100% - #{$default-padding});
 	}
 }
