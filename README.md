@@ -2,6 +2,10 @@
 
 Secure Book is a free private note-taking web application. It provides convenient note editing and encrypted storage using **aes-256** standard. Production version of this application is running on https://securebook.org/. This repository is the source code of the application.
 
+## Want to suggest a feature?
+
+[Open an issue on Github](https://github.com/securebook/securebook.github.io/issues) with an "enhancement" tag. Feel free to submit pull requests if you'd like to contribute.
+
 ## How to develop this application
 
 This project uses [Yarn PnP](https://classic.yarnpkg.com/en/docs/pnp/) and includes the yarn version within the repo, but you will still need Yarn 2+ to run it.
